@@ -21,125 +21,252 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 </style><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PasteStory V13 - ONE FILE STORY</title><script src="https://cdn.tailwindcss.com"></script>
+<title>PasteStory V14 - Final Fixed</title><script src="https://cdn.tailwindcss.com"></script>
 <style>body{background:#0a0a0a;color:white} .dev{font-family:'Noto Sans Devanagari',sans-serif}</style>
 </head><body class="pb-24">
-<header class="sticky top-0 z-30 bg-black border-b border-white/20 p-4 flex justify-between"><div><h1 class="text-[18px] font-black">PasteStory V13 ONE FILE</h1><p class="text-[8px] opacity-60">Full story = ONE mp3 - No more line-by-line download</p></div><span class="bg-green-400 text-black rounded-full px-3 py-1 text-[10px] font-black">V13</span></header>
+<header class="sticky top-0 z-30 bg-black border-b border-white/20 p-4 flex justify-between"><div><h1 class="text-[18px] font-black">PasteStory V14 FINAL</h1><p class="text-[8px] opacity-60">Auto-save key • Fixed Library • Clear All • ONE mp3</p></div><span class="bg-green-400 text-black rounded-full px-3 py-1 text-[10px] font-black">V14</span></header>
 <div class="p-3 max-w-[520px] mx-auto">
 <div class="bg-white text-black rounded-[16px] p-3 mb-3">
-<p class="text-[11px] font-black">🔑 API KEY</p>
-<select id="provider" class="w-full mt-2 bg-black text-white rounded-full px-3 py-2 text-xs font-bold"><option value="elevenlabs">ElevenLabs (Best Hindi Male)</option><option value="openai">OpenAI</option></select>
-<input id="apiKey" type="password" placeholder="Paste API key" class="w-full mt-2 bg-[#FFFBEB] rounded-[12px] border-2 border-black px-3 py-2.5 text-xs font-bold">
-<div class="mt-2 flex gap-2"><button id="testKeyBtn" class="flex-1 bg-black text-white rounded-full py-2 text-[10px] font-black">🔍 TEST KEY & LOAD VOICES</button><button onclick="document.getElementById('apiKey').type=document.getElementById('apiKey').type==='password'?'text':'password'" class="bg-white border-2 border-black rounded-full px-3 py-2 text-[9px] font-bold">👁 SHOW</button></div>
-<p id="keyStatus" class="text-[8px] mt-2 text-black/60">Paste key → TEST → will load 22 real male/female voices</p>
+<p class="text-[11px] font-black">🔑 API KEY - Auto-saves forever (paste once)</p>
+<select id="provider" class="w-full mt-2 bg-black text-white rounded-full px-3 py-2 text-xs font-bold"><option value="elevenlabs">ElevenLabs (Best Hindi Male)</option><option value="openai">OpenAI (No filter)</option></select>
+<input id="apiKey" type="password" placeholder="Paste API key once - will stay forever" class="w-full mt-2 bg-[#FFFBEB] rounded-[12px] border-2 border-black px-3 py-2.5 text-xs font-bold">
+<div class="mt-2 flex gap-2"><button id="testKeyBtn" class="flex-1 bg-black text-white rounded-full py-2 text-[10px] font-black">🔍 TEST & SAVE KEY</button><button onclick="document.getElementById('apiKey').type=document.getElementById('apiKey').type==='password'?'text':'password'" class="bg-white border-2 border-black rounded-full px-3 py-2 text-[9px] font-bold">👁</button></div>
+<p id="keyStatus" class="text-[8px] mt-2 text-black/60">Paste once → TEST → saved forever. No need to paste again.</p>
 </div>
 <div class="bg-[#FFFBEB] text-black rounded-[18px] border-2 border-black p-3">
 <p class="text-[11px] font-black">STEP 1: PASTE STORY</p>
-<textarea id="pasteInput" class="w-full h-[90px] mt-2 bg-white rounded-[12px] border p-2 text-[13px] font-bold dev">गुड्डू घाट पे बैठा था
-गुड़िया आई - कैसे हो?
-गुड्डू - बढ़िया, चाय पियोगी?
-बाबू - अरे लड़ना बंद करो!
-गुड़िया - हाँ चलो</textarea>
+<textarea id="pasteInput" class="w-full h-[110px] mt-2 bg-white rounded-[12px] border p-2 text-[13px] font-bold dev" placeholder="Paste story with dialogues like: गुड्डू - कैसे हो?"></textarea>
 <button id="analyzeBtn" class="w-full mt-3 bg-black text-white rounded-full py-3 font-black text-sm">🔍 CONVERT → Voices</button>
 </div>
 <div id="voiceStudio" class="hidden mt-4 bg-white text-black rounded-[20px] border-2 border-black p-3 shadow-xl">
-<p class="text-[11px] font-black">🎤 VOICE SELECTOR - Real male = Guddu</p>
+<p class="text-[11px] font-black">🎤 VOICE SELECTOR - Real male Guddu</p>
 <div id="speakerVoiceList" class="mt-3 space-y-3"></div>
 <div class="mt-4 space-y-2">
 <button id="playFullBtn" class="w-full bg-black text-white rounded-full py-3 font-black text-xs">▶ GENERATE & PLAY FULL STORY - ONE FLOW</button>
+<button id="downloadFullBtn" class="w-full bg-yellow-400 border-2 border-black rounded-full py-3 text-[12px] font-black">⬇️ DOWNLOAD FULL STORY - ONE MP3 (Story Remains Story)</button>
 <div class="grid grid-cols-2 gap-2">
-<button id="downloadFullBtn" class="col-span-2 bg-yellow-400 border-2 border-black rounded-full py-3 text-[12px] font-black">⬇️ DOWNLOAD FULL STORY - ONE MP3 FILE (STORY REMAINS STORY)</button>
-<button id="saveBtn" class="bg-black text-white rounded-full py-2.5 text-[10px] font-black">💾 SAVE</button>
-<button onclick="clearAudio()" class="bg-red-100 border-2 border-black rounded-full py-2.5 text-[10px] font-black">🗑 CLEAR</button>
+<button id="saveBtn" class="bg-black text-white rounded-full py-2.5 text-[10px] font-black">💾 SAVE PROJECT</button>
+<button onclick="clearAudioOnly()" class="bg-white border-2 border-black rounded-full py-2.5 text-[10px] font-black">🗑 Clear Audio</button>
 </div>
 </div>
 <div id="fullPlayerBox" class="mt-3 hidden bg-black text-white rounded-[16px] p-3"><p class="text-[10px] font-black">🎬 FULL STORY PLAYER - ONE FILE</p><audio id="fullAudioPlayer" controls class="w-full mt-2"></audio><p id="fullStatus" class="text-[8px] mt-1 opacity-60"></p></div>
 <div id="audioPlayers" class="mt-3 space-y-2"></div>
 </div>
 <div id="scriptList" class="mt-4 space-y-3"></div>
-<div class="mt-6 border-t border-white/20 pt-4"><div class="flex justify-between"><h2 class="font-black text-sm text-white">📚 Library</h2><button onclick="clearLib()" class="bg-red-600 text-white px-2 py-1 rounded-full text-[9px]">Clear</button></div><div id="libList" class="mt-3 space-y-2"></div></div>
+
+<!-- CLEAR ALL - NEW -->
+<div class="mt-6 bg-red-600 rounded-[16px] p-3 border-2 border-black">
+<p class="text-[11px] font-black text-white">🧹 START NEW STORY</p>
+<p class="text-[8px] text-white/70 mt-1">Clears story, voices, audio, players — fresh for new paste</p>
+<button id="clearAllBtn" class="w-full mt-2 bg-white text-black rounded-full py-3 font-black text-sm border-2 border-black">🗑️ CLEAR ALL - NEW STORY</button>
+</div>
+
+<!-- LIBRARY FIXED -->
+<div class="mt-6 border-t border-white/20 pt-4">
+<div class="flex justify-between items-center"><h2 class="font-black text-sm text-white">📚 Saved Projects (Library)</h2><button onclick="clearLib()" class="bg-red-600 text-white px-3 py-1 rounded-full text-[9px] font-black">Clear Library</button></div>
+<p class="text-[8px] text-white/40 mt-1">Your saved stories appear here - tap LOAD to reopen</p>
+<div id="libList" class="mt-3 space-y-2"></div>
+</div>
+
 </div>
 <script>
 let cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, audioBlobsOrdered=[], mergedBlob=null, isGenerating=false;
+const KEY_STORAGE='pastestory_api_key_v14'; const PROVIDER_STORAGE='pastestory_provider_v14'; const LIB_KEY='pastestory_v14_library_fixed';
+
+// AUTO-LOAD KEY ON START
+window.addEventListener('load',()=>{
+ let savedKey=localStorage.getItem(KEY_STORAGE);
+ let savedProvider=localStorage.getItem(PROVIDER_STORAGE);
+ if(savedKey){document.getElementById('apiKey').value=savedKey; document.getElementById('keyStatus').textContent='✅ Key loaded from phone - saved forever. Tap TEST to verify.';}
+ if(savedProvider){document.getElementById('provider').value=savedProvider;}
+ renderLib();
+});
+
 async function testKey(){
  const key=document.getElementById('apiKey').value.trim(); const provider=document.getElementById('provider').value;
- if(!key){alert('Paste API key');return;} document.getElementById('keyStatus').textContent='Testing...';
+ if(!key){alert('Paste API key');return;} document.getElementById('keyStatus').textContent='Testing & Saving...';
  try{
   if(provider==='elevenlabs'){
    let r=await fetch('https://api.elevenlabs.io/v1/voices',{headers:{'xi-api-key':key}});
-   if(!r.ok) throw new Error('Invalid key '+r.status);
+   if(!r.ok) throw new Error('Invalid ElevenLabs key '+r.status+' - check key or credits over');
    let data=await r.json();
    cloudVoices=data.voices.map(v=>({id:v.voice_id,name:v.name,gender:(v.labels?.gender||'').toLowerCase(),desc:v.labels?.description||''}));
-   document.getElementById('keyStatus').textContent=`✅ ${cloudVoices.length} voices - ${cloudVoices.filter(v=>v.gender==='male').length} male real`;
+   document.getElementById('keyStatus').textContent=`✅ Key SAVED forever - ${cloudVoices.length} voices loaded`;
   } else {
-   cloudVoices=[{id:'alloy',name:'Alloy - Male neutral',gender:'male'},{id:'echo',name:'Echo - Male deep BEST Guddu',gender:'male'},{id:'onyx',name:'Onyx - Male deep',gender:'male'},{id:'fable',name:'Fable - Male warm',gender:'male'},{id:'nova',name:'Nova - Female Gudiya',gender:'female'},{id:'shimmer',name:'Shimmer - Female',gender:'female'}];
-   document.getElementById('keyStatus').textContent=`✅ OpenAI ${cloudVoices.length} voices ready`;
+   cloudVoices=[{id:'alloy',name:'Alloy - Male neutral',gender:'male'},{id:'echo',name:'Echo - Male deep BEST Guddu/Babu',gender:'male'},{id:'onyx',name:'Onyx - Male deep',gender:'male'},{id:'fable',name:'Fable - Male warm',gender:'male'},{id:'nova',name:'Nova - Female BEST Gudiya',gender:'female'},{id:'shimmer',name:'Shimmer - Female',gender:'female'}];
+   document.getElementById('keyStatus').textContent=`✅ OpenAI Key SAVED forever - ${cloudVoices.length} voices ready`;
   }
-  alert('Key OK! Now CONVERT story');
- }catch(e){document.getElementById('keyStatus').textContent='❌ '+e.message;alert(e.message);}
+  localStorage.setItem(KEY_STORAGE,key); localStorage.setItem(PROVIDER_STORAGE,provider);
+  alert('Key SAVED forever! No need to paste again. Even after restart, it will stay.');
+ }catch(e){document.getElementById('keyStatus').textContent='❌ '+e.message; alert(e.message); localStorage.removeItem(KEY_STORAGE);}
 }
-function mapHindiSpeakerToRoman(w){if(!w)return'NARRATOR';let x=w.toLowerCase().trim();if(x.includes('गुड्डू')||x.includes('guddu'))return'GUDDU';if(x.includes('गुड़िया')||x.includes('gudiya'))return'GUDIYA';if(x.includes('बाबू')||x.includes('babu'))return'BABU';return x.toUpperCase().replace(/[^A-Z]/g,'').slice(0,12)||'NARRATOR';}
-function parseLineSmart(orig,idx){let line=orig.trim();let speaker=null;let dialogue=line;let emotion='normal';let punct='.';if(/[?!]$/.test(line)){punct=line.slice(-1);line=line.slice(0,-1);}if(line.includes(' - ')||line.includes('-')){let parts=line.split(/\s*[-–—]\s*/);if(parts.length>=2){let left=parts[0].trim();let right=parts.slice(1).join(' - ').trim();let firstWord=left.split(/\s+/)[0].trim();speaker=mapHindiSpeakerToRoman(firstWord);dialogue=right;}}if(!speaker){let f=line.split(/\s+/)[0];if(f.length<=8) speaker=mapHindiSpeakerToRoman(f);}if(line.includes('?'))emotion='question';else if(line.includes('!'))emotion='shout';return{speaker:speaker||`SPEAKER${idx+1}`,dialogue:dialogue||line,emotion:emotion,punct:punct,orig:orig};}
+
+function mapHindiSpeakerToRoman(w){
+ if(!w)return null;
+ let x=w.toLowerCase().trim().replace(/[।.,!?]/g,'');
+ if(x.includes('गुड्डू')||x.includes('guddu'))return'GUDDU';
+ if(x.includes('गुड़िया')||x.includes('gudiya'))return'GUDIYA';
+ if(x.includes('बाबू')||x.includes('babu'))return'BABU';
+ if(x.includes('सुनीता')||x.includes('sunita'))return'SUNITA';
+ if(x.includes('नरेटर')||x.includes('narrator')||x.length>15)return'NARRATOR';
+ if(x.length<=10) return x.toUpperCase().replace(/[^A-Z]/g,'').slice(0,12)||null;
+ return null;
+}
+function parseLineSmart(orig,idx){
+ let line=orig.trim(); if(!line) return null;
+ let speaker=null; let dialogue=line; let punct='.'; 
+ // Detect narrator - long sentences without -
+ if(line.length>30 && !line.includes(' - ') && !line.includes('-')){ return {speaker:'NARRATOR',dialogue:line,emotion:'normal',punct:'.',orig:orig}; }
+ if(/[?!]$/.test(line)){punct=line.slice(-1); line=line.slice(0,-1); }
+ if(line.includes(' - ')||line.includes(' -')||line.includes('- ')){
+   let parts=line.split(/\s*[-–—]\s*/); 
+   if(parts.length>=2){
+     let left=parts[0].trim(); let right=parts.slice(1).join(' - ').trim();
+     let s=mapHindiSpeakerToRoman(left.split(/\s+/).slice(0,2).join(' '));
+     if(s){speaker=s; dialogue=right;}
+   }
+ }
+ if(!speaker){
+   // Try first word
+   let first=line.split(/\s+/)[0];
+   let s=mapHindiSpeakerToRoman(first);
+   if(s && line.split(/\s+/).length>1){speaker=s; dialogue=line.split(/\s+/).slice(1).join(' ');}
+ }
+ if(!speaker){speaker='NARRATOR'; dialogue=line;}
+ let emotion='normal'; if(orig.includes('?'))emotion='question'; else if(orig.includes('!'))emotion='shout';
+ return {speaker:speaker,dialogue:dialogue||line,emotion:emotion,punct:punct,orig:orig};
+}
+
 function analyzeStory(){
- if(!cloudVoices.length){alert('First TEST API key');return;}
- let raw=document.getElementById('pasteInput').value.trim();if(!raw){alert('Paste story');return;}
- let lines=raw.split(/\n+/).filter(l=>l.trim().length>0);let script=[];let detected=new Set();
- lines.forEach((ln,i)=>{let p=parseLineSmart(ln,i);script.push(p);detected.add(p.speaker);});
- currentScript=script;speakers=Array.from(detected);speakerVoiceMap={};
- let maleVoices=cloudVoices.filter(v=>v.gender==='male');let femaleVoices=cloudVoices.filter(v=>v.gender==='female');
- speakers.forEach(sp=>{if(/GUDDU/i.test(sp))speakerVoiceMap[sp]=maleVoices[0]?.id||cloudVoices[0]?.id;else if(/BABU/i.test(sp))speakerVoiceMap[sp]=maleVoices[1]?.id||maleVoices[0]?.id||cloudVoices[0]?.id;else if(/GUDIYA/i.test(sp))speakerVoiceMap[sp]=femaleVoices[0]?.id||cloudVoices[0]?.id;else speakerVoiceMap[sp]=cloudVoices[0]?.id;});
- document.getElementById('voiceStudio').classList.remove('hidden');buildSpeakerUI();renderScript();audioBlobsOrdered=new Array(currentScript.length).fill(null);mergedBlob=null;
+ if(!cloudVoices.length){
+   let savedKey=localStorage.getItem(KEY_STORAGE);
+   if(!savedKey){alert('First paste API key and TEST');return;}
+   // Try to use saved voices from last time - if not loaded, ask test
+   alert('Tap TEST & SAVE KEY first to load voices');
+   return;
+ }
+ let raw=document.getElementById('pasteInput').value.trim(); if(!raw){alert('Paste story first');return;}
+ let lines=raw.split(/\n+/).filter(l=>l.trim().length>0);
+ let script=[]; let detected=new Set();
+ lines.forEach((ln,i)=>{let p=parseLineSmart(ln,i); if(p){script.push(p); detected.add(p.speaker);}});
+ if(!script.length){alert('No lines detected');return;}
+ currentScript=script; speakers=Array.from(detected);
+ speakerVoiceMap={};
+ let maleVoices=cloudVoices.filter(v=>v.gender==='male'); let femaleVoices=cloudVoices.filter(v=>v.gender==='female');
+ speakers.forEach(sp=>{
+   if(/GUDDU/i.test(sp)) speakerVoiceMap[sp]=maleVoices[0]?.id||cloudVoices[0]?.id;
+   else if(/BABU/i.test(sp)) speakerVoiceMap[sp]=maleVoices[1]?.id||maleVoices[0]?.id||cloudVoices[0]?.id;
+   else if(/GUDIYA/i.test(sp)) speakerVoiceMap[sp]=femaleVoices[0]?.id||cloudVoices[0]?.id;
+   else if(/SUNITA/i.test(sp)) speakerVoiceMap[sp]=femaleVoices[1]?.id||femaleVoices[0]?.id||cloudVoices[0]?.id;
+   else if(/NARRATOR/i.test(sp)) speakerVoiceMap[sp]=femaleVoices[0]?.id||maleVoices[0]?.id||cloudVoices[0]?.id;
+   else speakerVoiceMap[sp]=cloudVoices[0]?.id;
+ });
+ document.getElementById('voiceStudio').classList.remove('hidden'); buildSpeakerUI(); renderScript();
+ audioBlobsOrdered=new Array(currentScript.length).fill(null); mergedBlob=null;
+ window.scrollTo({top:document.getElementById('voiceStudio').offsetTop,behavior:'smooth'});
 }
-function buildSpeakerUI(){const cont=document.getElementById('speakerVoiceList');cont.innerHTML=speakers.map(sp=>{let isMale=/GUDDU|BABU/i.test(sp);let options=cloudVoices.map(v=>`<option value="${v.id}" ${speakerVoiceMap[sp]===v.id?'selected':''}>${v.name} ${v.gender==='male'?'♂ MALE REAL':'♀ FEMALE REAL'}</option>`).join('');return `<div class="bg-[#FFFBEB] rounded-[14px] p-3 border-2 ${isMale?'border-blue-400':'border-pink-400'}"><div class="flex justify-between"><span class="text-[11px] font-black px-3 py-1 rounded-full ${isMale?'bg-blue-600':'bg-pink-600'} text-white">${sp} ${isMale?'♂ MALE':'♀ FEMALE'}</span><button onclick="testSpeaker('${sp}')" class="bg-black text-white rounded-full px-3 py-1.5 text-[9px] font-bold">▶ TEST</button></div><select onchange="speakerVoiceMap['${sp}']=this.value; renderScript()" class="w-full mt-2 bg-white rounded-full px-3 py-2.5 text-[10px] font-bold border-2 border-black">${options}</select></div>`;}).join('');}
-function renderScript(){const cont=document.getElementById('scriptList');cont.innerHTML=`<p class="text-[10px] font-black mb-2 text-white/60">SCRIPT - ${currentScript.length} lines - Full story merge ready</p>`+currentScript.map((s,i)=>{let v=cloudVoices.find(x=>x.id===speakerVoiceMap[s.speaker]);return `<div class="bg-white text-black rounded-[16px] border-2 p-3"><div class="flex justify-between"><span class="text-[10px] font-black px-3 py-1 rounded-full bg-black text-white">${s.speaker} → ${v?.name||''}</span><span class="text-[8px] bg-yellow-100 px-2 py-1 rounded-full font-bold">${s.emotion} ${s.punct}</span></div><p class="text-[14px] font-bold mt-2 dev bg-green-50 rounded-[10px] p-2.5 border">${s.dialogue}</p></div>`;}).join('');}
+function buildSpeakerUI(){
+ const cont=document.getElementById('speakerVoiceList');
+ cont.innerHTML=speakers.map(sp=>{
+   let isMale=/GUDDU|BABU/i.test(sp); let isNarr=/NARRATOR/i.test(sp);
+   let badge=isNarr?'🎙 NARRATOR': isMale?'♂ MALE REAL':'♀ FEMALE REAL';
+   let color=isNarr?'bg-gray-700': isMale?'bg-blue-600':'bg-pink-600';
+   let options=cloudVoices.map(v=>`<option value="${v.id}" ${speakerVoiceMap[sp]===v.id?'selected':''}>${v.name} ${v.gender==='male'?'♂':'♀'} ${v.id}</option>`).join('');
+   return `<div class="bg-[#FFFBEB] rounded-[14px] p-3 border-2 ${isMale?'border-blue-400': isNarr?'border-gray-400':'border-pink-400'}"><div class="flex justify-between items-center"><span class="text-[11px] font-black px-3 py-1 rounded-full ${color} text-white">${sp} ${badge}</span><button onclick="testSpeaker('${sp}')" class="bg-black text-white rounded-full px-3 py-1.5 text-[9px] font-bold">▶ TEST</button></div><select onchange="speakerVoiceMap['${sp}']=this.value; renderScript()" class="w-full mt-2 bg-white rounded-full px-3 py-2.5 text-[10px] font-bold border-2 border-black">${options}</select></div>`;
+ }).join('');
+}
+function renderScript(){
+ const cont=document.getElementById('scriptList');
+ cont.innerHTML=`<p class="text-[10px] font-black mb-2 text-white/60">SCRIPT - ${currentScript.length} lines - ONE file merge ready</p>`+currentScript.map((s,i)=>{
+   let v=cloudVoices.find(x=>x.id===speakerVoiceMap[s.speaker]);
+   return `<div class="bg-white text-black rounded-[16px] border-2 p-3"><div class="flex justify-between items-center"><span class="text-[10px] font-black px-3 py-1 rounded-full bg-black text-white">${s.speaker} → ${v?.name||''}</span><span class="text-[8px] bg-yellow-100 px-2 py-1 rounded-full font-bold">${s.emotion} ${s.punct}</span></div><p class="text-[14px] font-bold mt-2 dev bg-green-50 rounded-[10px] p-2.5 border">${s.dialogue}</p></div>`;
+ }).join('');
+}
 async function fetchAudioForLine(i){
- const s=currentScript[i];const provider=document.getElementById('provider').value;const key=document.getElementById('apiKey').value.trim();const voiceId=speakerVoiceMap[s.speaker];
+ const s=currentScript[i]; const provider=document.getElementById('provider').value; const key=document.getElementById('apiKey').value.trim()||localStorage.getItem(KEY_STORAGE); const voiceId=speakerVoiceMap[s.speaker];
+ if(!key) throw new Error('No API key - paste key');
  let text=s.dialogue + (s.punct==='?'?'?': s.punct==='!'?'!':'.');
- if(provider==='elevenlabs'){let r=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?optimize_streaming_latency=0`,{method:'POST',headers:{'xi-api-key':key,'Content-Type':'application/json'},body:JSON.stringify({text:text,model_id:'eleven_multilingual_v2',voice_settings:{stability:0.5,similarity_boost:0.7}})});if(!r.ok)throw new Error('ElevenLabs '+r.status);return await r.blob();}
- else{let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1',voice:voiceId,input:text})});if(!r.ok)throw new Error('OpenAI '+r.status);return await r.blob();}
+ if(provider==='elevenlabs'){let r=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?optimize_streaming_latency=0`,{method:'POST',headers:{'xi-api-key':key,'Content-Type':'application/json'},body:JSON.stringify({text:text,model_id:'eleven_multilingual_v2',voice_settings:{stability:0.5,similarity_boost:0.7}})}); if(!r.ok){let t=await r.text(); throw new Error('ElevenLabs '+r.status+' '+t.slice(0,100));} return await r.blob();}
+ else{let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1',voice:voiceId,input:text})}); if(!r.ok) throw new Error('OpenAI '+r.status); return await r.blob();}
 }
-async function testSpeaker(sp){let idx=currentScript.findIndex(s=>s.speaker===sp);if(idx===-1) idx=0;try{let blob=await fetchAudioForLine(idx);let url=URL.createObjectURL(blob);new Audio(url).play();}catch(e){alert(e.message);}}
+async function testSpeaker(sp){let idx=currentScript.findIndex(s=>s.speaker===sp); if(idx===-1) idx=0; try{let blob=await fetchAudioForLine(idx); let url=URL.createObjectURL(blob); new Audio(url).play();}catch(e){alert(e.message);}}
 async function playFull(){
  if(isGenerating){alert('Already generating... wait');return;}
- if(!currentScript.length){alert('First CONVERT');return;}
- isGenerating=true;audioBlobsOrdered=new Array(currentScript.length).fill(null);
+ if(!currentScript.length){alert('First CONVERT story');return;}
+ isGenerating=true; audioBlobsOrdered=new Array(currentScript.length).fill(null);
  document.getElementById('fullPlayerBox').classList.remove('hidden');
  document.getElementById('fullStatus').textContent='⏳ Generating full story... 0/'+currentScript.length;
  document.getElementById('audioPlayers').innerHTML='';
  for(let i=0;i<currentScript.length;i++){
    try{
-     document.getElementById('fullStatus').textContent=`⏳ Generating line ${i+1}/${currentScript.length} - ${currentScript[i].speaker}: ${currentScript[i].dialogue.slice(0,20)}...`;
-     let blob=await fetchAudioForLine(i);audioBlobsOrdered[i]=blob;
+     document.getElementById('fullStatus').textContent=`⏳ Generating line ${i+1}/${currentScript.length} - ${currentScript[i].speaker}`;
+     let blob=await fetchAudioForLine(i); audioBlobsOrdered[i]=blob;
      let url=URL.createObjectURL(blob);
      document.getElementById('audioPlayers').innerHTML+=`<div class="bg-white/10 rounded-[12px] p-2"><p class="text-[9px]">${currentScript[i].speaker}: ${currentScript[i].dialogue}</p><audio controls src="${url}" class="w-full mt-1"></audio></div>`;
-   }catch(e){document.getElementById('fullStatus').textContent='❌ Failed at line '+(i+1)+': '+e.message;isGenerating=false;return;}
+   }catch(e){document.getElementById('fullStatus').textContent='❌ Failed at line '+(i+1)+': '+e.message; isGenerating=false; return;}
  }
- // Merge into ONE file
  mergedBlob=new Blob(audioBlobsOrdered.filter(b=>b),{type:'audio/mpeg'});
  let mergedUrl=URL.createObjectURL(mergedBlob);
  document.getElementById('fullAudioPlayer').src=mergedUrl;
- document.getElementById('fullStatus').textContent=`✅ Full story ready - ONE file - ${currentScript.length} lines merged - Tap play above, or DOWNLOAD below`;
+ document.getElementById('fullStatus').textContent=`✅ Full story ready - ONE file - ${currentScript.length} lines merged - Tap play, or DOWNLOAD below`;
  document.getElementById('fullAudioPlayer').play();
  isGenerating=false;
 }
 function downloadFull(){
- if(!mergedBlob){alert('First tap GENERATE & PLAY FULL STORY - wait till all lines done - then download');return;}
+ if(!mergedBlob){alert('First tap GENERATE & PLAY FULL STORY - wait till all lines done - then DOWNLOAD');return;}
  let url=URL.createObjectURL(mergedBlob);
- let a=document.createElement('a');a.href=url;a.download='PasteStory-Full-Story-'+Date.now()+'.mp3';document.body.appendChild(a);a.click();a.remove();
- // Also show where it goes
- setTimeout(()=>alert('✅ FULL STORY DOWNLOADED as ONE MP3!\n\nFind it in:\nFiles App → On My iPhone → Downloads → PasteStory-Full-Story.mp3\n\nThis ONE file = full story, not broken lines!'),500);
+ let a=document.createElement('a'); a.href=url; a.download='PasteStory-Full-Story-'+Date.now()+'.mp3'; document.body.appendChild(a); a.click(); a.remove();
+ setTimeout(()=>alert('✅ FULL STORY DOWNLOADED as ONE MP3!\n\nFiles App → On My iPhone → Downloads → PasteStory-Full-Story.mp3\n\nONE file = full continuous story!'),500);
 }
-function clearAudio(){audioBlobsOrdered=[];mergedBlob=null;document.getElementById('audioPlayers').innerHTML='';document.getElementById('fullPlayerBox').classList.add('hidden');}
-const LIB_KEY='pastestory_v13_onefile';
-function saveToLib(){if(!currentScript.length)return;let lib=JSON.parse(localStorage.getItem(LIB_KEY)||'[]');lib.unshift({id:Date.now(),title:currentScript[0].dialogue.slice(0,25),date:new Date().toLocaleString(),script:currentScript,speakers:speakers,voiceMap:speakerVoiceMap});localStorage.setItem(LIB_KEY,JSON.stringify(lib));alert('Saved');renderLib();}
-function renderLib(){let lib=JSON.parse(localStorage.getItem(LIB_KEY)||'[]');let c=document.getElementById('libList');if(!lib.length){c.innerHTML='<p class="text-center py-3 text-xs text-white/30">Empty</p>';return;}c.innerHTML=lib.map(it=>`<div class="bg-white text-black rounded-[14px] border-2 border-black p-2.5"><p class="font-bold text-sm dev">${it.title}</p><p class="text-[8px]">${it.date}</p><div class="grid grid-cols-2 gap-2 mt-2"><button onclick="loadLib(${it.id})" class="bg-black text-white rounded-full py-2 text-[9px]">LOAD</button><button onclick="deleteLib(${it.id})" class="bg-red-100 rounded-full py-2 text-[9px]">DELETE</button></div></div>`).join('');}
-function loadLib(id){let lib=JSON.parse(localStorage.getItem(LIB_KEY)||'[]');let it=lib.find(x=>x.id===id);if(!it)return;currentScript=it.script;speakers=it.speakers;speakerVoiceMap=it.voiceMap;document.getElementById('voiceStudio').classList.remove('hidden');buildSpeakerUI();renderScript();}
-function deleteLib(id){if(!confirm('Delete?'))return;let lib=JSON.parse(localStorage.getItem(LIB_KEY)||'[]');lib=lib.filter(x=>x.id!==id);localStorage.setItem(LIB_KEY,JSON.stringify(lib));renderLib();}
-function clearLib(){if(!confirm('Clear all?'))return;localStorage.removeItem(LIB_KEY);renderLib();}
+function clearAudioOnly(){audioBlobsOrdered=[]; mergedBlob=null; document.getElementById('audioPlayers').innerHTML=''; document.getElementById('fullPlayerBox').classList.add('hidden');}
+function clearAllNewStory(){
+ if(!confirm('Clear everything for new story? This will clear pasted story, script, voices list, audio players. Your API key and saved projects will stay.')) return;
+ document.getElementById('pasteInput').value='';
+ currentScript=[]; speakers=[]; speakerVoiceMap={}; audioBlobsOrdered=[]; mergedBlob=null;
+ document.getElementById('voiceStudio').classList.add('hidden');
+ document.getElementById('scriptList').innerHTML='';
+ document.getElementById('audioPlayers').innerHTML='';
+ document.getElementById('fullPlayerBox').classList.add('hidden');
+ document.getElementById('speakerVoiceList').innerHTML='';
+ window.scrollTo({top:0,behavior:'smooth'});
+ alert('✅ Cleared! Paste new story now.');
+}
+
+const LIB_KEY_FINAL='pastestory_v14_library_fixed';
+function saveToLib(){
+ if(!currentScript.length){alert('First CONVERT a story');return;}
+ let lib=JSON.parse(localStorage.getItem(LIB_KEY_FINAL)||'[]');
+ let title=document.getElementById('pasteInput').value.slice(0,30).replace(/\n/g,' ')||'Untitled';
+ lib.unshift({id:Date.now(),title:title,date:new Date().toLocaleString(),script:currentScript,speakers:speakers,voiceMap:speakerVoiceMap,raw:document.getElementById('pasteInput').value});
+ localStorage.setItem(LIB_KEY_FINAL,JSON.stringify(lib));
+ renderLib();
+ alert('✅ Project SAVED! See below in Saved Projects.');
+}
+function renderLib(){
+ let lib=JSON.parse(localStorage.getItem(LIB_KEY_FINAL)||'[]');
+ let c=document.getElementById('libList');
+ if(!lib.length){c.innerHTML='<p class="text-center py-4 text-xs text-white/30">No projects yet - Save a story to see here</p>'; return;}
+ c.innerHTML=lib.map(it=>`<div class="bg-white text-black rounded-[14px] border-2 border-black p-3"><p class="font-bold text-[12px] dev">${it.title}</p><p class="text-[8px] opacity-60">${it.date} - ${it.script?.length||0} lines</p><div class="grid grid-cols-2 gap-2 mt-2"><button onclick="loadLib(${it.id})" class="bg-black text-white rounded-full py-2 text-[9px] font-black">📂 LOAD</button><button onclick="deleteLib(${it.id})" class="bg-red-100 border-2 border-black rounded-full py-2 text-[9px] font-black">DELETE</button></div></div>`).join('');
+}
+function loadLib(id){
+ let lib=JSON.parse(localStorage.getItem(LIB_KEY_FINAL)||'[]');
+ let it=lib.find(x=>x.id===id); if(!it) return;
+ document.getElementById('pasteInput').value=it.raw||'';
+ currentScript=it.script; speakers=it.speakers; speakerVoiceMap=it.voiceMap;
+ document.getElementById('voiceStudio').classList.remove('hidden');
+ buildSpeakerUI(); renderScript();
+ audioBlobsOrdered=new Array(currentScript.length).fill(null); mergedBlob=null;
+ alert('Project loaded!');
+ window.scrollTo({top:document.getElementById('voiceStudio').offsetTop,behavior:'smooth'});
+}
+function deleteLib(id){if(!confirm('Delete this project?'))return; let lib=JSON.parse(localStorage.getItem(LIB_KEY_FINAL)||'[]'); lib=lib.filter(x=>x.id!==id); localStorage.setItem(LIB_KEY_FINAL,JSON.stringify(lib)); renderLib();}
+function clearLib(){if(!confirm('Clear ALL saved projects?'))return; localStorage.removeItem(LIB_KEY_FINAL); renderLib();}
+
 document.getElementById('testKeyBtn').addEventListener('click',testKey);
 document.getElementById('analyzeBtn').addEventListener('click',analyzeStory);
 document.getElementById('playFullBtn').addEventListener('click',playFull);
 document.getElementById('downloadFullBtn').addEventListener('click',downloadFull);
 document.getElementById('saveBtn').addEventListener('click',saveToLib);
+document.getElementById('clearAllBtn').addEventListener('click',clearAllNewStory);
 renderLib();
 </script><script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
