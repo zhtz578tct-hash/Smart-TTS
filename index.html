@@ -21,178 +21,95 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 </style><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PasteStory V15 - Smart Novel Mode</title><script src="https://cdn.tailwindcss.com"></script>
-<style>body{background:#0a0a0a;color:white} .dev{font-family:'Noto Sans Devanagari',sans-serif}</style>
-</head><body class="pb-24">
-<header class="sticky top-0 z-30 bg-black border-b border-white/20 p-4 flex justify-between"><div><h1 class="text-[18px] font-black">PasteStory V15 SMART NOVEL</h1><p class="text-[8px] opacity-60">Auto-detects बोली/बोला/कहा inside paragraphs → splits to 4 voices</p></div><span class="bg-green-400 text-black rounded-full px-3 py-1 text-[10px] font-black">V15</span></header>
-<div class="p-3 max-w-[520px] mx-auto">
-<div class="bg-white text-black rounded-[16px] p-3 mb-3">
-<p class="text-[11px] font-black">🔑 API KEY - Auto-saved forever</p>
-<select id="provider" class="w-full mt-2 bg-black text-white rounded-full px-3 py-2 text-xs font-bold"><option value="elevenlabs">ElevenLabs (Best Hindi Male)</option><option value="openai">OpenAI (No filter)</option></select>
-<input id="apiKey" type="password" placeholder="Paste once - saved forever" class="w-full mt-2 bg-[#FFFBEB] rounded-[12px] border-2 border-black px-3 py-2.5 text-xs font-bold">
-<div class="mt-2 flex gap-2"><button id="testKeyBtn" class="flex-1 bg-black text-white rounded-full py-2 text-[10px] font-black">🔍 TEST & SAVE</button><button onclick="document.getElementById('apiKey').type=document.getElementById('apiKey').type==='password'?'text':'password'" class="bg-white border-2 border-black rounded-full px-3 py-2 text-[9px] font-bold">👁</button></div>
-<p id="keyStatus" class="text-[8px] mt-2 text-black/60"></p>
+<title>PasteStory V16 Compact</title><script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{background:#0B0B0E;color:white; font-family: -apple-system, BlinkMacSystemFont, sans-serif;}
+.dev{font-family:'Noto Sans Devanagari',sans-serif}
+.card{background:#FFFFFF;color:#111;border-radius:20px}
+.card-beige{background:#F7F1E3;color:#111;border-radius:20px}
+.pill{background:#111;color:#fff;border-radius:9999px}
+.input-field{background:#FFFBEB;border:2px solid #111;border-radius:14px}
+</style>
+</head><body class="pb-20">
+<!-- COMPACT HEADER -->
+<header class="sticky top-0 z-30 bg-[#0B0B0E]/90 backdrop-blur-xl border-b border-white/10 px-4 py-3 flex justify-between items-center">
+<div class="flex items-center gap-2"><div class="w-8 h-8 bg-[#F7F1E3] rounded-[10px] flex items-center justify-center text-black font-black">◐</div><div><h1 class="text-[15px] font-black tracking-tight">PasteStory</h1><p class="text-[9px] opacity-50 -mt-1">Smart Novel • 4 voices • ONE mp3</p></div></div><span class="bg-[#C6F277] text-black text-[10px] font-black px-3 py-1 rounded-full">V16</span>
+</header>
+
+<div class="p-3 max-w-[480px] mx-auto space-y-3">
+<!-- API KEY - COMPACT WITH INLINE TEST -->
+<div class="card p-3.5">
+<div class="flex justify-between items-center"><p class="text-[12px] font-bold flex items-center gap-1.5">🔑 API Key</p><select id="provider" class="bg-black text-white rounded-full px-2.5 py-1 text-[9px] font-bold"><option value="elevenlabs">ElevenLabs • Best Hindi</option><option value="openai">OpenAI • No filter</option></select></div>
+<div class="relative mt-3">
+<input id="apiKey" type="password" placeholder="sk-••••••••••••••••" class="w-full bg-[#FFFBEB] border-2 border-black rounded-[14px] pl-3 pr-[78px] py-2.5 text-[12px] font-bold">
+<button id="testKeyBtn" class="absolute right-1 top-1 bottom-1 bg-black text-white rounded-[12px] px-4 text-[10px] font-black">TEST</button>
 </div>
-<div class="bg-[#FFFBEB] text-black rounded-[18px] border-2 border-black p-3">
-<div class="flex justify-between"><p class="text-[11px] font-black">STEP 1: PASTE STORY - Novel format</p><span class="text-[8px] bg-green-500 text-white px-2 py-1 rounded-full">NEW SMART MODE</span></div>
-<p class="text-[8px] mt-1 opacity-60">Now supports: paragraph stories with बोली/बोला/कहा - auto splits to voices</p>
-<textarea id="pasteInput" class="w-full h-[140px] mt-2 bg-white rounded-[12px] border p-2 text-[13px] font-bold dev" placeholder="Paste any novel format story - like: सावन की शाम थी... गुड़िया बोली तुम पागल हो क्या... गुड्डू ने कहा..."></textarea>
-<div class="mt-2 grid grid-cols-2 gap-2">
-<button id="analyzeBtn" class="col-span-2 w-full bg-black text-white rounded-full py-3 font-black text-sm">🔍 SMART CONVERT → Auto-split to 5 voices</button>
-<button id="modeBtn" class="bg-white border-2 border-black rounded-full py-2 text-[8px] font-black">Mode: SMART NOVEL (detects बोली/बोला)</button>
-<button onclick="document.getElementById('pasteInput').value=''; " class="bg-red-100 border-2 border-black rounded-full py-2 text-[8px] font-black">Clear Story Box</button>
+<div class="flex justify-between items-center mt-2"><p id="keyStatus" class="text-[8px] opacity-60">Auto-saved forever • paste once</p><button onclick="document.getElementById('apiKey').type=document.getElementById('apiKey').type==='password'?'text':'password'" class="text-[8px] font-bold underline">👁 Show</button></div>
+</div>
+
+<!-- STORY - COMPACT -->
+<div class="card-beige p-3.5 border-2 border-black/10">
+<div class="flex justify-between items-center"><p class="text-[12px] font-black">📄 Story Paste</p><span class="bg-[#C6F277] text-black text-[7px] font-black px-2 py-0.5 rounded-full">SMART: बोली/बोला/कहा</span></div>
+<textarea id="pasteInput" class="w-full h-[120px] mt-3 bg-white rounded-[14px] border border-black/10 p-3 text-[13px] font-bold dev placeholder:opacity-40" placeholder="Paste novel format... जैसे: सावन की शाम थी... गुड़िया बोली तुम पागल हो क्या... गुड्डू ने कहा..."></textarea>
+<div class="mt-3 grid grid-cols-3 gap-1.5">
+<button id="analyzeBtn" class="col-span-3 pill py-3 text-[12px] font-black">✨ SMART CONVERT → 5 voices</button>
+<button id="modeBtn" class="bg-white border border-black rounded-full py-2 text-[7px] font-black">SMART NOVEL</button>
+<button onclick="document.getElementById('pasteInput').value=''" class="bg-white border border-black rounded-full py-2 text-[7px] font-black">Clear Box</button>
+<button id="clearAllBtn" class="bg-black text-white rounded-full py-2 text-[7px] font-black">🗑 CLEAR ALL</button>
 </div>
 </div>
-<div id="voiceStudio" class="hidden mt-4 bg-white text-black rounded-[20px] border-2 border-black p-3 shadow-xl">
-<p class="text-[11px] font-black">🎤 SMART VOICE ALLOCATION</p><p id="detectInfo" class="text-[8px] opacity-60 mt-1"></p>
-<div id="speakerVoiceList" class="mt-3 space-y-3"></div>
-<div class="mt-4 space-y-2">
-<button id="playFullBtn" class="w-full bg-black text-white rounded-full py-3 font-black text-xs">▶ GENERATE FULL STORY - ONE FLOW (4 voices + narrator)</button>
-<button id="downloadFullBtn" class="w-full bg-yellow-400 border-2 border-black rounded-full py-3 text-[12px] font-black">⬇️ DOWNLOAD ONE MP3 - FULL STORY</button>
-<div class="grid grid-cols-2 gap-2"><button id="saveBtn" class="bg-black text-white rounded-full py-2.5 text-[10px] font-black">💾 SAVE</button><button onclick="clearAudioOnly()" class="bg-white border-2 border-black rounded-full py-2.5 text-[10px] font-black">🗑 Clear Audio</button></div>
+
+<!-- VOICE STUDIO - COMPACT -->
+<div id="voiceStudio" class="hidden card p-3.5">
+<div class="flex justify-between"><p class="text-[11px] font-black">🎤 Voices • Auto-split fixed</p><p id="detectInfo" class="text-[7px] opacity-50"></p></div>
+<div id="speakerVoiceList" class="mt-3 space-y-2"></div>
+<div class="mt-3 space-y-2">
+<button id="playFullBtn" class="w-full pill py-3 text-[11px] font-black">▶ GENERATE FULL - ONE FLOW</button>
+<button id="downloadFullBtn" class="w-full bg-[#FFD60A] border-2 border-black rounded-full py-3 text-[11px] font-black">⬇️ DOWNLOAD ONE MP3</button>
+<div class="grid grid-cols-2 gap-1.5"><button id="saveBtn" class="pill py-2 text-[9px] font-bold">💾 Save Project</button><button onclick="clearAudioOnly()" class="bg-white border border-black rounded-full py-2 text-[9px] font-bold">Clear Audio</button></div>
 </div>
-<div id="fullPlayerBox" class="mt-3 hidden bg-black text-white rounded-[16px] p-3"><p class="text-[10px] font-black">🎬 FULL STORY - ONE FILE - 4 voices mixed</p><audio id="fullAudioPlayer" controls class="w-full mt-2"></audio><p id="fullStatus" class="text-[8px] mt-1 opacity-60"></p></div>
-<div id="audioPlayers" class="mt-3 space-y-2"></div>
+<div id="fullPlayerBox" class="hidden mt-3 bg-black text-white rounded-[14px] p-2.5"><audio id="fullAudioPlayer" controls class="w-full"></audio><p id="fullStatus" class="text-[7px] mt-1 opacity-60"></p></div>
+<div id="audioPlayers" class="mt-3 space-y-1.5"></div>
 </div>
-<div id="scriptList" class="mt-4 space-y-3"></div>
-<div class="mt-6 bg-red-600 rounded-[16px] p-3 border-2 border-black"><p class="text-[11px] font-black text-white">🧹 NEW STORY</p><button id="clearAllBtn" class="w-full mt-2 bg-white text-black rounded-full py-3 font-black text-sm border-2 border-black">🗑️ CLEAR ALL - START NEW</button></div>
-<div class="mt-6 border-t border-white/20 pt-4"><div class="flex justify-between"><h2 class="font-black text-sm">📚 Saved Projects</h2><button onclick="clearLib()" class="bg-red-600 text-white px-3 py-1 rounded-full text-[9px] font-black">Clear</button></div><div id="libList" class="mt-3 space-y-2"></div></div>
+
+<div id="scriptList" class="space-y-2"></div>
+
+<!-- SAVED - COMPACT -->
+<div class="border-t border-white/10 pt-3 mt-2"><div class="flex justify-between items-center"><h2 class="text-[12px] font-black">📚 Saved</h2><button onclick="clearLib()" class="bg-white/10 text-white px-2 py-1 rounded-full text-[8px]">Clear</button></div><div id="libList" class="mt-2 space-y-1.5"></div></div>
 </div>
+
 <script>
 let cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, audioBlobsOrdered=[], mergedBlob=null, isGenerating=false, mode='smart';
-const KEY_STORAGE='pastestory_api_key_v14'; const PROVIDER_STORAGE='pastestory_provider_v14'; const LIB_KEY='pastestory_v15_smart';
-window.addEventListener('load',()=>{let k=localStorage.getItem(KEY_STORAGE); let p=localStorage.getItem(PROVIDER_STORAGE); if(k){document.getElementById('apiKey').value=k; document.getElementById('keyStatus').textContent='✅ Key loaded - saved forever';} if(p){document.getElementById('provider').value=p;} renderLib();});
-async function testKey(){const key=document.getElementById('apiKey').value.trim(); const provider=document.getElementById('provider').value; if(!key){alert('Paste key');return;} document.getElementById('keyStatus').textContent='Testing & Saving...'; try{if(provider==='elevenlabs'){let r=await fetch('https://api.elevenlabs.io/v1/voices',{headers:{'xi-api-key':key}}); if(!r.ok) throw new Error('Invalid key '+r.status); let d=await r.json(); cloudVoices=d.voices.map(v=>({id:v.voice_id,name:v.name,gender:(v.labels?.gender||'').toLowerCase()}));}else{cloudVoices=[{id:'alloy',name:'Alloy - Male neutral',gender:'male'},{id:'echo',name:'Echo - Male deep BEST Guddu/Babu',gender:'male'},{id:'onyx',name:'Onyx - Male deep',gender:'male'},{id:'fable',name:'Fable - Male warm',gender:'male'},{id:'nova',name:'Nova - Female BEST Gudiya/Sunita',gender:'female'},{id:'shimmer',name:'Shimmer - Female',gender:'female'}];} localStorage.setItem(KEY_STORAGE,key); localStorage.setItem(PROVIDER_STORAGE,provider); document.getElementById('keyStatus').textContent=`✅ SAVED forever - ${cloudVoices.length} voices`; alert('Key saved forever!');}catch(e){document.getElementById('keyStatus').textContent='❌ '+e.message; alert(e.message);}}
+const KEY_STORAGE='pastestory_api_key_v14'; const PROVIDER_STORAGE='pastestory_provider_v14'; const LIB_KEY='pastestory_v16_compact';
+window.addEventListener('load',()=>{let k=localStorage.getItem(KEY_STORAGE); let p=localStorage.getItem(PROVIDER_STORAGE); if(k){document.getElementById('apiKey').value=k; document.getElementById('keyStatus').textContent='✅ Saved • 22 voices';} if(p)document.getElementById('provider').value=p; renderLib();});
+async function testKey(){const key=document.getElementById('apiKey').value.trim(); const provider=document.getElementById('provider').value; if(!key){alert('Paste key');return;} document.getElementById('keyStatus').textContent='Testing...'; try{if(provider==='elevenlabs'){let r=await fetch('https://api.elevenlabs.io/v1/voices',{headers:{'xi-api-key':key}}); if(!r.ok) throw new Error('Invalid '+r.status); let d=await r.json(); cloudVoices=d.voices.map(v=>({id:v.voice_id,name:v.name,gender:(v.labels?.gender||'').toLowerCase()}));}else{cloudVoices=[{id:'alloy',name:'Alloy - Male',gender:'male'},{id:'echo',name:'Echo - Male deep BEST',gender:'male'},{id:'onyx',name:'Onyx - Male',gender:'male'},{id:'fable',name:'Fable - Male warm',gender:'male'},{id:'nova',name:'Nova - Female BEST',gender:'female'},{id:'shimmer',name:'Shimmer - Female',gender:'female'}];} localStorage.setItem(KEY_STORAGE,key); localStorage.setItem(PROVIDER_STORAGE,provider); document.getElementById('keyStatus').textContent=`✅ SAVED • ${cloudVoices.length} voices`; }catch(e){document.getElementById('keyStatus').textContent='❌ '+e.message;}}
 function mapName(n){if(!n)return null; let x=n.toLowerCase(); if(x.includes('गुड्डू')||x.includes('guddu'))return'GUDDU'; if(x.includes('गुड़िया')||x.includes('gudiya'))return'GUDIYA'; if(x.includes('बाबू')||x.includes('babu'))return'BABU'; if(x.includes('सुनीता')||x.includes('sunita'))return'SUNITA'; return null;}
-
-// SMART NOVEL PARSER - NEW LOGIC FOR YOUR PROBLEM
 function smartNovelParse(text){
- let script=[];
- // Split into sentences by । ! ? and newlines but keep content
- let sentences = text.split(/(?<=[।!?])\s+|\n+/).filter(s=>s.trim().length>0);
- let dialogueVerbs = ['बोली','बोला','कहा','कही','चिल्लाया','चिल्लायी','चिल्लाई','पूछा','पूछी','बोले','कहने लगी','कहने लगा','आवाज लगाई','आवाज लगायी','हंसते हुए कहा','हंसते हुए बोली','हंसते हुए बोला','शरमाते हुए बोली','घबराते हुए बोली','दौड़ती हुई बोली'];
- let verbPattern = dialogueVerbs.join('|');
- // Known names list
- let names = ['गुड्डू','गुड़िया','बाबू','सुनीता','Guddu','Gudiya','Babu','Sunita'];
- 
+ let script=[]; let sentences=text.split(/(?<=[।!?])\s+|\n+/).filter(s=>s.trim().length>0);
+ let dialogueVerbs=['बोली','बोला','कहा','कही','चिल्लाया','चिल्लायी','चिल्लाई','पूछा','पूछी','बोले','कहने लगी','कहने लगा','आवाज लगाई','आवाज लगायी','हंसते हुए कहा','हंसते हुए बोली','हंसते हुए बोला','शरमाते हुए बोली','घबराते हुए बोली','दौड़ती हुई बोली'];
+ let verbPattern=dialogueVerbs.join('|'); let names=['गुड्डू','गुड़िया','बाबू','सुनीता','Guddu','Gudiya','Babu','Sunita'];
  sentences.forEach(rawSent=>{
-   let sent = rawSent.trim();
-   if(!sent) return;
-   // Look for pattern: [Name] ... [verb] [dialogue]
-   // Example: "गुड़िया छतरी लेकर आई और बोली तुम पागल हो क्या"
-   let found = false;
+   let sent=rawSent.trim(); if(!sent) return; let found=false;
    for(let name of names){
-     let nameIdx = sent.indexOf(name);
-     if(nameIdx===-1) continue;
-     // Find verb after name
-     let afterName = sent.slice(nameIdx);
-     let verbMatch = afterName.match(new RegExp(`(${verbPattern})`));
-     if(verbMatch){
-       let verbIdx = afterName.indexOf(verbMatch[0]);
-       let beforeVerb = afterName.slice(0, verbIdx);
-       // Check if name is within 40 chars before verb (ensures same clause)
-       if(beforeVerb.length < 50){
-         let speaker = mapName(name);
-         let dialogue = afterName.slice(verbIdx + verbMatch[0].length).trim();
-         // Clean dialogue - remove leading symbols
-         dialogue = dialogue.replace(/^[\s:,-]+/, '').replace(/[।]+$/, '').trim();
-         if(dialogue.length>1){
-           // If dialogue still contains another name+verb, split further
-           // For simplicity, push as dialogue line
-           script.push({speaker:speaker, dialogue:dialogue, emotion: dialogue.includes('?')?'question': dialogue.includes('!')?'shout':'normal', punct: dialogue.match(/[?!]$/) ? dialogue.slice(-1) : '.', orig:sent});
-           found = true;
-           // Check if there is remaining descriptive part before dialogue - push as narrator?
-           let descPart = sent.slice(0, nameIdx).trim();
-           if(descPart.length>10){
-             // Insert narrator before this dialogue
-             script.splice(script.length-1,0,{speaker:'NARRATOR', dialogue:descPart.replace(/[।]+$/,''), emotion:'normal', punct:'.', orig:descPart});
-           }
-           break;
-         }
-       }
-     }
-   }
-   if(!found){
-     // Check if sentence has no dialogue verb at all - pure narrator
-     let hasVerb = new RegExp(`(${verbPattern})`).test(sent);
-     if(!hasVerb){
-       // Pure description - narrator
-       if(sent.length>5) script.push({speaker:'NARRATOR', dialogue:sent.replace(/[।]+$/,''), emotion:'normal', punct:'.', orig:sent});
-     } else {
-       // Has verb but name not in our list - try to extract name from start
-       // Example: "तभी बाबू ऊपर से चिल्लाया अरे लड़को..."
-       let m = sent.match(new RegExp(`(गुड्डू|गुड़िया|बाबू|सुनीता|Guddu|Gudiya|Babu|Sunita)[^।]{0,30}?(${verbPattern})\\s+([^।]+)`, 'i'));
-       if(m){
-         let speaker = mapName(m[1]);
-         let dialogue = m[3].trim();
-         if(speaker && dialogue.length>1){
-           script.push({speaker:speaker, dialogue:dialogue, emotion:'normal', punct:'.', orig:sent});
-         } else {
-           script.push({speaker:'NARRATOR', dialogue:sent.replace(/[।]+$/,''), emotion:'normal', punct:'.', orig:sent});
-         }
-       } else {
-         // Fallback - narrator
-         script.push({speaker:'NARRATOR', dialogue:sent.replace(/[।]+$/,''), emotion:'normal', punct:'.', orig:sent});
-       }
-     }
-   }
+     let nameIdx=sent.indexOf(name); if(nameIdx===-1) continue;
+     let afterName=sent.slice(nameIdx); let verbMatch=afterName.match(new RegExp(`(${verbPattern})`));
+     if(verbMatch){let verbIdx=afterName.indexOf(verbMatch[0]); let beforeVerb=afterName.slice(0,verbIdx); if(beforeVerb.length<50){let speaker=mapName(name); let dialogue=afterName.slice(verbIdx+verbMatch[0].length).trim().replace(/^[\s:,-]+/,'').replace(/[।]+$/,'').trim(); if(dialogue.length>1){let descPart=sent.slice(0,nameIdx).trim(); if(descPart.length>10){script.push({speaker:'NARRATOR',dialogue:descPart.replace(/[।]+$/,''),emotion:'normal',punct:'.',orig:descPart});} script.push({speaker:speaker,dialogue:dialogue,emotion:dialogue.includes('?')?'question':dialogue.includes('!')?'shout':'normal',punct:'.',orig:sent}); found=true; break;}}}}
+   if(!found){let hasVerb=new RegExp(`(${verbPattern})`).test(sent); if(!hasVerb){if(sent.length>5)script.push({speaker:'NARRATOR',dialogue:sent.replace(/[।]+$/,''),emotion:'normal',punct:'.',orig:sent});}else{let m=sent.match(new RegExp(`(गुड्डू|गुड़िया|बाबू|सुनीता|Guddu|Gudiya|Babu|Sunita)[^।]{0,30}?(${verbPattern})\\s+([^।]+)`,'i')); if(m){let speaker=mapName(m[1]); let dialogue=m[3].trim(); if(speaker&&dialogue.length>1){script.push({speaker:speaker,dialogue:dialogue,emotion:'normal',punct:'.',orig:sent});}else{script.push({speaker:'NARRATOR',dialogue:sent.replace(/[।]+$/,''),emotion:'normal',punct:'.',orig:sent});}}else{script.push({speaker:'NARRATOR',dialogue:sent.replace(/[।]+$/,''),emotion:'normal',punct:'.',orig:sent});}}}
  });
  return script;
 }
-
-function legacyParse(text){
- let lines=text.split(/\n+/).filter(l=>l.trim().length>0);
- let script=[];
- lines.forEach((ln,i)=>{
-   if(ln.includes(' - ')){
-     let parts=ln.split(/\s*-\s*/);
-     let sp=mapName(parts[0])||parts[0].toUpperCase().slice(0,10);
-     let dlg=parts.slice(1).join(' - ');
-     script.push({speaker:sp||'NARRATOR', dialogue:dlg, emotion:'normal', punct:'.', orig:ln});
-   } else {
-     script.push({speaker:'NARRATOR', dialogue:ln, emotion:'normal', punct:'.', orig:ln});
-   }
- });
- return script;
-}
-
-function analyzeStory(){
- if(!cloudVoices.length){alert('First TEST key');return;}
- let raw=document.getElementById('pasteInput').value.trim(); if(!raw){alert('Paste story');return;}
- let script;
- if(mode==='smart'){
-   script = smartNovelParse(raw);
- } else {
-   script = legacyParse(raw);
- }
- if(!script.length){alert('Could not parse - try SMART mode');return;}
- currentScript=script;
- speakers=Array.from(new Set(script.map(s=>s.speaker)));
- speakerVoiceMap={};
- let maleVoices=cloudVoices.filter(v=>v.gender==='male'); let femaleVoices=cloudVoices.filter(v=>v.gender==='female');
- speakers.forEach(sp=>{
-   if(/GUDDU/i.test(sp)) speakerVoiceMap[sp]=maleVoices[0]?.id||cloudVoices[0]?.id;
-   else if(/BABU/i.test(sp)) speakerVoiceMap[sp]=maleVoices[1]?.id||maleVoices[0]?.id||cloudVoices[0]?.id;
-   else if(/GUDIYA/i.test(sp)) speakerVoiceMap[sp]=femaleVoices[0]?.id||cloudVoices[0]?.id;
-   else if(/SUNITA/i.test(sp)) speakerVoiceMap[sp]=femaleVoices[1]?.id||femaleVoices[0]?.id||cloudVoices[0]?.id;
-   else speakerVoiceMap[sp]=femaleVoices[0]?.id||cloudVoices[0]?.id;
- });
- document.getElementById('voiceStudio').classList.remove('hidden');
- document.getElementById('detectInfo').textContent=`✅ SMART detected ${script.length} lines: ${speakers.join(', ')} - Previously all NARRATOR, now split to 4 voices`;
- buildSpeakerUI(); renderScript();
- audioBlobsOrdered=new Array(currentScript.length).fill(null); mergedBlob=null;
- window.scrollTo({top:document.getElementById('voiceStudio').offsetTop, behavior:'smooth'});
-}
-function buildSpeakerUI(){const cont=document.getElementById('speakerVoiceList'); cont.innerHTML=speakers.map(sp=>{let isMale=/GUDDU|BABU/i.test(sp); let isNarr=/NARRATOR/i.test(sp); let badge=isNarr?'🎙 NARRATOR': isMale?'♂ MALE':'♀ FEMALE'; let color=isNarr?'bg-gray-700': isMale?'bg-blue-600':'bg-pink-600'; let opts=cloudVoices.map(v=>`<option value="${v.id}" ${speakerVoiceMap[sp]===v.id?'selected':''}>${v.name} ${v.gender==='male'?'♂':'♀'}</option>`).join(''); return `<div class="bg-[#FFFBEB] rounded-[14px] p-3 border-2 ${isMale?'border-blue-400': isNarr?'border-gray-400':'border-pink-400'}"><div class="flex justify-between"><span class="text-[11px] font-black px-3 py-1 rounded-full ${color} text-white">${sp} ${badge}</span><button onclick="testSpeaker('${sp}')" class="bg-black text-white rounded-full px-3 py-1.5 text-[9px] font-bold">▶ TEST</button></div><select onchange="speakerVoiceMap['${sp}']=this.value; renderScript()" class="w-full mt-2 bg-white rounded-full px-3 py-2.5 text-[10px] font-bold border-2 border-black">${opts}</select></div>`;}).join('');}
-function renderScript(){const cont=document.getElementById('scriptList'); cont.innerHTML=`<p class="text-[10px] font-black mb-2 text-white/60">SCRIPT - ${currentScript.length} lines - SMART split (was all NARRATOR before)</p>`+currentScript.map((s,i)=>{let v=cloudVoices.find(x=>x.id===speakerVoiceMap[s.speaker]); return `<div class="bg-white text-black rounded-[16px] border-2 p-3"><div class="flex justify-between"><span class="text-[10px] font-black px-3 py-1 rounded-full bg-black text-white">${s.speaker} → ${v?.name||''}</span><span class="text-[8px] bg-yellow-100 px-2 py-1 rounded-full font-bold">${s.emotion}</span></div><p class="text-[13px] font-bold mt-2 dev bg-green-50 rounded-[10px] p-2.5 border">${s.dialogue}</p><p class="text-[7px] opacity-40 mt-1">Original: ${s.orig.slice(0,80)}...</p></div>`;}).join('');}
-async function fetchAudioForLine(i){const s=currentScript[i]; const provider=document.getElementById('provider').value; const key=localStorage.getItem(KEY_STORAGE)||document.getElementById('apiKey').value.trim(); const voiceId=speakerVoiceMap[s.speaker]; if(!key) throw new Error('No key'); let text=s.dialogue + (s.punct==='?'?'?': s.punct==='!'?'!':'.'); if(provider==='elevenlabs'){let r=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?optimize_streaming_latency=0`,{method:'POST',headers:{'xi-api-key':key,'Content-Type':'application/json'},body:JSON.stringify({text:text,model_id:'eleven_multilingual_v2',voice_settings:{stability:0.5,similarity_boost:0.7}})}); if(!r.ok) throw new Error('ElevenLabs '+r.status); return await r.blob();} else{let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1',voice:voiceId,input:text})}); if(!r.ok) throw new Error('OpenAI '+r.status); return await r.blob();}}
+function legacyParse(text){let lines=text.split(/\n+/).filter(l=>l.trim().length>0); let script=[]; lines.forEach(ln=>{if(ln.includes(' - ')){let parts=ln.split(/\s*-\s*/); let sp=mapName(parts[0])||parts[0].toUpperCase().slice(0,10); let dlg=parts.slice(1).join(' - '); script.push({speaker:sp||'NARRATOR',dialogue:dlg,emotion:'normal',punct:'.',orig:ln});}else{script.push({speaker:'NARRATOR',dialogue:ln,emotion:'normal',punct:'.',orig:ln});}}); return script;}
+function analyzeStory(){if(!cloudVoices.length){alert('TEST key first');return;} let raw=document.getElementById('pasteInput').value.trim(); if(!raw){alert('Paste story');return;} let script=mode==='smart'?smartNovelParse(raw):legacyParse(raw); if(!script.length){alert('No parse');return;} currentScript=script; speakers=Array.from(new Set(script.map(s=>s.speaker))); speakerVoiceMap={}; let maleVoices=cloudVoices.filter(v=>v.gender==='male'); let femaleVoices=cloudVoices.filter(v=>v.gender==='female'); speakers.forEach(sp=>{if(/GUDDU/i.test(sp))speakerVoiceMap[sp]=maleVoices[0]?.id||cloudVoices[0]?.id; else if(/BABU/i.test(sp))speakerVoiceMap[sp]=maleVoices[1]?.id||maleVoices[0]?.id||cloudVoices[0]?.id; else if(/GUDIYA/i.test(sp))speakerVoiceMap[sp]=femaleVoices[0]?.id||cloudVoices[0]?.id; else if(/SUNITA/i.test(sp))speakerVoiceMap[sp]=femaleVoices[1]?.id||femaleVoices[0]?.id||cloudVoices[0]?.id; else speakerVoiceMap[sp]=femaleVoices[0]?.id||cloudVoices[0]?.id;}); document.getElementById('voiceStudio').classList.remove('hidden'); document.getElementById('detectInfo').textContent=`${script.length} lines • ${speakers.join(', ')}`; buildSpeakerUI(); renderScript(); audioBlobsOrdered=new Array(currentScript.length).fill(null); mergedBlob=null; window.scrollTo({top:document.getElementById('voiceStudio').offsetTop-80,behavior:'smooth'});}
+function buildSpeakerUI(){const cont=document.getElementById('speakerVoiceList'); cont.innerHTML=speakers.map(sp=>{let isMale=/GUDDU|BABU/i.test(sp); let isNarr=/NARRATOR/i.test(sp); let badge=isNarr?'🎙 NAR': isMale?'♂ MALE':'♀ FEM'; let color=isNarr?'bg-zinc-700': isMale?'bg-blue-600':'bg-pink-600'; let opts=cloudVoices.map(v=>`<option value="${v.id}" ${speakerVoiceMap[sp]===v.id?'selected':''}>${v.name} ${v.gender==='male'?'♂':'♀'}</option>`).join(''); return `<div class="bg-[#F7F1E3] rounded-[12px] p-2.5 border"><div class="flex justify-between items-center"><span class="text-[10px] font-black px-2 py-1 rounded-full ${color} text-white">${sp} ${badge}</span><button onclick="testSpeaker('${sp}')" class="bg-black text-white rounded-full px-2.5 py-1 text-[8px] font-bold">▶ TEST</button></div><select onchange="speakerVoiceMap['${sp}']=this.value; renderScript()" class="w-full mt-2 bg-white rounded-full px-2.5 py-2 text-[9px] font-bold border border-black">${opts}</select></div>`;}).join('');}
+function renderScript(){const cont=document.getElementById('scriptList'); cont.innerHTML=`<p class="text-[9px] font-black opacity-40 mt-2">SCRIPT • ${currentScript.length} lines • SMART split</p>`+currentScript.map(s=>{let v=cloudVoices.find(x=>x.id===speakerVoiceMap[s.speaker]); return `<div class="bg-white text-black rounded-[14px] p-2.5 border"><div class="flex justify-between"><span class="text-[8px] font-black px-2 py-0.5 rounded-full bg-black text-white">${s.speaker} → ${v?.name||''}</span></div><p class="text-[12px] font-bold mt-1.5 dev">${s.dialogue}</p></div>`;}).join('');}
+async function fetchAudioForLine(i){const s=currentScript[i]; const provider=document.getElementById('provider').value; const key=localStorage.getItem(KEY_STORAGE)||document.getElementById('apiKey').value.trim(); const voiceId=speakerVoiceMap[s.speaker]; let text=s.dialogue + '.'; if(provider==='elevenlabs'){let r=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?optimize_streaming_latency=0`,{method:'POST',headers:{'xi-api-key':key,'Content-Type':'application/json'},body:JSON.stringify({text:text,model_id:'eleven_multilingual_v2',voice_settings:{stability:0.5,similarity_boost:0.7}})}); if(!r.ok) throw new Error('ElevenLabs '+r.status); return await r.blob();}else{let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1',voice:voiceId,input:text})}); if(!r.ok) throw new Error('OpenAI '+r.status); return await r.blob();}}
 async function testSpeaker(sp){let idx=currentScript.findIndex(s=>s.speaker===sp); if(idx===-1) idx=0; try{let b=await fetchAudioForLine(idx); new Audio(URL.createObjectURL(b)).play();}catch(e){alert(e.message);}}
-async function playFull(){if(isGenerating){alert('Wait...');return;} if(!currentScript.length){alert('CONVERT first');return;} isGenerating=true; audioBlobsOrdered=new Array(currentScript.length).fill(null); document.getElementById('fullPlayerBox').classList.remove('hidden'); document.getElementById('fullStatus').textContent='⏳ Generating... 0/'+currentScript.length; document.getElementById('audioPlayers').innerHTML=''; for(let i=0;i<currentScript.length;i++){try{document.getElementById('fullStatus').textContent=`⏳ ${i+1}/${currentScript.length} - ${currentScript[i].speaker}: ${currentScript[i].dialogue.slice(0,20)}...`; let blob=await fetchAudioForLine(i); audioBlobsOrdered[i]=blob; let url=URL.createObjectURL(blob); document.getElementById('audioPlayers').innerHTML+=`<div class="bg-white/10 rounded-[12px] p-2"><p class="text-[9px] font-bold">${currentScript[i].speaker}: ${currentScript[i].dialogue.slice(0,40)}</p><audio controls src="${url}" class="w-full mt-1"></audio></div>`;}catch(e){document.getElementById('fullStatus').textContent='❌ Failed at '+(i+1)+': '+e.message; isGenerating=false; return;}} mergedBlob=new Blob(audioBlobsOrdered.filter(b=>b),{type:'audio/mpeg'}); let u=URL.createObjectURL(mergedBlob); document.getElementById('fullAudioPlayer').src=u; document.getElementById('fullStatus').textContent=`✅ Ready - ${currentScript.length} lines - ${speakers.join(', ')} - Now 4 voices, not just NARRATOR`; document.getElementById('fullAudioPlayer').play(); isGenerating=false;}
-function downloadFull(){if(!mergedBlob){alert('First GENERATE FULL');return;} let url=URL.createObjectURL(mergedBlob); let a=document.createElement('a'); a.href=url; a.download='PasteStory-Full-'+Date.now()+'.mp3'; document.body.appendChild(a); a.click(); a.remove(); alert('✅ ONE MP3 downloaded with 4 voices split! Files → Downloads');}
+async function playFull(){if(isGenerating)return; if(!currentScript.length){alert('CONVERT first');return;} isGenerating=true; audioBlobsOrdered=new Array(currentScript.length).fill(null); document.getElementById('fullPlayerBox').classList.remove('hidden'); document.getElementById('fullStatus').textContent='Generating 0/'+currentScript.length; document.getElementById('audioPlayers').innerHTML=''; for(let i=0;i<currentScript.length;i++){try{document.getElementById('fullStatus').textContent=`${i+1}/${currentScript.length} ${currentScript[i].speaker}`; let blob=await fetchAudioForLine(i); audioBlobsOrdered[i]=blob; let url=URL.createObjectURL(blob); document.getElementById('audioPlayers').innerHTML+=`<div class="bg-white/10 rounded-[10px] p-1.5 flex justify-between"><p class="text-[8px] font-bold">${currentScript[i].speaker}: ${currentScript[i].dialogue.slice(0,30)}</p><audio controls src="${url}" class="h-6 w-24"></audio></div>`;}catch(e){document.getElementById('fullStatus').textContent='Failed '+(i+1)+': '+e.message; isGenerating=false; return;}} mergedBlob=new Blob(audioBlobsOrdered.filter(b=>b),{type:'audio/mpeg'}); document.getElementById('fullAudioPlayer').src=URL.createObjectURL(mergedBlob); document.getElementById('fullStatus').textContent=`✅ ${currentScript.length} lines merged`; document.getElementById('fullAudioPlayer').play(); isGenerating=false;}
+function downloadFull(){if(!mergedBlob){alert('GENERATE first');return;} let a=document.createElement('a'); a.href=URL.createObjectURL(mergedBlob); a.download='PasteStory-Full-'+Date.now()+'.mp3'; document.body.appendChild(a); a.click(); a.remove();}
 function clearAudioOnly(){audioBlobsOrdered=[]; mergedBlob=null; document.getElementById('audioPlayers').innerHTML=''; document.getElementById('fullPlayerBox').classList.add('hidden');}
-function clearAllNewStory(){if(!confirm('Clear all for new story? Key stays.'))return; document.getElementById('pasteInput').value=''; currentScript=[]; speakers=[]; speakerVoiceMap={}; audioBlobsOrdered=[]; mergedBlob=null; document.getElementById('voiceStudio').classList.add('hidden'); document.getElementById('scriptList').innerHTML=''; document.getElementById('audioPlayers').innerHTML=''; document.getElementById('fullPlayerBox').classList.add('hidden'); document.getElementById('speakerVoiceList').innerHTML=''; window.scrollTo({top:0,behavior:'smooth'});}
-function saveToLib(){if(!currentScript.length){alert('CONVERT first');return;} let lib=JSON.parse(localStorage.getItem(LIB_KEY)||'[]'); let title=document.getElementById('pasteInput').value.slice(0,30).replace(/\n/g,' '); lib.unshift({id:Date.now(),title:title,date:new Date().toLocaleString(),script:currentScript,speakers:speakers,voiceMap:speakerVoiceMap,raw:document.getElementById('pasteInput').value}); localStorage.setItem(LIB_KEY,JSON.stringify(lib)); renderLib(); alert('Saved!');}
-function renderLib(){let lib=JSON.parse(localStorage.getItem(LIB_KEY)||'[]'); let c=document.getElementById('libList'); if(!lib.length){c.innerHTML='<p class="text-center py-3 text-xs text-white/30">No saved yet</p>';return;} c.innerHTML=lib.map(it=>`<div class="bg-white text-black rounded-[14px] border-2 border-black p-3"><p class="font-bold text-[11px] dev">${it.title}</p><p class="text-[7px] opacity-60">${it.date} - ${it.script?.length} lines</p><div class="grid grid-cols-2 gap-2 mt-2"><button onclick="loadLib(${it.id})" class="bg-black text-white rounded-full py-2 text-[8px] font-black">LOAD</button><button onclick="deleteLib(${it.id})" class="bg-red-100 border-2 border-black rounded-full py-2 text-[8px] font-black">DELETE</button></div></div>`).join('');}
+function clearAllNewStory(){if(!confirm('Clear all? Key stays.'))return; document.getElementById('pasteInput').value=''; currentScript=[]; speakers=[]; speakerVoiceMap={}; audioBlobsOrdered=[]; mergedBlob=null; document.getElementById('voiceStudio').classList.add('hidden'); document.getElementById('scriptList').innerHTML=''; document.getElementById('audioPlayers').innerHTML=''; document.getElementById('fullPlayerBox').classList.add('hidden');}
+function saveToLib(){if(!currentScript.length){alert('CONVERT first');return;} let lib=JSON.parse(localStorage.getItem(LIB_KEY)||'[]'); lib.unshift({id:Date.now(),title:document.getElementById('pasteInput').value.slice(0,30),date:new Date().toLocaleString(),script:currentScript,speakers:speakers,voiceMap:speakerVoiceMap,raw:document.getElementById('pasteInput').value}); localStorage.setItem(LIB_KEY,JSON.stringify(lib)); renderLib();}
+function renderLib(){let lib=JSON.parse(localStorage.getItem(LIB_KEY)||'[]'); let c=document.getElementById('libList'); if(!lib.length){c.innerHTML='<p class="text-center py-2 text-[10px] opacity-30">No saved</p>';return;} c.innerHTML=lib.map(it=>`<div class="bg-white text-black rounded-[12px] p-2.5 border flex justify-between items-center"><div><p class="text-[10px] font-bold dev">${it.title}</p><p class="text-[7px] opacity-60">${it.date}</p></div><div class="flex gap-1"><button onclick="loadLib(${it.id})" class="bg-black text-white rounded-full px-2 py-1 text-[8px]">LOAD</button><button onclick="deleteLib(${it.id})" class="bg-red-100 border border-black rounded-full px-2 py-1 text-[8px]">DEL</button></div></div>`).join('');}
 function loadLib(id){let lib=JSON.parse(localStorage.getItem(LIB_KEY)||'[]'); let it=lib.find(x=>x.id===id); if(!it)return; document.getElementById('pasteInput').value=it.raw; currentScript=it.script; speakers=it.speakers; speakerVoiceMap=it.voiceMap; document.getElementById('voiceStudio').classList.remove('hidden'); buildSpeakerUI(); renderScript();}
 function deleteLib(id){if(!confirm('Delete?'))return; let lib=JSON.parse(localStorage.getItem(LIB_KEY)||'[]'); lib=lib.filter(x=>x.id!==id); localStorage.setItem(LIB_KEY,JSON.stringify(lib)); renderLib();}
 function clearLib(){if(!confirm('Clear all saved?'))return; localStorage.removeItem(LIB_KEY); renderLib();}
@@ -202,6 +119,6 @@ document.getElementById('playFullBtn').addEventListener('click',playFull);
 document.getElementById('downloadFullBtn').addEventListener('click',downloadFull);
 document.getElementById('saveBtn').addEventListener('click',saveToLib);
 document.getElementById('clearAllBtn').addEventListener('click',clearAllNewStory);
-document.getElementById('modeBtn').addEventListener('click',()=>{mode=mode==='smart'?'legacy':'smart'; document.getElementById('modeBtn').textContent='Mode: '+(mode==='smart'?'SMART NOVEL (बोली/बोला)':'LEGACY (GUDDU - format)');});
+document.getElementById('modeBtn').addEventListener('click',()=>{mode=mode==='smart'?'legacy':'smart'; document.getElementById('modeBtn').textContent=mode==='smart'?'SMART NOVEL':'LEGACY';});
 renderLib();
 </script><script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
