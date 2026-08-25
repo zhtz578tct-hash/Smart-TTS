@@ -21,7 +21,7 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 </style><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Story Director V17.1 POLISHED - Fixed Alignment + Hidden API Key</title>
+<title>Story Director V17.2 FINAL FIXES - All 6 Cosmetic Issues Fixed</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 body{background:#120c26;color:#e9e4ff;max-width:580px;margin:auto;font-family:Inter,system-ui}
@@ -30,20 +30,27 @@ body{background:#120c26;color:#e9e4ff;max-width:580px;margin:auto;font-family:In
 .tab-inactive{color:#8b7fb8}
 .card{background:#241a3f;border:1px solid #3d2f68;border-radius:16px}
 .input-dark{background:#1e1638;border:1px solid #3d2f68;color:#fff;border-radius:12px}
-.btn-primary{background:linear-gradient(90deg,#8b5cf6,#ec4899);border-radius:9999px}
-.btn:active{transform:scale(.96)}
-/* FIX 1: Fixed height labels for perfect alignment */
+.btn-primary{background:linear-gradient(90deg,#8b5cf6,#ec4899);border-radius:9999px;color:#fff}
+.btn-stop{background:#ef4444;border-radius:9999px;color:#fff}
+.btn-ghost{background:transparent;border:1px solid #3d2f68;color:#8b7fb8;border-radius:9999px}
+.btn:active{transform:scale(.97)}
 .label-fixed{height:28px; display:flex; align-items:flex-end; font-size:10px; color:#8b7fb8; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .select-fixed{height:52px; min-height:52px}
+/* FIX 1: No background colour for speaker tabs - transparent theme */
+.speaker-card{ background:transparent; border:1px solid #3d2f68; border-radius:16px; padding:12px }
+.speaker-badge{ background:transparent; border:1.5px solid currentColor; border-radius:9999px; padding:4px 12px; font-size:10px; font-weight:900 }
+.badge-male{color:#60a5fa; border-color:#60a5fa}
+.badge-female{color:#f472b6; border-color:#f472b6}
+/* FIX 3: Compact audio */
+.audio-item{background:#1e1638; border:1px solid #3d2f68; border-radius:12px; padding:8px 10px}
+.audio-scroll{max-height:320px; overflow-y:auto; scrollbar-width:thin}
 </style>
 </head><body class="pb-28">
-<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V17.1 👍</h1><p class="text-[9px] text-[#8b7fb8]">POLISHED - Fixed Hindi/Drama Alignment + Hidden Key</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-green-400 text-black px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">BEST</span></div></header>
+<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V17.2</h1><p class="text-[9px] text-[#8b7fb8]">FINAL FIXES - 6 Cosmetic Issues Fixed</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-green-400 text-black px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">V17.2</span></div></header>
 
-<!-- HIDDEN API BOX - FIX 2 -->
 <div id="apiBox" class="hidden p-3"><div class="card p-3 border-2 border-yellow-400 bg-[#1a1230]">
-<p class="text-[11px] font-black flex justify-between"><span>🔑 OpenAI Key - Hidden (tap ⚙️ to hide)</span><button onclick="toggleApiBox()" class="bg-black text-white rounded-full px-2 py-1 text-[8px]">✕ HIDE</button></p>
+<p class="text-[11px] font-black flex justify-between"><span>🔑 OpenAI Key - Hidden behind ⚙️</span><button onclick="toggleApiBox()" class="bg-black text-white rounded-full px-2 py-1 text-[8px]">✕ HIDE</button></p>
 <input id="openaiKey" type="password" placeholder="sk-... paste once - saved forever" class="input-dark w-full mt-2 p-3 text-[11px]">
-<p class="text-[7px] mt-2 bg-[#120c26] p-2 rounded border border-[#3d2f68]">Native accent via gpt-4o-mini-tts + instructions. Same as ChatGPT V16.5. Saved in localStorage.</p>
 <p id="apiStatus" class="text-[7px] mt-1 text-green-400"></p>
 </div></div>
 
@@ -57,36 +64,37 @@ body{background:#120c26;color:#e9e4ff;max-width:580px;margin:auto;font-family:In
 <!-- AI STORY TAB -->
 <div id="view-ai" class="p-3 space-y-3">
 <div class="card p-4 bg-gradient-to-br from-[#2a1f4a] to-[#1e1638]">
-<p class="text-[10px] text-[#a78bfa] font-black">✦ CREATIVE STUDIO - V17.1 POLISHED</p>
-<h2 class="text-[24px] font-black leading-[1.1] mt-1">Your story.<br>Your voice.<br><span class="text-[#a78bfa] text-[16px]">Native Banarasi/Bhojpuri Hindi</span></h2>
-<p class="text-[10px] text-[#8b7fb8] mt-2">Fixed: Hindi/Drama aligned + API key hidden behind ⚙️ button</p>
+<p class="text-[10px] text-[#a78bfa] font-black">✦ CREATIVE STUDIO - V17.2 FINAL</p>
+<h2 class="text-[22px] font-black leading-[1.1] mt-1">Your story.<br>Your voice.<br><span class="text-[#a78bfa] text-[15px]">Native Banarasi/Bhojpuri Hindi</span></h2>
 </div>
-
 <div class="card p-3">
 <label class="text-[12px] font-bold">💡 Story Idea / Prompt</label>
 <textarea id="idea" class="input-dark w-full h-[80px] p-3 mt-2 text-[13px] dev">राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल</textarea>
-
-<!-- FIX 1: ALIGNED GRID - Fixed height labels -->
 <div class="grid grid-cols-2 gap-3 mt-4">
-<div><div class="label-fixed">Language / Dialect</div><select id="lang" class="input-dark w-full p-3 text-[13px] font-black select-fixed"><option selected>Hindi</option><option>Bhojpuri</option><option>Banarasi</option><option>Hindi + Bhojpuri Mix</option><option>Bhojpuri + Banarasi Mix</option></select></div>
+<div><div class="label-fixed">Language / Dialect</div><select id="lang" class="input-dark w-full p-3 text-[13px] font-black select-fixed"><option selected>Hindi</option><option>Bhojpuri</option><option>Banarasi</option><option>Hindi + Bhojpuri Mix</option></select></div>
 <div><div class="label-fixed">Genre</div><select id="genre" class="input-dark w-full p-3 text-[13px] select-fixed"><option selected>Drama</option><option>Romance</option><option>Comedy</option></select></div>
 <div><div class="label-fixed">Story Length</div><select id="length" class="input-dark w-full p-3 text-[13px] select-fixed"><option>Short</option><option selected>Medium - 6 lines</option><option>Long</option></select></div>
 <div><div class="label-fixed">Writing Style</div><select id="styleSel" class="input-dark w-full p-3 text-[12px] select-fixed"><option selected>Dialogue - बोला/बोली</option><option>Cinematic</option><option>Novel</option></select></div>
 </div>
-
-<div class="mt-4"><div class="label-fixed">🎯 Extra Direction</div><input id="extra" class="input-dark w-full p-3 text-[11px] select-fixed" value="5 scenes, strong ending, Banarasi tone, भौकाल, अस्सी घाट, राम सीता मोहन"></div>
-
-<p id="aiStatus" class="text-[8px] mt-3 bg-black p-2 rounded">Ready V17.1 POLISHED - Aligned + Hidden API Key - gpt-4o-mini-tts</p>
-
+<div class="mt-4"><div class="label-fixed">🎯 Extra Direction</div><input id="extra" class="input-dark w-full p-3 text-[11px] select-fixed" value="5 scenes, strong ending, Banarasi tone, भौकाल"></div>
+<p id="aiStatus" class="text-[8px] mt-3 bg-black p-2 rounded">Ready V17.2 - All 6 fixes</p>
 <button onclick="generateStory()" class="btn-primary w-full mt-3 py-4 font-black text-[14px]">✨ Generate Story - Native Hindi/Bhojpuri</button>
-<textarea id="storyOut" class="input-dark w-full h-[240px] mt-3 p-3 text-[13px] dev" placeholder="Story will appear here in बोला/बोली format..."></textarea>
-<div class="flex gap-2 mt-2"><button onclick="copyStory()" class="bg-white text-black rounded-full px-4 py-2 text-[9px] font-black">📋 COPY</button><button onclick="sendToDirector()" class="bg-green-400 text-black rounded-full px-4 py-2 text-[9px] font-black">🎭 SEND TO DIRECTOR →</button></div>
+<textarea id="storyOut" class="input-dark w-full h-[200px] mt-3 p-3 text-[13px] dev" placeholder="Story will appear here..."></textarea>
+<div class="grid grid-cols-3 gap-2 mt-2">
+<button onclick="copyStory()" class="btn-primary py-2.5 text-[9px] font-black">📋 COPY</button>
+<button onclick="sendToDirector()" class="btn-primary py-2.5 text-[9px] font-black">🎭 DIRECTOR →</button>
+<button onclick="clearAI()" class="btn-ghost py-2.5 text-[9px] font-black">🗑️ CLEAR ALL</button>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-2">
+<button onclick="resetAI()" class="btn-ghost py-2 text-[8px]">↺ Reset Inputs</button>
+<button onclick="clearAIOutput()" class="btn-ghost py-2 text-[8px]">Clear Output Only</button>
+</div>
 </div>
 </div>
 
 <!-- PASTE TAB -->
 <div id="view-paste" class="hidden p-3 space-y-3">
-<div class="card p-3"><h3 class="font-black">📋 Paste Your Story - Any names</h3>
+<div class="card p-3"><h3 class="font-black">📋 Paste Your Story</h3>
 <textarea id="pasteInput" class="input-dark w-full h-[200px] mt-2 p-3 text-[13px] dev">राम बोला - सीता, आज अस्सी घाट चलें?
 सीता बोली - क्यों, आज क्या खास है? (शरमाते हुए)
 राम बोला - कुछ नहीं, बस तुम्हारे साथ चाय पीने का मन कर रहा है (धीरे से)
@@ -94,74 +102,122 @@ body{background:#120c26;color:#e9e4ff;max-width:580px;margin:auto;font-family:In
 मोहन बोला - अरे वाह, दोनों की जोड़ी तो बढ़िया लग रही है!
 राम बोला - मोहन, तू भी चल ले (गुस्से से)
 सीता बोली - हाँ मोहन, आ जाओ (खुशी से)</textarea>
-<button onclick="sendPasteToDirector()" class="btn-primary w-full mt-3 py-3 font-black text-[12px]">🎭 SEND TO DIRECTOR</button></div>
+<div class="grid grid-cols-2 gap-2 mt-3">
+<button onclick="sendPasteToDirector()" class="btn-primary py-3 font-black text-[11px]">🎭 SEND TO DIRECTOR</button>
+<button onclick="clearPaste()" class="btn-ghost py-3 text-[10px] font-black">🗑️ CLEAR ALL</button>
+</div>
+<button onclick="resetPaste()" class="btn-ghost w-full mt-2 py-2 text-[8px]">↺ Reset Paste Tab</button>
+</div>
 </div>
 
-<!-- DIRECTOR TAB -->
+<!-- DIRECTOR TAB - FIX 1,2,4,6 -->
 <div id="view-director" class="hidden p-3 space-y-3">
-<div class="card p-3"><h3 class="font-black">🎭 Director - Native Accent Setup</h3>
+<div class="card p-3">
+<h3 class="font-black">🎭 Director - Native Accent Setup</h3>
+<p class="text-[8px] text-[#8b7fb8] mt-1">FIX 1: No background colour for speaker tabs - transparent theme</p>
+<!-- FIX 4: All buttons same theme except STOP - Auto Detect same theme -->
 <button onclick="autoDetect()" class="btn-primary w-full mt-3 py-3 font-black text-[11px]">🤖 AUTO DETECT SPEAKERS</button>
 <div id="directorResult" class="mt-2 text-[8px] bg-black p-2 rounded hidden"></div>
-<div id="speakerList" class="mt-3 space-y-2"></div>
-<button onclick="convertForVoice()" class="bg-yellow-400 text-black w-full mt-3 py-3 rounded-full font-black text-[11px]">🔊 CONVERT FOR VOICE STUDIO →</button>
+
+<div id="speakerList" class="mt-3 space-y-3"></div>
+
+<!-- FIX 2: Convert button same colour as Auto Detect (not yellow) + FIX 4: Same theme -->
+<button onclick="convertForVoice()" class="btn-primary w-full mt-4 py-4 font-black text-[11px]">🔊 CONVERT FOR VOICE STUDIO →</button>
+
+<div class="grid grid-cols-2 gap-2 mt-3">
+<button onclick="clearDirector()" class="btn-ghost py-3 text-[10px] font-black">🗑️ CLEAR ALL</button>
+<button onclick="resetDirector()" class="btn-ghost py-3 text-[10px] font-black">↺ Reset Director</button>
+</div>
 </div>
 <div id="scriptList" class="space-y-2"></div>
+<div class="card p-2 flex gap-2 mt-2">
+<button onclick="clearScript()" class="btn-ghost flex-1 py-2 text-[8px]">Clear Script Only</button>
+<button onclick="clearDirectorAll()" class="btn-ghost flex-1 py-2 text-[8px]">🗑️ CLEAR ENTIRE PAGE</button>
+</div>
 </div>
 
-<!-- VOICE TAB -->
+<!-- VOICE TAB - FIX 3,4,5,6 -->
 <div id="view-voice" class="hidden p-3 space-y-3">
-<div class="card p-3 border-2 border-purple-500"><h3 class="font-black text-purple-300">🎙️ Voice Studio V17.1 - Native</h3>
-<p id="playStatus" class="text-[8px] bg-black p-2 rounded mt-2">Ready - Native Hindi/Bhojpuri/Banarasi via gpt-4o-mini-tts</p>
+<div class="card p-3 border border-purple-500">
+<h3 class="font-black text-purple-300">🎙️ Voice Studio V17.2 - Native</h3>
+<p class="text-[7px] text-[#8b7fb8]">FIX 3: Compact scrollable box for big stories</p>
+<p id="playStatus" class="text-[8px] bg-black p-2 rounded mt-2">Ready - Native Hindi/Bhojpuri/Banarasi</p>
 <div class="w-full bg-white/20 rounded-full h-[6px] mt-2"><div id="progressBar" class="bg-green-400 h-full" style="width:0%"></div></div>
-<div class="grid grid-cols-2 gap-2 mt-3"><button id="playFullBtn" class="bg-white text-black rounded-full py-3 text-[10px] font-black">▶ GENERATE ALL - NATIVE</button><button id="stopBtn" class="bg-red-500 text-white rounded-full py-3 text-[10px] font-black">⏹ STOP</button></div>
-<div id="audioPlayers" class="mt-3 space-y-2 max-h-[450px] overflow-y-auto bg-black/30 p-2 rounded-[12px]"></div>
-<div id="masterBox" class="hidden mt-3 bg-white text-black rounded-[12px] p-2"><audio id="masterAudio" controls class="w-full"></audio><a id="masterDl" href="#" download="story_v17_1_polished.mp3" class="bg-black text-white rounded-full px-4 py-2 text-[8px] font-black mt-2 inline-block">⬇️ DOWNLOAD FULL</a></div>
+
+<!-- FIX 4: All buttons same theme except STOP -->
+<div class="grid grid-cols-3 gap-2 mt-3">
+<button id="playFullBtn" class="btn-primary col-span-2 py-3 text-[10px] font-black">▶ GENERATE ALL - NATIVE</button>
+<button id="stopBtn" class="btn-stop py-3 text-[10px] font-black">⏹ STOP</button>
+</div>
+
+<!-- FIX 3: Compact scrollable box -->
+<div id="audioBox" class="mt-3 audio-scroll bg-[#0e091e] border border-[#3d2f68] rounded-[16px] p-2">
+<div id="audioPlayers" class="space-y-2"></div>
+</div>
+
+<!-- FIX 5: Download button as per app theme - big, gradient, not tiny -->
+<div id="masterBox" class="hidden mt-3">
+<div class="card p-3 bg-gradient-to-br from-[#2a1f4a] to-[#1e1638] border-2 border-purple-500">
+<audio id="masterAudio" controls class="w-full rounded-[12px]"></audio>
+<a id="masterDl" href="#" download="story_v17_2_native.mp3" class="btn-primary w-full mt-3 py-4 text-center block font-black text-[12px]">⬇️ DOWNLOAD FULL STORY - NATIVE ACCENT</a>
+<p class="text-[7px] text-[#8b7fb8] text-center mt-2">Full story MP3 - Native Hindi/Bhojpuri/Banarasi</p>
+</div>
+</div>
+
+<!-- FIX 6: CLEAR ALL & Reset per page -->
+<div class="grid grid-cols-3 gap-2 mt-3">
+<button onclick="clearVoice()" class="btn-ghost py-2.5 text-[9px] font-black">🗑️ CLEAR ALL</button>
+<button onclick="resetVoice()" class="btn-ghost py-2.5 text-[9px] font-black">↺ Reset Voice</button>
+<button onclick="clearAudioOnly()" class="btn-ghost py-2.5 text-[9px] font-black">Clear Audio Only</button>
+</div>
 </div>
 </div>
 
 <script>
-let tab='ai', cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, speakerGenderMap={}, speakerEmotionMap={}, audioBlobs=[], audioUrls=[], masterUrl=null, isPlaying=false, stopRequested=false, storyMemory='';
+let tab='ai', cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, speakerGenderMap={}, audioBlobs=[], audioUrls=[], masterUrl=null, isPlaying=false, stopRequested=false, storyMemory='';
 
-function setTab(t){
- tab=t;
- ['ai','paste','director','voice'].forEach(x=>{
-   document.getElementById('view-'+x).classList.toggle('hidden', x!==t);
-   document.getElementById('tab-'+x).className = x===t ? 'tab-active pb-2' : 'tab-inactive pb-2';
- });
-}
-function toggleApiBox(){
- let box=document.getElementById('apiBox');
- box.classList.toggle('hidden');
-}
-function saveKey(){let k=document.getElementById('openaiKey').value.trim(); if(k){localStorage.setItem('openai_key_v17_1',k); localStorage.setItem('openai_key_v17_best',k); localStorage.setItem('openai_key',k); document.getElementById('apiStatus').textContent='✅ Key saved - Tap ⚙️ to hide'; setTimeout(()=>document.getElementById('apiBox').classList.add('hidden'),1000);}}
-function loadKey(){let k=localStorage.getItem('openai_key_v17_1')||localStorage.getItem('openai_key_v17_best')||localStorage.getItem('openai_key')||''; if(k){document.getElementById('openaiKey').value=k; document.getElementById('apiStatus').textContent='✅ Key loaded - Hidden behind ⚙️';}}
+function setTab(t){ tab=t; ['ai','paste','director','voice'].forEach(x=>{ document.getElementById('view-'+x).classList.toggle('hidden', x!==t); document.getElementById('tab-'+x).className = x===t ? 'tab-active pb-2' : 'tab-inactive pb-2'; }); }
+function toggleApiBox(){ document.getElementById('apiBox').classList.toggle('hidden'); }
+function saveKey(){let k=document.getElementById('openaiKey').value.trim(); if(k){localStorage.setItem('openai_key_v17_2',k); localStorage.setItem('openai_key',k); document.getElementById('apiStatus').textContent='✅ Saved - hidden'; setTimeout(()=>document.getElementById('apiBox').classList.add('hidden'),800);}}
+function loadKey(){let k=localStorage.getItem('openai_key_v17_2')||localStorage.getItem('openai_key')||''; if(k) document.getElementById('openaiKey').value=k;}
 window.addEventListener('load', loadKey);
 document.getElementById('openaiKey').addEventListener('change', saveKey);
-function getKey(){return document.getElementById('openaiKey').value.trim() || localStorage.getItem('openai_key_v17_1') || '';}
+function getKey(){return document.getElementById('openaiKey').value.trim() || localStorage.getItem('openai_key_v17_2') || '';}
 
-// Same core logic as V17 BEST but polished UI
+// CLEAR & RESET per page - FIX 6
+function clearAI(){ document.getElementById('idea').value=''; document.getElementById('extra').value=''; document.getElementById('storyOut').value=''; document.getElementById('aiStatus').textContent='Cleared - Ready'; }
+function resetAI(){ document.getElementById('idea').value='राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल'; document.getElementById('extra').value='5 scenes, strong ending, Banarasi tone, भौकाल'; document.getElementById('aiStatus').textContent='Reset - Ready'; }
+function clearAIOutput(){ document.getElementById('storyOut').value=''; }
+function clearPaste(){ document.getElementById('pasteInput').value=''; }
+function resetPaste(){ document.getElementById('pasteInput').value=`राम बोला - सीता, आज अस्सी घाट चलें?
+सीता बोली - क्यों, आज क्या खास है? (शरमाते हुए)
+राम बोला - कुछ नहीं, बस तुम्हारे साथ चाय पीने का मन कर रहा है (धीरे से)
+सीता बोली - अच्छा, तो ये बात है? (छेड़ते हुए)
+मोहन बोला - अरे वाह, दोनों की जोड़ी तो बढ़िया लग रही है!
+राम बोला - मोहन, तू भी चल ले (गुस्से से)
+सीता बोली - हाँ मोहन, आ जाओ (खुशी से)`; }
+function clearDirector(){ document.getElementById('speakerList').innerHTML=''; document.getElementById('directorResult').classList.add('hidden'); speakers=[]; speakerVoiceMap={}; }
+function resetDirector(){ clearDirector(); autoDetect(); }
+function clearScript(){ document.getElementById('scriptList').innerHTML=''; currentScript=[]; }
+function clearDirectorAll(){ clearDirector(); clearScript(); document.getElementById('pasteInput').value=''; }
+function clearVoice(){ document.getElementById('audioPlayers').innerHTML=''; audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[]; if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null; document.getElementById('masterBox').classList.add('hidden'); document.getElementById('playStatus').textContent='Cleared - Ready'; document.getElementById('progressBar').style.width='0%'; }
+function resetVoice(){ clearVoice(); currentScript=[]; }
+function clearAudioOnly(){ document.getElementById('audioPlayers').innerHTML=''; }
+
 async function generateStory(){
- let key=getKey(); if(!key){toggleApiBox(); alert('Paste OpenAI sk-... key - tap ⚙️ API button'); return;} saveKey();
- let idea=document.getElementById('idea').value.trim();
- let lang=document.getElementById('lang').value;
- let genre=document.getElementById('genre').value;
- let extra=document.getElementById('extra').value;
- let out=document.getElementById('storyOut');
- let status=document.getElementById('aiStatus');
- status.textContent='⏳ Generating '+lang+' '+genre+'...';
+ let key=getKey(); if(!key){toggleApiBox(); alert('Paste key - ⚙️ API'); return;} saveKey();
+ let idea=document.getElementById('idea').value.trim(); let lang=document.getElementById('lang').value; let genre=document.getElementById('genre').value; let extra=document.getElementById('extra').value;
+ let out=document.getElementById('storyOut'); let status=document.getElementById('aiStatus');
+ status.textContent='⏳ Generating '+lang+'...';
  try{
-   let sys=`You are expert ${lang} story writer. Language: ${lang}. Format: Dialogue Dominant बोला/बोली. Extra: ${extra}. Write 6 lines.`;
+   let sys=`You are expert ${lang} story writer. Format: Dialogue बोला/बोली. Extra: ${extra}. 6 lines.`;
    let res=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'gpt-4o-mini', messages:[{role:'system',content:sys},{role:'user',content:'Story Idea: '+idea}], temperature:0.85, max_tokens:600})});
-   if(!res.ok) throw new Error('Chat '+res.status);
-   let data=await res.json();
-   let story=data.choices?.[0]?.message?.content||'';
-   out.value=story; storyMemory=story;
-   status.textContent=`✅ Generated ${story.split(/\s+/).length} words - ${lang}`;
+   let data=await res.json(); let story=data.choices?.[0]?.message?.content||''; out.value=story; storyMemory=story; status.textContent=`✅ ${story.split(/\s+/).length} words - ${lang}`;
  }catch(e){status.textContent='❌ '+e.message;}
 }
-function copyStory(){let t=document.getElementById('storyOut').value; navigator.clipboard.writeText(t).then(()=>alert('Copied'));}
-function sendToDirector(){let s=document.getElementById('storyOut').value.trim(); if(!s){alert('Generate first'); return;} document.getElementById('pasteInput').value=s; setTab('director'); autoDetect();}
-function sendPasteToDirector(){let s=document.getElementById('pasteInput').value.trim(); if(!s){alert('Paste story'); return;} storyMemory=s; setTab('director'); autoDetect();}
+function copyStory(){ navigator.clipboard.writeText(document.getElementById('storyOut').value).then(()=>alert('Copied')); }
+function sendToDirector(){ let s=document.getElementById('storyOut').value.trim(); if(!s){alert('Generate first'); return;} document.getElementById('pasteInput').value=s; setTab('director'); autoDetect(); }
+function sendPasteToDirector(){ let s=document.getElementById('pasteInput').value.trim(); if(!s){alert('Paste'); return;} storyMemory=s; setTab('director'); autoDetect(); }
 function mapSpeaker(w){return w.trim().replace(/[^A-Za-z\u0900-\u097F0-9]/g,'').slice(0,20)||'NARRATOR';}
 function parseLine(orig){
  let line=orig.trim(); let sp=null,dial=line;
@@ -169,30 +225,24 @@ function parseLine(orig){
  let m1=line.match(/^([A-Za-z\u0900-\u097F]{2,20})\s*[:：]\s*(.+)/);
  if(m1){sp=mapSpeaker(m1[1]); dial=m1[2];} else if(m2){sp=mapSpeaker(m2[1]); dial=m2[2];} else if(line.includes(' - ')){let p=line.split(/\s*[-–—]\s*/); if(p.length>=2){sp=mapSpeaker(p[0].split(/\s+/)[0]); dial=p.slice(1).join(' - ');}}
  if(!sp||sp.length<2) sp='NARRATOR';
- let emo='normal'; let low=dial.toLowerCase(); if(low.match(/धीरे|फुसफुसा/)) emo='whispering'; else if(low.match(/शरमा/)) emo='shy'; else if(low.match(/छेड़|ताना/)) emo='teasing'; else if(low.match(/गुस्सा/)) emo='angry';
  let clean=dial.replace(/\([^)]*\)/g,'').trim();
- return {speaker:sp, dialogue:clean, raw:dial, emotion:emo, fullLine:orig};
+ return {speaker:sp, dialogue:clean, fullLine:orig};
 }
-function detectGender(line,name){let l=line.toLowerCase(); if(l.match(/बोली|सीता|गुड़िया|सुनीता/)) return 'female'; return 'male';}
+function detectGender(line){let l=line.toLowerCase(); if(l.match(/बोली|सीता|गुड़िया|सुनीता/)) return 'female'; return 'male';}
 function autoDetect(){
  cloudVoices=[
    {id:'alloy', name:'Alloy ♂ MALE - Ram - Banarasi', gender:'male', baseInstruction:'Male, deep warm Banarasi Hindi accent, Bhojpuri touch'},
    {id:'onyx', name:'Onyx ♂ MALE - Mohan - Deep Banarasi', gender:'male', baseInstruction:'Male, deep Banarasi Hindi accent, energetic Bhojpuri slang'},
    {id:'nova', name:'Nova ♀ FEMALE - Sita - Native Hindi', gender:'female', baseInstruction:'Female, soft native Hindi accent, Banarasi/Bhojpuri tone, sweet, shy'},
  ];
- let raw=(document.getElementById('pasteInput').value.trim() || storyMemory).trim();
- if(!raw){alert('No story'); return;}
- let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean);
- let map={};
- lines.forEach(o=>{let p=parseLine(o); let sp=p.speaker; if(!map[sp]) map[sp]={count:0,male:0,female:0}; map[sp].count++; let g=detectGender(p.fullLine,sp); if(g==='female') map[sp].female++; else map[sp].male++;});
+ let raw=(document.getElementById('pasteInput').value.trim() || storyMemory).trim(); if(!raw){alert('No story'); return;}
+ let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean); let map={};
+ lines.forEach(o=>{let p=parseLine(o); let sp=p.speaker; if(!map[sp]) map[sp]={count:0,male:0,female:0}; map[sp].count++; let g=detectGender(p.fullLine); if(g==='female') map[sp].female++; else map[sp].male++;});
  speakers=Object.keys(map);
  speakers.forEach(sp=>{speakerGenderMap[sp]=map[sp].female>map[sp].male?'female':'male';});
- let males=cloudVoices.filter(v=>v.gender==='male'), females=cloudVoices.filter(v=>v.gender==='female');
- let mi=0,fi=0;
+ let males=cloudVoices.filter(v=>v.gender==='male'), females=cloudVoices.filter(v=>v.gender==='female'); let mi=0,fi=0;
  speakers.forEach(sp=>{if(!speakerVoiceMap[sp]){if(speakerGenderMap[sp]==='female'){speakerVoiceMap[sp]=females[fi%females.length]?.id; fi++;} else {speakerVoiceMap[sp]=males[mi%males.length]?.id; mi++;}}});
- let res=document.getElementById('directorResult'); res.classList.remove('hidden');
- let lang=document.getElementById('lang').value;
- res.innerHTML=`✅ ${speakers.length} speakers - ${lang} native accent - Aligned UI`;
+ document.getElementById('directorResult').classList.remove('hidden'); document.getElementById('directorResult').innerHTML=`✅ ${speakers.length} speakers - ${document.getElementById('lang').value} native - No background colour (transparent theme)`;
  renderDirector();
 }
 function renderDirector(){
@@ -200,63 +250,38 @@ function renderDirector(){
  cont.innerHTML=speakers.map(sp=>{
    let g=speakerGenderMap[sp]||'male'; let isF=g==='female';
    let opts=cloudVoices.map(v=>`<option value="${v.id}" ${speakerVoiceMap[sp]===v.id?'selected':''}>${v.name}</option>`).join('');
-   return `<div class="card p-2 border ${isF?'border-pink-500':'border-blue-500'}"><div class="flex justify-between items-center"><span class="text-[10px] font-black px-2 py-1 rounded-full ${isF?'bg-pink-600':'bg-blue-600'} text-white">${sp} ${isF?'♀ Female':'♂ Male'}</span><button onclick="testSpeaker('${sp}')" class="bg-black text-white rounded-full px-2 py-1 text-[7px]">▶ TEST NATIVE</button></div><select onchange="speakerVoiceMap['${sp}']=this.value" class="input-dark w-full mt-2 p-2 text-[9px]">${opts}</select></div>`;
+   // FIX 1: No background colour - transparent with border only
+   return `<div class="speaker-card"><div class="flex justify-between items-center"><span class="speaker-badge ${isF?'badge-female':'badge-male'}">${sp} ${isF?'♀ Female':'♂ Male'}</span><button onclick="testSpeaker('${sp}')" class="bg-[#1e1638] border border-[#3d2f68] text-white rounded-full px-3 py-1.5 text-[8px] font-black">▶ TEST NATIVE</button></div><select onchange="speakerVoiceMap['${sp}']=this.value" class="input-dark w-full mt-3 p-2.5 text-[10px]">${opts}</select></div>`;
  }).join('');
  let raw=(document.getElementById('pasteInput').value.trim() || storyMemory).trim();
  let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean);
  currentScript=lines.map(parseLine);
- document.getElementById('scriptList').innerHTML=`<p class="text-[9px] opacity-60">SCRIPT ${currentScript.length} lines</p>`+currentScript.map((s,i)=>`<div class="card p-2"><span class="bg-black text-white rounded-full px-2 py-1 text-[8px]">${s.speaker}</span><p class="text-[12px] mt-2 dev">${s.dialogue}</p></div>`).join('');
+ document.getElementById('scriptList').innerHTML=`<p class="text-[9px] opacity-60">SCRIPT ${currentScript.length} lines - Transparent theme</p>`+currentScript.map((s,i)=>`<div class="card p-3"><span class="speaker-badge ${s.speaker.includes('सीता')?'badge-female':'badge-male'}" style="font-size:8px">${s.speaker}</span><p class="text-[12px] mt-2 dev">${s.dialogue}</p></div>`).join('');
 }
 function convertForVoice(){if(currentScript.length===0){alert('Auto detect first'); return;} setTab('voice');}
-function buildInstruction(speaker, text){
- let lang=document.getElementById('lang').value;
- let vObj=cloudVoices.find(v=>v.id===speakerVoiceMap[speaker]);
- let base=vObj?.baseInstruction||`Native ${lang} accent`;
- return `Speak in ${lang} language, ${base}, native Hindi/Bhojpuri/Banarasi accent, not US English, warm, dramatic`;
-}
+function buildInstruction(speaker){ let lang=document.getElementById('lang').value; let vObj=cloudVoices.find(v=>v.id===speakerVoiceMap[speaker]); let base=vObj?.baseInstruction||`Native ${lang} accent`; return `Speak in ${lang} language, ${base}, native Hindi/Bhojpuri/Banarasi accent, not US English, warm, dramatic`; }
 async function playLine(i,save=true,auto=false){
- let s=currentScript[i]; let voiceId=speakerVoiceMap[s.speaker]; let text=s.dialogue;
- let instruction=buildInstruction(s.speaker, text);
+ let s=currentScript[i]; let voiceId=speakerVoiceMap[s.speaker]; let text=s.dialogue; let instruction=buildInstruction(s.speaker);
  let key=getKey(); if(!key){toggleApiBox(); throw new Error('no key');}
  let body={model:'gpt-4o-mini-tts', voice:voiceId, input:text, instructions:instruction};
  let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify(body)});
- if(!r.ok){
-   let fb=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1-hd', voice:voiceId, input:text, speed:1.0})});
-   let blob=await fb.blob(); let url=URL.createObjectURL(blob);
-   if(save){audioBlobs.push({url,blob}); audioUrls.push(url);}
-   let container=document.getElementById('audioPlayers'); let div=document.createElement('div'); div.className='bg-white text-black rounded-[8px] p-2'; div.innerHTML=`<p class="text-[7px] font-bold">${i+1}. ${s.speaker} Fallback</p><audio controls src="${url}" class="w-full mt-1"></audio>`; container.appendChild(div);
-   return {url,blob};
- }
- let blob=await r.blob(); let url=URL.createObjectURL(blob);
- if(save){audioBlobs.push({url,blob}); audioUrls.push(url);}
- let container=document.getElementById('audioPlayers'); let div=document.createElement('div'); div.className='bg-white text-black rounded-[8px] p-2 border-2 border-green-400'; div.innerHTML=`<p class="text-[7px] font-bold text-green-600">✅ ${i+1}. ${s.speaker} NATIVE ${document.getElementById('lang').value}</p><audio controls src="${url}" class="w-full mt-1"></audio>`; container.appendChild(div);
+ if(!r.ok){ let fb=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1-hd', voice:voiceId, input:text, speed:1.0})}); let blob=await fb.blob(); let url=URL.createObjectURL(blob); if(save){audioBlobs.push({url,blob}); audioUrls.push(url);} let container=document.getElementById('audioPlayers'); let div=document.createElement('div'); div.className='audio-item'; div.innerHTML=`<div class="flex justify-between items-center"><span class="text-[9px] font-black">${i+1}. ${s.speaker} Fallback</span><span class="text-[7px] opacity-60">${text.slice(0,20)}</span></div><audio controls src="${url}" class="w-full mt-2 h-[32px]"></audio>`; container.appendChild(div); return {url,blob}; }
+ let blob=await r.blob(); let url=URL.createObjectURL(blob); if(save){audioBlobs.push({url,blob}); audioUrls.push(url);}
+ // FIX 3: Compact audio item
+ let container=document.getElementById('audioPlayers'); let div=document.createElement('div'); div.className='audio-item'; div.innerHTML=`<div class="flex justify-between items-center"><span class="text-[9px] font-black text-green-400">✅ ${i+1}. ${s.speaker} NATIVE ${document.getElementById('lang').value}</span><span class="text-[7px] opacity-50">${s.dialogue.slice(0,25)}...</span></div><audio controls src="${url}" class="w-full mt-2 h-[32px]"></audio>`; container.appendChild(div);
  if(auto){let a=new Audio(url); a.play(); return new Promise(res=>{a.onended=()=>res();});}
  return {url,blob};
 }
 async function playFull(){
  let key=getKey(); if(!key){toggleApiBox(); return;}
  if(currentScript.length===0){alert('Convert first'); return;}
- isPlaying=true; stopRequested=false;
- document.getElementById('playFullBtn').disabled=true;
- document.getElementById('audioPlayers').innerHTML='';
- audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[];
- if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null;
- document.getElementById('masterBox').classList.add('hidden');
- document.getElementById('playStatus').textContent=`▶ Generating ${currentScript.length} NATIVE ${document.getElementById('lang').value}...`;
- document.getElementById('progressBar').style.width='0%';
- for(let i=0;i<currentScript.length;i++){
-   if(stopRequested) break;
-   document.getElementById('progressBar').style.width=Math.round(i/currentScript.length*100)+'%';
-   try{await playLine(i,true,false);}catch(e){continue;}
- }
+ isPlaying=true; stopRequested=false; document.getElementById('playFullBtn').disabled=true; document.getElementById('audioPlayers').innerHTML=''; audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[]; if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null; document.getElementById('masterBox').classList.add('hidden');
+ document.getElementById('playStatus').textContent=`▶ Generating ${currentScript.length} NATIVE ${document.getElementById('lang').value} - Compact scrollable`; document.getElementById('progressBar').style.width='0%';
+ for(let i=0;i<currentScript.length;i++){ if(stopRequested) break; document.getElementById('progressBar').style.width=Math.round(i/currentScript.length*100)+'%'; try{await playLine(i,true,false);}catch(e){continue;} }
  document.getElementById('progressBar').style.width='100%';
  if(audioBlobs.length>0){
-   let combined=new Blob(audioBlobs.map(b=>b.blob),{type:'audio/mpeg'});
-   masterUrl=URL.createObjectURL(combined);
-   document.getElementById('masterAudio').src=masterUrl;
-   document.getElementById('masterDl').href=masterUrl;
-   document.getElementById('masterBox').classList.remove('hidden');
-   document.getElementById('playStatus').textContent=`✅ ${audioBlobs.length} NATIVE ${document.getElementById('lang').value} - Polished V17.1`;
+   let combined=new Blob(audioBlobs.map(b=>b.blob),{type:'audio/mpeg'}); masterUrl=URL.createObjectURL(combined); document.getElementById('masterAudio').src=masterUrl; document.getElementById('masterDl').href=masterUrl; document.getElementById('masterBox').classList.remove('hidden');
+   document.getElementById('playStatus').textContent=`✅ ${audioBlobs.length} NATIVE ${document.getElementById('lang').value} - Compact box - Download button fixed`;
  }
  document.getElementById('playFullBtn').disabled=false; isPlaying=false;
 }
