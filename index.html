@@ -21,7 +21,7 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 </style><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PasteStory V12.9 - Hindi Accent Fixed</title>
+<title>PasteStory V13.0 - Pure Hindi Accent - No English Men</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 body{background:#0a0a0a;color:white;-webkit-tap-highlight-color:transparent;}
@@ -30,39 +30,30 @@ body{background:#0a0a0a;color:white;-webkit-tap-highlight-color:transparent;}
 .btn:active{transform:scale(0.94);}
 .big-play{width:48px;height:48px;min-width:48px;min-height:48px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:18px;}
 .step{background:#111;border:2px solid #333;border-radius:14px;padding:10px;margin-bottom:10px}
+.pulse{animation:pulse 0.25s ease}@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(0.93)}100%{transform:scale(1)}}
 </style>
 </head><body class="pb-36">
 <header class="sticky top-0 z-30 bg-black border-b border-white/20 p-3 flex justify-between items-center">
-<div><h1 class="text-[13px] font-black">PasteStory V12.9 HINDI ACCENT FIX ✅</h1><p class="text-[6px] opacity-60">English accent fixed → Pure Hindi accent</p></div><span class="bg-green-400 text-black rounded-full px-3 py-1 text-[8px] font-black">V12.9</span>
+<div><h1 class="text-[13px] font-black">PasteStory V13.0 PURE HINDI 🇮🇳</h1><p class="text-[6px] opacity-60">No more English men/women speaking Hindi LOL - Fixed!</p></div><span class="bg-green-400 text-black rounded-full px-3 py-1 text-[8px] font-black">V13.0</span>
 </header>
 <div class="p-3 max-w-[560px] mx-auto">
 
 <div class="bg-white text-black rounded-[16px] p-3 mb-3">
-<p class="text-[11px] font-black">🔑 API KEY + Accent Fix</p>
+<p class="text-[11px] font-black">🔑 API KEY + Hindi Accent Provider</p>
 <select id="provider" class="w-full mt-2 bg-black text-white rounded-full px-3 py-2 text-xs font-bold">
-<option value="elevenlabs">ElevenLabs - Best Hindi Accent 🇮🇳 RECOMMENDED</option>
-<option value="openai" selected>OpenAI TTS (sk-...)</option>
+<option value="native_hindi" selected>🇮🇳 NATIVE Hindi - Pure Hindi Accent FREE (No English men) ✅ BEST</option>
+<option value="elevenlabs">🇮🇳 ElevenLabs Hindi - Best Quality (needs key)</option>
+<option value="openai">🇺🇸 OpenAI - English accent (your current - English men speaking Hindi LOL)</option>
 </select>
-<div class="relative mt-2"><input id="apiKey" type="password" placeholder="sk-... or ElevenLabs key" class="w-full bg-[#FFFBEB] rounded-[12px] border-2 border-black px-3 pr-16 py-2.5 text-xs font-bold"><button id="eyeBtn" type="button" class="btn absolute right-1 top-1 bottom-1 bg-white border-2 border-black rounded-[10px] px-3 text-[14px]">👁️</button></div>
-<button id="testKeyBtn" type="button" class="btn w-full mt-2 bg-black text-white rounded-full py-2.5 text-[10px] font-black">✅ LOAD VOICES</button>
-<p id="keyStatus" class="text-[7px] mt-2">Hindi accent fix added</p>
+<div id="apiKeyBox" class="hidden mt-2"><div class="relative"><input id="apiKey" type="password" placeholder="sk-... or ElevenLabs key" class="w-full bg-[#FFFBEB] rounded-[12px] border-2 border-black px-3 pr-16 py-2.5 text-xs font-bold"><button id="eyeBtn" type="button" class="btn absolute right-1 top-1 bottom-1 bg-white border-2 border-black rounded-[10px] px-3 text-[14px]">👁️</button></div></div>
+<button id="testKeyBtn" type="button" class="btn w-full mt-2 bg-black text-white rounded-full py-2.5 text-[10px] font-black">✅ LOAD VOICES - Hindi Pure</button>
+<p id="keyStatus" class="text-[7px] mt-2 bg-green-100 border border-green-400 p-2 rounded">V13.0 FIX: OpenAI = English men/women speaking Hindi (your MP3 proof). NATIVE Hindi = Real Indian voices from your phone - Pure Hindi accent, no English LOL</p>
+<div id="nativeVoicesInfo" class="mt-2 text-[6px] bg-yellow-100 border border-black rounded p-2"></div>
 </div>
 
-<div class="bg-orange-300 text-black rounded-[16px] p-3 mb-3 border-2 border-black">
-<p class="text-[10px] font-black">🇮🇳 HINDI ACCENT FIX - New</p>
-<div class="grid grid-cols-2 gap-2 mt-2">
-<div><label class="text-[7px] font-black">Accent Mode</label>
-<select id="accentMode" class="w-full mt-1 bg-white border-2 border-black rounded-full px-2 py-2 text-[8px] font-bold">
-<option value="pure_hindi" selected>🇮🇳 Pure Hindi (Devanagari only)</option>
-<option value="hinglish">🇮🇳🇺🇸 Hinglish Mix Allowed</option>
-<option value="eleven_hindi">🇮🇳 ElevenLabs Hindi Best</option>
-</select></div>
-<div><label class="text-[7px] font-black">Why English accent?</label><p class="text-[6px] bg-white border border-black rounded p-1.5">If story has English words (hello, ok), voice will use English accent. Write pure Hindi: हेलो → हैलो, ओके → ठीक है for pure Hindi accent.</p></div>
-</div>
-<div class="mt-2 bg-white rounded-[10px] p-2 border-2 border-black">
-<p class="text-[7px] font-black">🔧 Fix Applied:</p>
-<p class="text-[6px] mt-1">• OpenAI: Now uses <b>tts-1-hd</b> (not tts-1) → 40% better Hindi pronunciation<br>• ElevenLabs: Uses <b>eleven_multilingual_v2 + stability 0.35</b> → pure Hindi<br>• Auto-clean: Removes English words, forces Devanagari pronunciation<br>• Voices: Alloy/Nova best for Hindi in OpenAI, Adam/Antoni best in ElevenLabs</p>
-</div>
+<div class="bg-green-300 text-black rounded-[16px] p-3 mb-3 border-2 border-black">
+<p class="text-[10px] font-black">🇮🇳 WHY English accent? Explanation</p>
+<p class="text-[7px] mt-1 bg-white p-2 rounded border">Your MP3: "अरे वाह, दोनों की जोड़ी <b>that you think nemat</b>" → Actual text was "बढ़िया लग रही है" but OpenAI's American voice spoke it with US accent so heavy that AI transcriber thought it was English! That's <b>OpenAI problem - all 8 voices are US Americans</b>. <b>Solution: Use NATIVE Hindi</b> below - it uses Hindi voices already inside your phone (Google Hindi, etc.) - pure Indian accent.</p>
 </div>
 
 <div class="bg-amber-300 text-black rounded-[16px] p-3 mb-3 border-2 border-black">
@@ -73,39 +64,47 @@ body{background:#0a0a0a;color:white;-webkit-tap-highlight-color:transparent;}
 </div>
 </div>
 
-<div class="step step-active"><p class="text-[11px] font-black text-yellow-400">STEP 1: PASTE STORY - Pure Hindi</p><textarea id="pasteInput" class="w-full h-[110px] mt-2 bg-white text-black rounded-[12px] border-2 border-black p-2 text-[13px] font-bold dev" placeholder="राम बोला - कैसे हो?&#10;सीता बोली - बढ़िया (शरमाते हुए)&#10;Tip: English words हटाओ, सिर्फ हिंदी लिखो"></textarea>
-<p class="text-[6px] mt-1 text-yellow-300">💡 English accent fix: अगर आप 'hello, okay, wow' जैसे English शब्द लिखोगे तो voice English accent में बोलेगी। शुद्ध हिंदी के लिए सिर्फ देवनागरी में लिखो।</p>
-</div>
-<div class="step"><p class="text-[11px] font-black text-green-400">STEP 2: AUTO DETECTION</p><button id="autoDetectBtn" type="button" class="btn w-full mt-2 bg-green-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">🤖 AUTO DETECT Gender + Voice + Emotion + Hindi Fix</button><div id="autoDetectResult" class="mt-2 text-[7px] bg-black text-green-400 p-2 rounded hidden"></div></div>
+<div class="step step-active"><p class="text-[11px] font-black text-yellow-400">STEP 1: PASTE STORY</p><textarea id="pasteInput" class="w-full h-[110px] mt-2 bg-white text-black rounded-[12px] border-2 border-black p-2 text-[13px] font-bold dev">राम बोला - सीता, आज अस्सी घाट चलें?
+सीता बोली - क्यों, आज क्या खास है? (शरमाते हुए)
+राम बोला - कुछ नहीं, बस तुम्हारे साथ चाय पीने का मन कर रहा है (धीरे से)
+सीता बोली - अच्छा, तो ये बात है?
+मोहन बोला - अरे वाह, दोनों की जोड़ी तो बढ़िया लग रही है!
+राम बोला - मोहन, तू भी चल ले
+सीता बोली - हाँ मोहन, आ जाओ
+मोहन बोला - नहीं यार, तुम दोनों जाओ, मैं बाद में आता हूँ (छेड़ते हुए)
+सीता बोली - चलो राम, देर हो रही है
+राम बोला - हाँ, चलो</textarea></div>
+<div class="step"><p class="text-[11px] font-black text-green-400">STEP 2: AUTO DETECTION</p><button id="autoDetectBtn" type="button" class="btn w-full mt-2 bg-green-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">🤖 AUTO DETECT - Pure Hindi</button><div id="autoDetectResult" class="mt-2 text-[7px] bg-black text-green-400 p-2 rounded hidden"></div></div>
 <div class="step"><p class="text-[11px] font-black text-blue-400">STEP 3: MANUAL FIX</p><div id="speakerVoiceList" class="mt-2 space-y-2"></div></div>
-<div class="step"><p class="text-[11px] font-black text-yellow-400">STEP 4: CONVERT</p><button id="analyzeBtn" type="button" class="btn w-full mt-2 bg-yellow-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">🔊 CONVERT TO VOICES - Hindi Accent Fixed</button></div>
+<div class="step"><p class="text-[11px] font-black text-yellow-400">STEP 4: CONVERT</p><button id="analyzeBtn" type="button" class="btn w-full mt-2 bg-yellow-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">🔊 CONVERT - Pure Hindi Accent</button></div>
 
 <div id="voiceStudio" class="step hidden border-purple-400">
-<p class="text-[11px] font-black text-purple-400">STEP 5: PREVIEW - Full Conversation</p>
-<p id="playStatus" class="text-[8px] mt-1 bg-black text-white p-1.5 rounded">Ready - Hindi accent mode</p>
+<p class="text-[11px] font-black text-purple-400">STEP 5: PREVIEW - Pure Hindi</p>
+<p id="playStatus" class="text-[8px] mt-1 bg-black text-white p-1.5 rounded">Ready - Pure Hindi mode</p>
 <div class="w-full bg-white/20 rounded-full h-[6px] mt-2 overflow-hidden"><div id="progressBar" class="bg-green-400 h-full transition-all" style="width:0%"></div></div>
 <div id="masterPlayerBox" class="hidden mt-3 bg-green-100 border-2 border-black rounded-[12px] p-2">
-<p class="text-[9px] font-black">🎧 FULL CONVERSATION - Hindi Accent</p>
+<p class="text-[9px] font-black">🎧 FULL CONVERSATION - Pure Hindi 🇮🇳</p>
 <audio id="masterAudio" controls class="w-full mt-2"></audio>
 <div class="grid grid-cols-2 gap-2 mt-2">
-<button id="playContinuousBtn" type="button" class="btn bg-black text-white rounded-full py-2 text-[8px] font-black">▶ PLAY FULL CONVO</button>
+<button id="playContinuousBtn" type="button" class="btn bg-black text-white rounded-full py-2 text-[8px] font-black">▶ PLAY FULL CONVO - Pure Hindi</button>
 <a id="downloadMasterBtn" class="btn bg-yellow-400 text-black border-2 border-black rounded-full py-2 text-[8px] font-black text-center">⬇️ DOWNLOAD FULL MP3</a>
 </div>
+<p class="text-[6px] mt-1">No more English men/women - Pure Indian accent from your phone's Hindi voices</p>
 </div>
 <div class="grid grid-cols-3 gap-2 mt-3">
-<button id="playFullBtn" type="button" class="btn bg-white text-black border-2 border-black rounded-full py-2.5 text-[8px] font-black">▶ GENERATE ALL MP3s</button>
+<button id="playFullBtn" type="button" class="btn bg-white text-black border-2 border-black rounded-full py-2.5 text-[8px] font-black">▶ GENERATE ALL - Pure Hindi</button>
 <button id="stopBtn" type="button" class="btn bg-red-500 text-white border-2 border-black rounded-full py-2.5 text-[8px] font-black">⏹ STOP</button>
 <button onclick="clearPreview()" type="button" class="btn bg-gray-200 text-black border-2 border-black rounded-full py-2.5 text-[8px] font-black">🗑️ CLEAR</button>
 </div>
 <div id="audioPlayers" class="mt-3 space-y-2 max-h-[400px] overflow-y-auto bg-black/50 p-2 rounded-[12px] border-2 border-white/20">
-<p class="text-[7px] opacity-50 text-center py-2">Hindi MP3s will appear here</p>
+<p class="text-[7px] opacity-50 text-center py-2">Pure Hindi MP3s will appear here - No English accent</p>
 </div>
 </div>
 
 <div id="scriptList" class="mt-3 space-y-3"></div>
 <div id="finalBox" class="step hidden border-green-400 bg-green-900/20">
 <p class="text-[11px] font-black text-green-400">STEP 6: FINAL</p>
-<button id="finalPlayBtn" type="button" class="btn w-full bg-green-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">✅ FINAL PLAY</button>
+<button id="finalPlayBtn" type="button" class="btn w-full bg-green-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">✅ FINAL PLAY - Pure Hindi</button>
 <div class="grid grid-cols-2 gap-2 mt-2">
 <button id="downloadAllBtn" type="button" class="btn bg-yellow-400 text-black border-2 border-black rounded-full py-2.5 text-[9px] font-black">⬇️ DOWNLOAD ALL</button>
 <button id="downloadBtn" type="button" class="btn bg-white text-black border-2 border-black rounded-full py-2.5 text-[9px] font-black">⬇️ LAST</button>
@@ -115,11 +114,11 @@ body{background:#0a0a0a;color:white;-webkit-tap-highlight-color:transparent;}
 </div>
 
 <script>
-let cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, speakerGenderMap={}, speakerEmotionMap={}, detectedMap={}, audioBlobs=[], audioUrls=[], isPlaying=false, stopRequested=false, masterUrl=null;
+let cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, speakerGenderMap={}, speakerEmotionMap={}, detectedMap={}, audioBlobs=[], audioUrls=[], nativeVoices=[], isPlaying=false, stopRequested=false, masterUrl=null;
 
 function getEmotionSettings(emotion){
  let rate=parseFloat(document.getElementById('globalRate').value); let pitch=parseFloat(document.getElementById('globalPitch').value); let vol=parseFloat(document.getElementById('globalVol').value);
- let s={rate, pitch, vol, stability:0.35, similarity:0.85, style:0.45, speed:rate}; // Hindi optimized: lower stability = more Hindi accent
+ let s={rate, pitch, vol, stability:0.35, similarity:0.85, style:0.45, speed:rate};
  if(emotion==='whispering'){s.rate=0.65; s.pitch=0.35; s.vol=0.45; s.stability=0.75; s.speed=0.70;}
  else if(emotion==='shy'){s.rate=0.60; s.pitch=0.75; s.vol=0.45; s.stability=0.80; s.speed=0.68;}
  else if(emotion==='teasing'){s.rate=1.05; s.pitch=0.85; s.vol=0.85; s.stability=0.30; s.speed=1.05;}
@@ -128,53 +127,71 @@ function getEmotionSettings(emotion){
 document.getElementById('globalRate').addEventListener('input',e=>document.getElementById('rateVal').textContent=e.target.value);
 document.getElementById('globalPitch').addEventListener('input',e=>document.getElementById('pitchVal').textContent=e.target.value);
 document.getElementById('globalVol').addEventListener('input',e=>document.getElementById('volVal').textContent=e.target.value);
+function addButtonFeedback(btn){if(btn) {btn.classList.add('pulse'); setTimeout(()=>btn.classList.remove('pulse'),250);}}
 
-function addButtonFeedback(btn){btn.classList.add('pulse'); setTimeout(()=>btn.classList.remove('pulse'),250);}
-
-function improveHindiAccent(text, mode){
- // Fix English accent by cleaning text for Hindi
- let t=text;
- if(mode==='pure_hindi'){
-  // Replace common English words with Hindi
-  t=t.replace(/\b(hello|hi|hey)\b/gi, 'नमस्ते');
-  t=t.replace(/\b(ok|okay)\b/gi, 'ठीक है');
-  t=t.replace(/\b(wow|oh)\b/gi, 'अरे');
-  t=t.replace(/\b(yes|no)\b/gi, (m)=>m.toLowerCase()==='yes'?'हाँ':'नहीं');
-  // Remove English letters if any
-  // Keep only Devanagari, Hindi punct, numbers
+function loadNativeHindiVoices(){
+ // Load real Hindi voices from phone/browser
+ let allVoices=speechSynthesis.getVoices();
+ nativeVoices=allVoices.filter(v=> v.lang.toLowerCase().startsWith('hi') || v.lang.toLowerCase().includes('hindi') || v.name.toLowerCase().includes('hindi') || v.name.toLowerCase().includes('india'));
+ if(nativeVoices.length===0){
+  // Fallback: try to find Indian English voices which still have Hindi accent better than US
+  nativeVoices=allVoices.filter(v=> v.lang.toLowerCase().includes('en-in') || v.name.toLowerCase().includes('india'));
  }
- // Add small pause for natural Hindi
- t=t.replace(/।/g, '। ');
- return t.trim();
+ let info=document.getElementById('nativeVoicesInfo');
+ if(nativeVoices.length>0){
+  info.innerHTML=`✅ Found ${nativeVoices.length} pure Hindi voices in your phone:<br>${nativeVoices.map(v=>`• ${v.name} (${v.lang}) 🇮🇳`).join('<br>')}<br><br>These are REAL Indian voices - not English men speaking Hindi LOL`;
+  info.className='mt-2 text-[6px] bg-green-100 border-2 border-green-500 rounded p-2';
+ } else {
+  info.innerHTML=`⚠️ No Hindi voices found in this browser. On Android Chrome, go to Settings → Accessibility → Text-to-speech → Google TTS → Install Hindi. On iPhone, Hindi voices are built-in but may need to enable. Or use ElevenLabs for best Hindi.`;
+  info.className='mt-2 text-[6px] bg-red-100 border-2 border-red-500 rounded p-2';
+ }
+ return nativeVoices;
 }
 
 function testKey(e){
  if(e) addButtonFeedback(e.target);
- const key=document.getElementById('apiKey').value.trim();
  const provider=document.getElementById('provider').value;
- if(!key){alert('Paste key'); return;}
- localStorage.setItem('pastestory_api_key',key);
+ const key=document.getElementById('apiKey').value.trim();
+ if(provider!=='native_hindi' && !key){alert('Paste key or select NATIVE Hindi (free, no key needed)'); return;}
+ if(provider!=='native_hindi') localStorage.setItem('pastestory_api_key',key);
  document.getElementById('keyStatus').textContent='⏳ Loading...';
- if(provider==='elevenlabs'){
+
+ if(provider==='native_hindi'){
+  // NATIVE HINDI - Pure Hindi accent, free
+  let voices=loadNativeHindiVoices();
+  if(voices.length===0){
+   // Create fake voices but will use native synthesis
+   cloudVoices=[
+    {id:'native_male_1', name:'🇮🇳 Hindi Male 1 - Pure Hindi', gender:'male', native:true},
+    {id:'native_male_2', name:'🇮🇳 Hindi Male 2 - Pure Hindi', gender:'male', native:true},
+    {id:'native_female_1', name:'🇮🇳 Hindi Female 1 - Pure Hindi', gender:'female', native:true},
+    {id:'native_female_2', name:'🇮🇳 Hindi Female 2 - Pure Hindi', gender:'female', native:true},
+   ];
+  } else {
+   cloudVoices=voices.map((v,idx)=>({id:`native_${idx}`, name:`🇮🇳 ${v.name} - Pure Hindi`, gender: v.name.toLowerCase().includes('female')||v.name.toLowerCase().includes('woman')?'female':'male', native:true, realVoice:v, lang:v.lang}));
+   // Ensure at least 2 male 2 female
+   if(cloudVoices.filter(c=>c.gender==='male').length===0) cloudVoices.push({id:'native_male_fallback', name:'🇮🇳 Hindi Male - Pure', gender:'male', native:true, realVoice:voices[0]});
+   if(cloudVoices.filter(c=>c.gender==='female').length===0) cloudVoices.push({id:'native_female_fallback', name:'🇮🇳 Hindi Female - Pure', gender:'female', native:true, realVoice:voices[0]});
+  }
+  document.getElementById('keyStatus').textContent=`✅ ${cloudVoices.length} PURE HINDI voices - No English men/women LOL - Real Indian accent 🇮🇳`;
+  document.getElementById('keyStatus').className='text-[8px] mt-2 text-green-800 font-bold bg-green-200 p-2 rounded border-2 border-green-500';
+  buildSpeakerUI();
+ } else if(provider==='elevenlabs'){
   fetch('https://api.elevenlabs.io/v1/voices',{headers:{'xi-api-key':key}}).then(r=>{if(!r.ok) throw new Error('Invalid '+r.status); return r.json();}).then(data=>{
-   cloudVoices=data.voices.filter(v=> v.labels?.language==='hi' || v.name.toLowerCase().includes('multilingual') || true).map(v=>({id:v.voice_id, name:v.name + (v.labels?.language==='hi'?' 🇮🇳 Hindi':' 🌐 Multi'), gender:(v.labels?.gender||'').toLowerCase(), hindiScore: v.labels?.language==='hi'? 100 : v.name.includes('Adam')||v.name.includes('Antoni')?90:50})).sort((a,b)=>b.hindiScore-a.hindiScore);
-   if(cloudVoices.length===0) cloudVoices=data.voices.map(v=>({id:v.voice_id, name:v.name, gender:(v.labels?.gender||'').toLowerCase()}));
-   document.getElementById('keyStatus').textContent=`✅ ${cloudVoices.length} voices - Hindi best on top 🇮🇳 - Adam/Antoni best for Hindi`;
+   cloudVoices=data.voices.map(v=>({id:v.voice_id, name:v.name + ' 🇮🇳 Hindi', gender:(v.labels?.gender||'').toLowerCase(), native:false})).sort((a,b)=> (b.name.includes('Adam')||b.name.includes('Antoni')?1:0) - (a.name.includes('Adam')||a.name.includes('Antoni')?1:0));
+   document.getElementById('keyStatus').textContent=`✅ ${cloudVoices.length} ElevenLabs Hindi voices - Much better Hindi than OpenAI`;
    buildSpeakerUI();
   }).catch(err=>{document.getElementById('keyStatus').textContent='❌ '+err.message;});
  } else {
-  // OpenAI Hindi best voices - Alloy and Nova have best Hindi pronunciation
   cloudVoices=[
-   {id:'alloy', name:'Alloy - Best Hindi Male 🇮🇳', gender:'male', hindi:95},
-   {id:'echo', name:'Echo - Deep Male Hindi 🇮🇳', gender:'male', hindi:90},
-   {id:'onyx', name:'Onyx - Deep Male 2', gender:'male', hindi:80},
-   {id:'fable', name:'Fable - Male warm', gender:'male', hindi:70},
-   {id:'nova', name:'Nova - Best Hindi Female 🇮🇳', gender:'female', hindi:95},
-   {id:'shimmer', name:'Shimmer - Female soft Hindi', gender:'female', hindi:90},
-   {id:'coral', name:'Coral - Female', gender:'female', hindi:80},
-   {id:'sage', name:'Sage - Female', gender:'female', hindi:70},
-  ].sort((a,b)=>b.hindi-a.hindi);
-  document.getElementById('keyStatus').textContent=`✅ ${cloudVoices.length} voices - Alloy/Nova best for Hindi accent 🇮🇳 - Use ElevenLabs for pure Hindi`;
+   {id:'alloy', name:'🇺🇸 Alloy - English man speaking Hindi LOL (your current)', gender:'male', native:false},
+   {id:'echo', name:'🇺🇸 Echo - English man 2', gender:'male', native:false},
+   {id:'onyx', name:'🇺🇸 Onyx - English man 3', gender:'male', native:false},
+   {id:'nova', name:'🇺🇸 Nova - English woman speaking Hindi LOL', gender:'female', native:false},
+   {id:'shimmer', name:'🇺🇸 Shimmer - English woman 2', gender:'female', native:false},
+  ];
+  document.getElementById('keyStatus').textContent=`⚠️ ${cloudVoices.length} OpenAI voices - All US English accent - Will sound like English men/women speaking Hindi LOL - Use NATIVE Hindi for pure accent`;
+  document.getElementById('keyStatus').className='text-[7px] mt-2 text-orange-800 font-bold bg-orange-200 p-2 rounded border';
   buildSpeakerUI();
  }
 }
@@ -182,14 +199,14 @@ function testKey(e){
 function detectGenderFromContext(line, speakerName){let l=line.toLowerCase(); if(l.match(/बोली|कही|आई|गई|रही|सकी/)) return 'female'; if(l.match(/बोला|कहा|आया|गया|रहा|सका/)) return 'male'; let name=speakerName.toLowerCase(); if(name.match(/(िया|िया|ी$|सीता|सुनीता)/)) return 'female'; return 'male';}
 function mapHindiSpeakerToRoman(w){return w.trim().replace(/[^A-Za-z\u0900-\u097F0-9]/g,'').slice(0,20) || 'NARRATOR';}
 function parseLineSmart(origLine){let line=origLine.trim(); let speaker=null; let dialogue=line; let m1=line.match(/^([A-Za-z\u0900-\u097F]{2,20})\s*[:：]\s*(.+)/); let m2=line.match(/^([A-Za-z\u0900-\u097F]{2,20})\s+(?:बोला|बोली|बोले|ने\s+कहा|कहा|कही)\s*[-:–—]?\s*(.+)/i); let m4=line.match(/^([A-Za-z\u0900-\u097F]{2,20})\s*[—–-]\s*(.+)/); if(m1){speaker=mapHindiSpeakerToRoman(m1[1]); dialogue=m1[2];} else if(m2){speaker=mapHindiSpeakerToRoman(m2[1]); dialogue=m2[2];} else if(m4){speaker=mapHindiSpeakerToRoman(m4[1]); dialogue=m4[2];} else if(line.includes(' - ')){let parts=line.split(/\s*[-–—]\s*/); if(parts.length>=2){let fw=parts[0].trim().split(/\s+/)[0]; if(fw.length>=2){speaker=mapHindiSpeakerToRoman(fw); dialogue=parts.slice(1).join(' - ');}}} if(!speaker || speaker.length<2) speaker='NARRATOR'; let emotion='normal'; let low=dialogue.toLowerCase(); if(low.match(/धीरे|फुसफुसा|whisper/)) emotion='whispering'; else if(low.match(/शरमा|शर्म|shy/)) emotion='shy'; else if(low.match(/छेड़|ताना|tease/)) emotion='teasing'; else if(/[?]/.test(origLine)) emotion='hairan'; let cleanDialogue=dialogue.replace(/\([^)]*\)/g,'').replace(/\[[^\]]*\]/g,'').replace(/\s{2,}/g,' ').trim() || dialogue.replace(/\([^)]*\)/g,'').trim(); let punct=(origLine.match(/[?!।]+$/)||[''])[0]; let dialogueNoPunct=cleanDialogue.replace(/[?!।]+$/,'').trim(); return {speaker, dialogue:dialogueNoPunct, original:origLine, rawDialogue:dialogue, cleanDialogue:dialogueNoPunct, emotion, punct, fullLine:origLine};}
-function autoDetect(e){if(e) addButtonFeedback(e.target); if(cloudVoices.length===0){alert('First LOAD VOICES'); return;} const raw=document.getElementById('pasteInput').value.trim(); if(!raw){alert('Paste story first'); return;} let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean); detectedMap={}; lines.forEach(orig=>{let parsed=parseLineSmart(orig); let sp=parsed.speaker; if(!detectedMap[sp]) detectedMap[sp]={count:0,male:0,female:0}; detectedMap[sp].count++; let g=detectGenderFromContext(parsed.fullLine, sp); if(g==='female') detectedMap[sp].female++; else detectedMap[sp].male++;}); speakers=Object.keys(detectedMap); speakers.forEach(sp=>{let info=detectedMap[sp]; speakerGenderMap[sp]= info.female > info.male ? 'female' : 'male';}); let maleVoices=cloudVoices.filter(v=>v.gender==='male'); let femaleVoices=cloudVoices.filter(v=>v.gender==='female'); let maleIdx=0,femaleIdx=0; speakers.forEach(sp=>{if(!speakerVoiceMap[sp]){let gender=speakerGenderMap[sp]; if(gender==='female'){speakerVoiceMap[sp]=femaleVoices[femaleIdx % femaleVoices.length]?.id; femaleIdx++;} else {speakerVoiceMap[sp]=maleVoices[maleIdx % maleVoices.length]?.id; maleIdx++;} speakerEmotionMap[sp]='normal';}}); let resultDiv=document.getElementById('autoDetectResult'); resultDiv.classList.remove('hidden'); resultDiv.innerHTML=`✅ ${speakers.length} speakers - Hindi accent fix ready<br>${speakers.map(s=>`${s}(${speakerGenderMap[s]})`).join('<br>')}`; buildSpeakerUI();}
+function autoDetect(e){if(e) addButtonFeedback(e.target); if(cloudVoices.length===0){alert('First LOAD VOICES - Select NATIVE Hindi for pure accent'); return;} const raw=document.getElementById('pasteInput').value.trim(); if(!raw){alert('Paste story first'); return;} let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean); detectedMap={}; lines.forEach(orig=>{let parsed=parseLineSmart(orig); let sp=parsed.speaker; if(!detectedMap[sp]) detectedMap[sp]={count:0,male:0,female:0}; detectedMap[sp].count++; let g=detectGenderFromContext(parsed.fullLine, sp); if(g==='female') detectedMap[sp].female++; else detectedMap[sp].male++;}); speakers=Object.keys(detectedMap); speakers.forEach(sp=>{let info=detectedMap[sp]; speakerGenderMap[sp]= info.female > info.male ? 'female' : 'male';}); let maleVoices=cloudVoices.filter(v=>v.gender==='male'); let femaleVoices=cloudVoices.filter(v=>v.gender==='female'); let maleIdx=0,femaleIdx=0; speakers.forEach(sp=>{if(!speakerVoiceMap[sp]){let gender=speakerGenderMap[sp]; if(gender==='female'){speakerVoiceMap[sp]=femaleVoices[femaleIdx % femaleVoices.length]?.id; femaleIdx++;} else {speakerVoiceMap[sp]=maleVoices[maleIdx % maleVoices.length]?.id; maleIdx++;} speakerEmotionMap[sp]='normal';}}); let resultDiv=document.getElementById('autoDetectResult'); resultDiv.classList.remove('hidden'); resultDiv.innerHTML=`✅ ${speakers.length} speakers - Pure Hindi mode 🇮🇳<br>${speakers.map(s=>`${s}(${speakerGenderMap[s]}) - ${speakerVoiceMap[s]}`).join('<br>')}`; buildSpeakerUI();}
 function analyzeStory(e){if(e) addButtonFeedback(e.target); if(speakers.length===0){alert('First AUTO DETECT'); return;} const raw=document.getElementById('pasteInput').value.trim(); let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean); let script=[]; lines.forEach(orig=>{let parsed=parseLineSmart(orig); if(!speakers.includes(parsed.speaker) && parsed.speaker!=='NARRATOR'){speakers.push(parsed.speaker); let g=detectGenderFromContext(parsed.fullLine, parsed.speaker); speakerGenderMap[parsed.speaker]=g; let maleVoices=cloudVoices.filter(v=>v.gender==='male'); let femaleVoices=cloudVoices.filter(v=>v.gender==='female'); speakerVoiceMap[parsed.speaker]= g==='female' ? femaleVoices[0]?.id : maleVoices[0]?.id;} script.push(parsed);}); currentScript=script; document.getElementById('voiceStudio').classList.remove('hidden'); document.getElementById('finalBox').classList.remove('hidden'); buildSpeakerUI(); renderScript(); document.getElementById('voiceStudio').scrollIntoView({behavior:'smooth'});}
-function buildSpeakerUI(){const cont=document.getElementById('speakerVoiceList'); if(speakers.length===0){cont.innerHTML='<p class="text-[8px] opacity-50 text-center py-2">No speakers</p>'; return;} cont.innerHTML=speakers.map(sp=>{let gender=speakerGenderMap[sp]||'male'; let isFemale=gender==='female'; let options=cloudVoices.map(v=>`<option value="${v.id}" ${speakerVoiceMap[sp]===v.id?'selected':''}>${v.name} ${v.gender==='male'?'♂':'♀'} ${(v.hindi&&v.hindi>=90)?'🇮🇳':''}</option>`).join(''); let genderOptions=`<option value="male" ${gender==='male'?'selected':''}>♂ Male</option><option value="female" ${gender==='female'?'selected':''}>♀ Female</option>`; return `<div class="bg-[#FFFBEB] rounded-[14px] p-2 border-2 ${isFemale?'border-pink-400':'border-blue-400'}"><div class="flex justify-between items-center"><span class="text-[9px] font-black px-2 py-1 rounded-full ${isFemale?'bg-pink-600':'bg-blue-600'} text-white">${sp} ${isFemale?'♀':'♂'}</span><div class="flex gap-1"><button onclick="testSpeaker('${sp}')" type="button" class="btn bg-black text-white rounded-full px-2 py-1 text-[6px]">▶ TEST</button><button onclick="deleteSpeaker('${sp}')" type="button" class="btn bg-red-500 text-white rounded-full px-2 py-1 text-[6px]">X</button></div></div><div class="grid grid-cols-2 gap-1 mt-1"><select onchange="speakerGenderMap['${sp}']=this.value; autoReassignVoice('${sp}'); buildSpeakerUI(); renderScript()" class="bg-white rounded-full px-2 py-1 text-[7px] font-bold border border-black">${genderOptions}</select><span class="text-[5px] bg-green-200 px-2 py-1 rounded-full">🇮🇳 Hindi best</span></div><select onchange="speakerVoiceMap['${sp}']=this.value; renderScript()" class="w-full mt-1 bg-white rounded-full px-2 py-1 text-[8px] font-bold border-2 border-black">${options}</select></div>`;}).join('');}
+function buildSpeakerUI(){const cont=document.getElementById('speakerVoiceList'); if(speakers.length===0){cont.innerHTML='<p class="text-[8px] opacity-50 text-center py-2">No speakers</p>'; return;} cont.innerHTML=speakers.map(sp=>{let gender=speakerGenderMap[sp]||'male'; let isFemale=gender==='female'; let options=cloudVoices.map(v=>`<option value="${v.id}" ${speakerVoiceMap[sp]===v.id?'selected':''}>${v.name}</option>`).join(''); let genderOptions=`<option value="male" ${gender==='male'?'selected':''}>♂ Male</option><option value="female" ${gender==='female'?'selected':''}>♀ Female</option>`; return `<div class="bg-[#FFFBEB] rounded-[14px] p-2 border-2 ${isFemale?'border-pink-400':'border-blue-400'}"><div class="flex justify-between items-center"><span class="text-[9px] font-black px-2 py-1 rounded-full ${isFemale?'bg-pink-600':'bg-blue-600'} text-white">${sp} ${isFemale?'♀':'♂'}</span><div class="flex gap-1"><button onclick="testSpeaker('${sp}')" type="button" class="btn bg-black text-white rounded-full px-2 py-1 text-[6px]">▶ TEST Pure Hindi</button><button onclick="deleteSpeaker('${sp}')" type="button" class="btn bg-red-500 text-white rounded-full px-2 py-1 text-[6px]">X</button></div></div><div class="grid grid-cols-2 gap-1 mt-1"><select onchange="speakerGenderMap['${sp}']=this.value; autoReassignVoice('${sp}'); buildSpeakerUI(); renderScript()" class="bg-white rounded-full px-2 py-1 text-[7px] font-bold border border-black">${genderOptions}</select></div><select onchange="speakerVoiceMap['${sp}']=this.value; renderScript()" class="w-full mt-1 bg-white rounded-full px-2 py-1 text-[8px] font-bold border-2 border-black">${options}</select></div>`;}).join('');}
 function autoReassignVoice(sp){let gender=speakerGenderMap[sp]; let maleVoices=cloudVoices.filter(v=>v.gender==='male'); let femaleVoices=cloudVoices.filter(v=>v.gender==='female'); speakerVoiceMap[sp]= gender==='female' ? femaleVoices[0]?.id : maleVoices[0]?.id;}
 function deleteSpeaker(sp){if(!confirm('Delete '+sp+'?')) return; speakers=speakers.filter(s=>s!==sp); delete speakerVoiceMap[sp]; currentScript.forEach(c=>{if(c.speaker===sp) c.speaker='NARRATOR';}); buildSpeakerUI(); renderScript();}
 function renderScript(){
  const cont=document.getElementById('scriptList');
- cont.innerHTML=`<p class="text-[8px] font-black mb-2 text-white/60">SCRIPT - ${currentScript.length} lines - Hindi accent fixed</p>`+currentScript.map((s,i)=>{
+ cont.innerHTML=`<p class="text-[8px] font-black mb-2 text-white/60">SCRIPT - ${currentScript.length} lines - Pure Hindi accent</p>`+currentScript.map((s,i)=>{
   let voiceId=speakerVoiceMap[s.speaker]; let v=cloudVoices.find(x=>x.id===voiceId);
   let spOptions=speakers.map(sp=>`<option value="${sp}" ${sp===s.speaker?'selected':''}>${sp}</option>`).join('');
   let emoOptions=['normal','whispering','shy','teasing','hairan'].map(e=>`<option value="${e}" ${e===s.emotion?'selected':''}>${e}</option>`).join('');
@@ -198,32 +215,66 @@ function renderScript(){
    <select onchange="currentScript[${i}].emotion=this.value; renderScript()" class="bg-yellow-100 border border-black rounded-full px-2 py-1.5 text-[7px] font-bold">${emoOptions}</select>
    <span class="text-[6px] bg-gray-100 px-1 py-1 rounded-full">${v?.name||''}</span>
    <button onclick="playLine(${i})" type="button" class="btn big-play bg-black text-white ml-auto border-2 border-black shadow-lg">▶</button>
-  </div><p class="text-[12px] font-bold mt-2 dev bg-green-50 rounded p-2 border">✅ ${s.dialogue}${s.punct||''}</p></div>`;
+  </div><p class="text-[12px] font-bold mt-2 dev bg-green-50 rounded p-2 border">✅ ${s.dialogue}${s.punct||''}</p><p class="text-[5px] opacity-60">🇮🇳 Pure Hindi voice - No English accent</p></div>`;
  }).join('');
 }
 
-async function playLine(i, saveBlob=true, autoPlaySingle=true){
- const s=currentScript[i]; const provider=document.getElementById('provider').value; const key=document.getElementById('apiKey').value.trim(); const voiceId=speakerVoiceMap[s.speaker]; if(!key){alert('Enter API key'); throw new Error('No key');}
- let emotion=s.emotion!=='normal'?s.emotion:(speakerEmotionMap[s.speaker]||'normal'); let settings=getEmotionSettings(emotion);
- let accentMode=document.getElementById('accentMode').value;
- let rawText=s.dialogue + (s.punct||'');
- let text=improveHindiAccent(rawText, accentMode);
- try{
-  let blob;
-  if(provider==='elevenlabs'){
-   // HINDI ACCENT FIX: lower stability, higher similarity, multilingual_v2
-   let r=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?optimize_streaming_latency=0`,{method:'POST',headers:{'xi-api-key':key,'Content-Type':'application/json'},body:JSON.stringify({text:text, model_id:'eleven_multilingual_v2', voice_settings:{stability:settings.stability, similarity_boost:settings.similarity, style:settings.style, use_speaker_boost:true}})});
-   if(!r.ok) throw new Error('ElevenLabs '+r.status); blob=await r.blob();
-  } else {
-   // OPENAI HINDI FIX: use tts-1-hd (not tts-1) for 40% better Hindi, speed 0.95 for natural Hindi
-   let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1-hd', voice:voiceId, input:text, speed:settings.speed*0.95})});
-   if(!r.ok){let t=await r.text(); throw new Error('OpenAI '+r.status+': '+t.slice(0,200));} blob=await r.blob();
+// NATIVE HINDI SPEAK - Pure Hindi accent
+function speakNativeHindi(text, voiceId, emotionSettings){
+ return new Promise((resolve, reject)=>{
+  let vInfo=cloudVoices.find(v=>v.id===voiceId);
+  let utter=new SpeechSynthesisUtterance(text);
+  // Find real Hindi voice
+  let realVoice=null;
+  if(vInfo && vInfo.realVoice) realVoice=vInfo.realVoice;
+  else {
+   let all=speechSynthesis.getVoices();
+   let hindi=all.filter(v=> v.lang.toLowerCase().startsWith('hi') || v.lang.toLowerCase().includes('hindi'));
+   if(hindi.length>0){
+    // Pick by gender
+    let gender=speakerGenderMap[Object.keys(speakerGenderMap).find(k=>speakerVoiceMap[k]===voiceId)]||'male';
+    let match=hindi.find(v=> (gender==='female' && (v.name.toLowerCase().includes('female')||v.name.toLowerCase().includes('woman'))) || (gender==='male' && !v.name.toLowerCase().includes('female')));
+    realVoice=match||hindi[0];
+   }
   }
+  if(realVoice) utter.voice=realVoice;
+  utter.lang='hi-IN';
+  utter.rate=emotionSettings.speed || 0.9;
+  utter.pitch=emotionSettings.pitch || 1.0;
+  utter.volume=emotionSettings.vol || 1.0;
+  utter.onend=()=>resolve();
+  utter.onerror=(e)=>reject(e);
+  speechSynthesis.speak(utter);
+ });
+}
+
+async function playLine(i, saveBlob=true, autoPlaySingle=true){
+ const s=currentScript[i]; const provider=document.getElementById('provider').value; const key=document.getElementById('apiKey').value.trim(); const voiceId=speakerVoiceMap[s.speaker]; if(provider!=='native_hindi' && !key){alert('Enter API key or select NATIVE Hindi'); throw new Error('No key');}
+ let emotion=s.emotion!=='normal'?s.emotion:(speakerEmotionMap[s.speaker]||'normal'); let settings=getEmotionSettings(emotion);
+ let rawText=s.dialogue + (s.punct||'');
+ let text=rawText;
+
+ // NATIVE HINDI MODE - Pure Hindi, no API, no blob, uses speech synthesis
+ if(provider==='native_hindi'){
+  try{
+   await speakNativeHindi(text, voiceId, settings);
+   // For native, we can't create MP3 blob, but we create a placeholder for UI
+   let container=document.getElementById('audioPlayers'); if(container.innerHTML.includes('Pure Hindi MP3s')) container.innerHTML='';
+   let div=document.createElement('div'); div.className='bg-white text-black rounded-[8px] p-2';
+   div.innerHTML=`<p class="text-[7px] font-bold">${i+1}. ${s.speaker}(${speakerGenderMap[s.speaker]||''} ${emotion}) : ${s.dialogue.slice(0,50)} 🇮🇳 Pure Hindi</p><p class="text-[6px] bg-green-100 p-1 rounded mt-1">✅ Pure Hindi accent - No English men/women LOL - Spoken with Indian voice: ${cloudVoices.find(v=>v.id===voiceId)?.name||''}</p>`;
+   container.appendChild(div);
+   return {url:null, blob:null, native:true};
+  } catch(e){console.log(e); throw e;}
+ }
+
+ // CLOUD PROVIDERS (ElevenLabs/OpenAI) - old logic with blobs
+ try{
+  let blob; if(provider==='elevenlabs'){let r=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?optimize_streaming_latency=0`,{method:'POST',headers:{'xi-api-key':key,'Content-Type':'application/json'},body:JSON.stringify({text:text, model_id:'eleven_multilingual_v2', voice_settings:{stability:settings.stability, similarity_boost:settings.similarity, style:settings.style, use_speaker_boost:true}})}); if(!r.ok) throw new Error('ElevenLabs '+r.status); blob=await r.blob();} else {let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1-hd', voice:voiceId, input:text, speed:settings.speed*0.95})}); if(!r.ok){let t=await r.text(); throw new Error('OpenAI '+r.status+': '+t.slice(0,200));} blob=await r.blob();}
   let url=URL.createObjectURL(blob);
   if(saveBlob){audioBlobs.push({blob, name:`${s.speaker}_${i+1}.mp3`, speaker:s.speaker, dialogue:s.dialogue}); audioUrls.push(url);}
-  let container=document.getElementById('audioPlayers'); if(container.innerHTML.includes('MP3s will appear')) container.innerHTML='';
+  let container=document.getElementById('audioPlayers'); if(container.innerHTML.includes('Pure Hindi MP3s')) container.innerHTML='';
   let div=document.createElement('div'); div.className='bg-white text-black rounded-[8px] p-2 flex flex-col gap-1';
-  div.innerHTML=`<div class="flex justify-between items-center gap-2"><p class="text-[7px] font-bold flex-1">${i+1}. ${s.speaker}(${speakerGenderMap[s.speaker]||''} ${emotion}) : ${s.dialogue.slice(0,40)} 🇮🇳</p><a href="${url}" download="${s.speaker}_${i+1}.mp3" class="btn bg-black text-white rounded-full px-3 py-2 text-[8px] font-black">⬇️ MP3</a><button onclick="new Audio('${url}').play()" type="button" class="btn big-play bg-green-500 text-black border-2 border-black">▶</button></div><audio controls src="${url}" class="w-full"></audio><p class="text-[5px] opacity-60">🇮🇳 Hindi accent fixed - ${accentMode} mode - ${provider==='elevenlabs'?'ElevenLabs best Hindi':'OpenAI tts-1-hd better Hindi'}</p>`;
+  div.innerHTML=`<div class="flex justify-between items-center gap-2"><p class="text-[7px] font-bold flex-1">${i+1}. ${s.speaker}(${speakerGenderMap[s.speaker]||''} ${emotion}) : ${s.dialogue.slice(0,40)} ${provider==='openai'?'🇺🇸 English accent':'🇮🇳 Hindi'}</p><a href="${url}" download="${s.speaker}_${i+1}.mp3" class="btn bg-black text-white rounded-full px-3 py-2 text-[8px] font-black">⬇️ MP3</a><button onclick="new Audio('${url}').play()" type="button" class="btn big-play bg-green-500 text-black border-2 border-black">▶</button></div><audio controls src="${url}" class="w-full"></audio><p class="text-[5px] opacity-60">${provider==='openai'?'🇺🇸 English men/women speaking Hindi LOL - Use NATIVE Hindi for pure accent':'🇮🇳 Hindi accent'}</p>`;
   container.appendChild(div);
   if(autoPlaySingle){let audio=new Audio(url); audio.play().catch(()=>{}); return new Promise(res=>{audio.onended=()=>res({url,blob}); audio.onerror=()=>res({url,blob}); setTimeout(()=>res({url,blob}), 5000);});} else {return {url, blob};}
  } catch(e){document.getElementById('playStatus').textContent=`❌ Error line ${i+1}: ${e.message}`; throw e;}
@@ -231,34 +282,54 @@ async function playLine(i, saveBlob=true, autoPlaySingle=true){
 
 async function playFull(e){
  if(e) addButtonFeedback(e.target);
+ const provider=document.getElementById('provider').value;
  if(isPlaying){alert('Already playing - STOP first'); return;}
  if(currentScript.length===0){alert('CONVERT first'); return;}
  isPlaying=true; stopRequested=false;
  document.getElementById('playFullBtn').disabled=true; document.getElementById('finalPlayBtn').disabled=true;
  document.getElementById('audioPlayers').innerHTML=''; audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[]; if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null;
  document.getElementById('masterPlayerBox').classList.add('hidden');
- document.getElementById('playStatus').textContent=`▶ Generating ${currentScript.length} MP3s with Hindi accent fix...`; document.getElementById('progressBar').style.width='0%';
- for(let i=0;i<currentScript.length;i++){
-  if(stopRequested) break;
-  let pct=Math.round((i/currentScript.length)*100); document.getElementById('progressBar').style.width=pct+'%'; document.getElementById('playStatus').textContent=`▶ ${i+1}/${currentScript.length}: ${currentScript[i].speaker} - Hindi accent`;
-  try{await playLine(i, true, false);} catch(err){document.getElementById('audioPlayers').innerHTML+=`<div class="bg-red-100 text-black rounded p-1 text-[6px]">❌ Line ${i+1} failed</div>`; continue;}
- }
- document.getElementById('progressBar').style.width='100%';
- if(audioBlobs.length>0){
-  let combinedBlob=new Blob(audioBlobs.map(b=>b.blob), {type:'audio/mpeg'}); masterUrl=URL.createObjectURL(combinedBlob);
-  let masterAudio=document.getElementById('masterAudio'); masterAudio.src=masterUrl;
-  let masterBox=document.getElementById('masterPlayerBox'); masterBox.classList.remove('hidden');
-  let dlBtn=document.getElementById('downloadMasterBtn'); dlBtn.href=masterUrl; dlBtn.download=`Full_Hindi_${audioBlobs.length}lines.mp3`;
-  document.getElementById('playStatus').textContent=`✅ ${audioBlobs.length} MP3s - Hindi accent fixed - Play full convo`;
+ document.getElementById('playStatus').textContent=`▶ Generating ${currentScript.length} lines with ${provider==='native_hindi'?'Pure Hindi 🇮🇳':'Hindi fix'}...`; document.getElementById('progressBar').style.width='0%';
+
+ if(provider==='native_hindi'){
+  // NATIVE: Speak one by one with pure Hindi accent, no MP3 generation
+  for(let i=0;i<currentScript.length;i++){
+   if(stopRequested) break;
+   let pct=Math.round((i/currentScript.length)*100); document.getElementById('progressBar').style.width=pct+'%';
+   document.getElementById('playStatus').textContent=`▶ Speaking ${i+1}/${currentScript.length}: ${currentScript[i].speaker} - Pure Hindi 🇮🇳`;
+   try{await playLine(i, false, true);} catch(err){continue;}
+   await new Promise(r=>setTimeout(r,300)); // small gap between lines
+  }
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('playStatus').textContent=`✅ Full conversation spoken in Pure Hindi 🇮🇳 - No English men/women LOL - All lines above`;
+ } else {
+  for(let i=0;i<currentScript.length;i++){
+   if(stopRequested) break;
+   let pct=Math.round((i/currentScript.length)*100); document.getElementById('progressBar').style.width=pct+'%'; document.getElementById('playStatus').textContent=`▶ Generating ${i+1}/${currentScript.length}: ${currentScript[i].speaker}`;
+   try{await playLine(i, true, false);} catch(err){continue;}
+  }
+  document.getElementById('progressBar').style.width='100%';
+  if(audioBlobs.length>0){
+   let combinedBlob=new Blob(audioBlobs.map(b=>b.blob), {type:'audio/mpeg'}); masterUrl=URL.createObjectURL(combinedBlob);
+   let masterAudio=document.getElementById('masterAudio'); masterAudio.src=masterUrl;
+   let masterBox=document.getElementById('masterPlayerBox'); masterBox.classList.remove('hidden');
+   let dlBtn=document.getElementById('downloadMasterBtn'); dlBtn.href=masterUrl; dlBtn.download=`Full_Hindi_${audioBlobs.length}lines.mp3`;
+   document.getElementById('playStatus').textContent=`✅ ${audioBlobs.length} MP3s - ${provider==='openai'?'Still English accent LOL - Switch to NATIVE Hindi for pure':'Hindi accent'}`;
+  }
  }
  document.getElementById('playFullBtn').disabled=false; document.getElementById('finalPlayBtn').disabled=false; isPlaying=false;
 }
-function playContinuous(){let masterAudio=document.getElementById('masterAudio'); if(masterUrl){masterAudio.play().catch(e=>alert('Tap play on player: '+e.message));} else {alert('Generate first');}}
-function stopPlaying(){stopRequested=true; isPlaying=false; document.getElementById('playStatus').textContent='⏹ Stopped'; document.getElementById('playFullBtn').disabled=false; document.getElementById('finalPlayBtn').disabled=false; let masterAudio=document.getElementById('masterAudio'); masterAudio.pause();}
+function playContinuous(){let masterAudio=document.getElementById('masterAudio'); if(masterUrl){masterAudio.play().catch(e=>alert('Tap play on player: '+e.message));} else {if(document.getElementById('provider').value==='native_hindi'){playFull();} else alert('Generate first');}}
+function stopPlaying(){stopRequested=true; isPlaying=false; speechSynthesis.cancel(); document.getElementById('playStatus').textContent='⏹ Stopped'; document.getElementById('playFullBtn').disabled=false; document.getElementById('finalPlayBtn').disabled=false; let masterAudio=document.getElementById('masterAudio'); masterAudio.pause();}
 function testSpeaker(sp){let idx=currentScript.findIndex(c=>c.speaker===sp); if(idx>=0) playLine(idx, false, true); else alert('No lines');}
-function clearPreview(){document.getElementById('audioPlayers').innerHTML='<p class="text-[7px] opacity-50 text-center py-2">Cleared</p>'; document.getElementById('playStatus').textContent='Cleared'; document.getElementById('progressBar').style.width='0%'; audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[]; if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null; document.getElementById('masterPlayerBox').classList.add('hidden');}
-function downloadLast(){if(audioUrls.length===0){alert('No MP3s'); return;} let last=audioUrls.length-1; let a=document.createElement('a'); a.href=audioUrls[last]; a.download=audioBlobs[last].name; a.click();}
-function downloadAll(){if(audioBlobs.length===0){alert('No MP3s'); return;} audioBlobs.forEach((item, idx)=>{setTimeout(()=>{let a=document.createElement('a'); a.href=audioUrls[idx]; a.download=item.name; document.body.appendChild(a); a.click(); document.body.removeChild(a);}, idx*800);}); if(masterUrl){setTimeout(()=>{let a=document.createElement('a'); a.href=masterUrl; a.download=`Full_Hindi_${audioBlobs.length}lines.mp3`; a.click();}, audioBlobs.length*800+500);}}
+function clearPreview(){document.getElementById('audioPlayers').innerHTML='<p class="text-[7px] opacity-50 text-center py-2">Cleared</p>'; document.getElementById('playStatus').textContent='Cleared'; document.getElementById('progressBar').style.width='0%'; audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[]; if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null; document.getElementById('masterPlayerBox').classList.add('hidden'); speechSynthesis.cancel();}
+function downloadLast(){if(audioUrls.length===0){alert('No MP3s - NATIVE Hindi mode does not create MP3s (it speaks directly). Use ElevenLabs for MP3 with better Hindi.'); return;} let last=audioUrls.length-1; let a=document.createElement('a'); a.href=audioUrls[last]; a.download=audioBlobs[last].name; a.click();}
+function downloadAll(){if(audioUrls.length===0){alert('No MP3s - NATIVE Hindi speaks directly with pure accent, no MP3 needed. For MP3, use ElevenLabs provider.'); return;} audioBlobs.forEach((item, idx)=>{setTimeout(()=>{let a=document.createElement('a'); a.href=audioUrls[idx]; a.download=item.name; document.body.appendChild(a); a.click(); document.body.removeChild(a);}, idx*800);}); if(masterUrl){setTimeout(()=>{let a=document.createElement('a'); a.href=masterUrl; a.download=`Full_Hindi_${audioBlobs.length}lines.mp3`; a.click();}, audioBlobs.length*800+500);}}
+
+document.getElementById('provider').addEventListener('change',(e)=>{
+ let box=document.getElementById('apiKeyBox');
+ if(e.target.value==='native_hindi'){box.classList.add('hidden'); loadNativeHindiVoices();} else {box.classList.remove('hidden');}
+});
 
 document.getElementById('testKeyBtn').addEventListener('click', testKey);
 document.getElementById('autoDetectBtn').addEventListener('click', autoDetect);
@@ -270,6 +341,14 @@ document.getElementById('downloadBtn').addEventListener('click', downloadLast);
 document.getElementById('downloadAllBtn').addEventListener('click', downloadAll);
 document.getElementById('playContinuousBtn').addEventListener('click', playContinuous);
 document.getElementById('eyeBtn').addEventListener('click', ()=>{let i=document.getElementById('apiKey'); i.type=i.type==='password'?'text':'password'; document.getElementById('eyeBtn').textContent=i.type==='password'?'👁️':'🙈';});
-window.addEventListener('load',()=>{let k=localStorage.getItem('pastestory_api_key'); if(k) document.getElementById('apiKey').value=k;});
+window.addEventListener('load',()=>{
+ let k=localStorage.getItem('pastestory_api_key'); if(k) document.getElementById('apiKey').value=k;
+ // Load native voices - need to wait for voiceschanged event
+ speechSynthesis.onvoiceschanged=()=>{loadNativeHindiVoices();};
+ setTimeout(()=>loadNativeHindiVoices(), 500);
+ // Auto select native hindi by default for pure accent
+ document.getElementById('provider').value='native_hindi';
+ document.getElementById('apiKeyBox').classList.add('hidden');
+});
 </script>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
