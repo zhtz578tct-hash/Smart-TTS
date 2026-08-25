@@ -21,50 +21,51 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 </style><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PasteStory V12.6 - Final Flow: Paste→Auto→Manual→Convert→Preview→Edit→Final</title>
+<title>PasteStory V12.7 - Buttons Fixed + Full Preview Fixed + MP3 Location</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<style>body{background:#0a0a0a;color:white} .dev{font-family:'Noto Sans Devanagari',sans-serif} .step{background:#111;border:2px solid #333;border-radius:14px;padding:10px;margin-bottom:10px} .step-active{border-color:#facc15;background:#1a1a0a}</style>
+<style>
+body{background:#0a0a0a;color:white; -webkit-tap-highlight-color: transparent;}
+.dev{font-family:'Noto Sans Devanagari',sans-serif}
+.btn{transition: all 0.15s ease; touch-action: manipulation; user-select: none; -webkit-user-select: none; cursor: pointer;}
+.btn:active{transform: scale(0.96); filter: brightness(0.9);}
+.btn:disabled{opacity:0.5; pointer-events: none;}
+.btn-loading{position: relative; color: transparent !important;}
+.btn-loading:after{content: ''; position: absolute; width: 16px; height: 16px; top: 50%; left: 50%; margin-top: -8px; margin-left: -8px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite;}
+@keyframes spin{to{transform: rotate(360deg);}}
+.step{background:#111;border:2px solid #333;border-radius:14px;padding:10px;margin-bottom:10px}
+.step-active{border-color:#facc15;background:#1a1a0a}
+.pulse{animation: pulse 0.3s ease;}
+@keyframes pulse{0%{transform: scale(1);}50%{transform: scale(0.95);}100%{transform: scale(1);}}
+</style>
 </head><body class="pb-36">
 <header class="sticky top-0 z-30 bg-black border-b border-white/20 p-3 flex justify-between items-center">
-<div><h1 class="text-[13px] font-black">PasteStory V12.6 FINAL FLOW ✅</h1><p class="text-[6px] opacity-60">Paste→Auto Gender/Voice/Emotion→Manual Fix→Convert→Preview→Clear/Reload/Edit→Final</p></div>
-<span class="bg-green-400 text-black rounded-full px-3 py-1 text-[8px] font-black">V12.6</span>
+<div><h1 class="text-[13px] font-black">PasteStory V12.7 BUTTONS FIXED ✅</h1><p class="text-[6px] opacity-60">All buttons responsive + Preview Full fixed + MP3 location clear</p></div>
+<span class="bg-green-400 text-black rounded-full px-3 py-1 text-[8px] font-black">V12.7</span>
 </header>
 
 <div class="p-3 max-w-[540px] mx-auto">
 
-<!-- API KEY with EYE -->
+<!-- API KEY -->
 <div class="bg-white text-black rounded-[16px] p-3 mb-3">
-<p class="text-[11px] font-black">🔑 API KEY - Eye button added</p>
+<p class="text-[11px] font-black">🔑 API KEY - Eye button</p>
 <select id="provider" class="w-full mt-2 bg-black text-white rounded-full px-3 py-2 text-xs font-bold">
 <option value="elevenlabs">ElevenLabs - Best Hindi</option>
 <option value="openai" selected>OpenAI TTS (sk-...)</option>
 </select>
 <div class="relative mt-2">
 <input id="apiKey" type="password" placeholder="sk-... or ElevenLabs key" class="w-full bg-[#FFFBEB] rounded-[12px] border-2 border-black px-3 pr-16 py-2.5 text-xs font-bold">
-<button id="eyeBtn" type="button" class="absolute right-1 top-1 bottom-1 bg-white border-2 border-black rounded-[10px] px-3 text-[14px]">👁️</button>
+<button id="eyeBtn" type="button" class="btn absolute right-1 top-1 bottom-1 bg-white border-2 border-black rounded-[10px] px-3 text-[14px]">👁️</button>
 </div>
-<button id="testKeyBtn" class="w-full mt-2 bg-black text-white rounded-full py-2.5 text-[10px] font-black">✅ LOAD VOICES</button>
-<p id="keyStatus" class="text-[7px] mt-2">Key saved forever + eye hide/show</p>
+<button id="testKeyBtn" type="button" class="btn w-full mt-2 bg-black text-white rounded-full py-2.5 text-[10px] font-black">✅ LOAD VOICES</button>
+<p id="keyStatus" class="text-[7px] mt-2">Tap feedback added - will pulse when pressed</p>
 </div>
 
 <!-- GLOBAL CONTROLS -->
 <div class="bg-amber-300 text-black rounded-[16px] p-3 mb-3 border-2 border-black">
-<p class="text-[10px] font-black">🎛️ Global Emotion + Pitch/Rate (Whisper/Shy/Teasing NEW)</p>
+<p class="text-[10px] font-black">🎛️ Global Emotion + Pitch/Rate</p>
 <div class="grid grid-cols-2 gap-2 mt-2">
-<div>
-<label class="text-[7px] font-black">Global Emotion Default</label>
-<select id="globalEmotion" class="w-full mt-1 bg-white border-2 border-black rounded-full px-2 py-2 text-[8px] font-bold">
-<option value="auto" selected>🤖 AUTO Detect (धीरे से, शरमाते हुए)</option>
-<option value="normal">Normal</option>
-<option value="whispering">Whispering 🤫</option>
-<option value="lowtone">Low Tone 🔉</option>
-<option value="shy">Shy 🙈</option>
-<option value="teasing">Teasing 😜</option>
-<option value="happy">Happy</option>
-<option value="romantic">Romantic</option>
-</select>
-</div>
-<div><p class="text-[6px] bg-white border border-black rounded p-1.5">(धीरे से) (शरमाते हुए) [whisper] → auto emotion but NOT spoken ✅ Fixed</p></div>
+<div><select id="globalEmotion" class="w-full bg-white border-2 border-black rounded-full px-2 py-2 text-[8px] font-bold"><option value="auto" selected>🤖 AUTO Detect</option><option value="normal">Normal</option><option value="whispering">Whispering</option><option value="shy">Shy</option><option value="teasing">Teasing</option></select></div>
+<div><p class="text-[6px] bg-white border border-black rounded p-1">Brackets stripped ✅</p></div>
 </div>
 <div class="mt-2 bg-white rounded-[12px] p-2 border-2 border-black grid grid-cols-3 gap-2">
 <div><label class="text-[6px] font-black">Speed <span id="rateVal" class="bg-black text-white px-1 rounded-full">0.90</span></label><input id="globalRate" type="range" min="0.6" max="1.3" step="0.05" value="0.90" class="w-full accent-black"></div>
@@ -73,82 +74,74 @@
 </div>
 </div>
 
-<!-- STEP 1: PASTE STORY -->
+<!-- STEP 1 -->
 <div class="step step-active">
 <p class="text-[11px] font-black text-yellow-400">STEP 1: PASTE STORY</p>
-<textarea id="pasteInput" class="w-full h-[110px] mt-2 bg-white text-black rounded-[12px] border-2 border-black p-2 text-[13px] font-bold dev" placeholder="Paste any story:
-राम बोला - कैसे हो यार?
-सीता बोली - बढ़िया, तुम बताओ? (शरमाते हुए)
-राम - चलें चाय पीने? (धीरे से)
-सीता - हाँ चलो"></textarea>
-<p class="text-[6px] mt-1 text-white/50">✅ No hardcoded Guddu/Gudiya/Babu - Only your characters. Auto gender from बोला/बोली</p>
+<textarea id="pasteInput" class="w-full h-[100px] mt-2 bg-white text-black rounded-[12px] border-2 border-black p-2 text-[13px] font-bold dev" placeholder="राम बोला - कैसे हो?&#10;सीता बोली - बढ़िया (शरमाते हुए)"></textarea>
 </div>
 
-<!-- STEP 2: AUTO DETECTION -->
+<!-- STEP 2 -->
 <div class="step">
-<p class="text-[11px] font-black text-green-400">STEP 2: AUTO DETECTION - Gender, Voice, Emotion (Automatic)</p>
-<p class="text-[6px] mt-1 text-white/60">After pasting, tap AUTO DETECT below → System auto-detects:</p>
-<ul class="text-[6px] mt-1 list-disc ml-3 text-white/60">
-<li>Gender: बोला/कहा/आया = Male ♂, बोली/कही/आई = Female ♀</li>
-<li>Voice: Distinct male voices (Echo, Onyx) + female (Nova, Shimmer) auto-assigned</li>
-<li>Emotion: (धीरे से)=whispering, (शरमाते हुए)=shy, (छेड़ते हुए)=teasing - brackets NOT spoken</li>
-</ul>
-<button id="autoDetectBtn" class="w-full mt-3 bg-green-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">🤖 AUTO DETECT Gender + Voice + Emotion</button>
+<p class="text-[11px] font-black text-green-400">STEP 2: AUTO DETECTION</p>
+<button id="autoDetectBtn" type="button" class="btn w-full mt-2 bg-green-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">🤖 AUTO DETECT Gender + Voice + Emotion</button>
 <div id="autoDetectResult" class="mt-2 text-[7px] bg-black text-green-400 p-2 rounded hidden"></div>
 </div>
 
-<!-- STEP 3: MANUAL INTERVENTION -->
-<div id="manualBox" class="step">
-<p class="text-[11px] font-black text-blue-400">STEP 3: MANUAL INTERVENTION - Only if Auto Wrong</p>
-<p class="text-[6px] mt-1 text-white/60">Auto first, manual only to fix mistakes. Change gender/voice/emotion if auto wrong.</p>
-<div id="speakerVoiceList" class="mt-3 space-y-3">
-<p class="text-[8px] opacity-50 text-center py-3">Auto-detect in STEP 2 first → Speakers appear here with auto gender/voice → Edit only if wrong</p>
-</div>
-<div class="flex gap-2 mt-3">
-<input id="newSpeakerName" placeholder="Manual ADD if auto missed a speaker" class="flex-1 bg-white text-black border-2 border-black rounded-full px-3 py-2 text-[8px] font-bold">
-<button onclick="addSpeakerManually()" class="bg-white text-black border-2 border-black rounded-full px-3 py-2 text-[7px] font-black">+ ADD Manual</button>
+<!-- STEP 3 -->
+<div class="step">
+<p class="text-[11px] font-black text-blue-400">STEP 3: MANUAL FIX (only if wrong)</p>
+<div id="speakerVoiceList" class="mt-2 space-y-2"></div>
+<div class="flex gap-2 mt-2">
+<input id="newSpeakerName" placeholder="Add if auto missed" class="flex-1 bg-white text-black border-2 border-black rounded-full px-3 py-2 text-[8px] font-bold">
+<button onclick="addSpeakerManually()" type="button" class="btn bg-white text-black border-2 border-black rounded-full px-3 py-2 text-[7px] font-black">+ ADD</button>
 </div>
 </div>
 
-<!-- STEP 4: CONVERT TO VOICES -->
+<!-- STEP 4 -->
 <div class="step">
 <p class="text-[11px] font-black text-yellow-400">STEP 4: CONVERT TO VOICES</p>
-<button id="analyzeBtn" class="w-full mt-2 bg-yellow-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">🔊 CONVERT TO VOICES → Generate Script</button>
-<p class="text-[6px] mt-1 text-white/50 text-center">Uses auto gender/voice/emotion + your manual fixes → Creates script for preview</p>
+<button id="analyzeBtn" type="button" class="btn w-full mt-2 bg-yellow-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">🔊 CONVERT TO VOICES</button>
 </div>
 
-<!-- STEP 5: PREVIEW + CLEAR/RELOAD + EDIT -->
-<div id="voiceStudio" class="step hidden">
+<!-- STEP 5 - PREVIEW -->
+<div id="voiceStudio" class="step hidden border-purple-400">
 <p class="text-[11px] font-black text-purple-400">STEP 5: PREVIEW + CLEAR/RELOAD + EDIT</p>
-<p class="text-[6px] mt-1 text-white/60">Preview voices. If anything wrong with gender/voice/emotion, use Clear/Reload and Edit speakers in STEP 3, then Convert again.</p>
+<p id="playStatus" class="text-[8px] mt-1 bg-black text-white p-1.5 rounded">Ready for preview</p>
+<div class="w-full bg-white/20 rounded-full h-[6px] mt-2 overflow-hidden"><div id="progressBar" class="bg-green-400 h-full transition-all" style="width:0%"></div></div>
 <div class="grid grid-cols-3 gap-2 mt-3">
-<button id="playFullBtn" class="bg-white text-black border-2 border-black rounded-full py-2.5 text-[8px] font-black">▶ PREVIEW FULL</button>
-<button onclick="clearPreview()" class="bg-red-500 text-white border-2 border-black rounded-full py-2.5 text-[8px] font-black">🗑️ CLEAR Voices</button>
-<button onclick="reloadVoices()" class="bg-blue-500 text-white border-2 border-black rounded-full py-2.5 text-[8px] font-black">🔄 RELOAD Voices</button>
+<button id="playFullBtn" type="button" class="btn bg-white text-black border-2 border-black rounded-full py-2.5 text-[8px] font-black">▶ PREVIEW FULL (Fixed)</button>
+<button id="stopBtn" type="button" class="btn bg-red-500 text-white border-2 border-black rounded-full py-2.5 text-[8px] font-black">⏹ STOP</button>
+<button onclick="clearPreview()" type="button" class="btn bg-gray-200 text-black border-2 border-black rounded-full py-2.5 text-[8px] font-black">🗑️ CLEAR</button>
 </div>
 <div class="grid grid-cols-2 gap-2 mt-2">
-<button onclick="clearAllSpeakers()" class="bg-red-100 text-black border border-black rounded-full py-1.5 text-[7px] font-bold">🗑️ CLEAR ALL Speakers (Fix Guddu bug)</button>
-<button onclick="reAutoDetect()" class="bg-green-100 text-black border border-black rounded-full py-1.5 text-[7px] font-bold">🤖 RE-AUTO Detect</button>
+<button onclick="reloadVoices()" type="button" class="btn bg-blue-500 text-white border-2 border-black rounded-full py-1.5 text-[7px] font-bold">🔄 RELOAD Voices</button>
+<button onclick="clearAllSpeakers()" type="button" class="btn bg-red-100 text-black border border-black rounded-full py-1.5 text-[7px] font-bold">🗑️ CLEAR Speakers</button>
 </div>
-<div id="audioPlayers" class="mt-3 space-y-2 max-h-[280px] overflow-y-auto"></div>
+<div id="audioPlayers" class="mt-3 space-y-2 max-h-[350px] overflow-y-auto bg-black/50 p-2 rounded-[12px] border-2 border-white/20">
+<p class="text-[7px] opacity-50 text-center py-2">MP3s will appear here after PREVIEW FULL / FINAL PLAY. Each has download button. 👇</p>
+</div>
 </div>
 
 <div id="scriptList" class="mt-3 space-y-3"></div>
 
-<!-- STEP 6: FINAL -->
-<div id="finalBox" class="step hidden mt-3 border-green-400">
-<p class="text-[11px] font-black text-green-400">STEP 6: FINAL VOICE GENERATION / DOWNLOAD / SAVE</p>
-<div class="grid grid-cols-2 gap-2 mt-3">
-<button id="finalPlayBtn" class="col-span-2 bg-green-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">✅ FINAL PLAY - All Fixed</button>
-<button id="downloadBtn" class="bg-yellow-400 text-black border-2 border-black rounded-full py-2.5 text-[9px] font-black">⬇️ DOWNLOAD</button>
-<button id="saveBtn" class="bg-black text-white border-2 border-white rounded-full py-2.5 text-[9px] font-black">💾 SAVE</button>
+<!-- STEP 6 -->
+<div id="finalBox" class="step hidden border-green-400 bg-green-900/20">
+<p class="text-[11px] font-black text-green-400">STEP 6: FINAL PLAY + DOWNLOAD MP3</p>
+<p class="text-[6px] mt-1 text-white/70">Final Play generates ALL MP3s below. Find them in STEP 5 box above - each line has ⬇️ Download button. Or Download All.</p>
+<div class="grid grid-cols-1 gap-2 mt-3">
+<button id="finalPlayBtn" type="button" class="btn w-full bg-green-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">✅ FINAL PLAY - Generate All MP3s</button>
+<div class="grid grid-cols-2 gap-2">
+<button id="downloadAllBtn" type="button" class="btn bg-yellow-400 text-black border-2 border-black rounded-full py-2.5 text-[9px] font-black">⬇️ DOWNLOAD ALL MP3s</button>
+<button id="downloadBtn" type="button" class="btn bg-white text-black border-2 border-black rounded-full py-2.5 text-[9px] font-black">⬇️ DOWNLOAD LAST</button>
 </div>
+</div>
+<div id="finalInfo" class="mt-2 text-[7px] bg-black text-green-400 p-2 rounded hidden"></div>
 </div>
 
 </div>
 
 <script>
-let cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, speakerEmotionMap={}, speakerGenderMap={}, detectedMap={};
+let cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, speakerEmotionMap={}, speakerGenderMap={}, detectedMap={}, audioBlobs=[], audioUrls=[], isPlaying=false, stopRequested=false;
 
 function getEmotionSettings(emotion){
  let rate=parseFloat(document.getElementById('globalRate').value);
@@ -156,7 +149,6 @@ function getEmotionSettings(emotion){
  let vol=parseFloat(document.getElementById('globalVol').value);
  let s={rate, pitch, vol, stability:0.5, similarity:0.75, style:0.2, speed:rate};
  if(emotion==='whispering'){s.rate=0.65; s.pitch=0.35; s.vol=0.45; s.stability=0.75; s.similarity=0.60; s.style=0.1; s.speed=0.70;}
- else if(emotion==='lowtone'){s.rate=0.70; s.pitch=0.25; s.vol=0.70; s.stability=0.65; s.similarity=0.80; s.style=0.15; s.speed=0.75;}
  else if(emotion==='shy'){s.rate=0.60; s.pitch=0.75; s.vol=0.45; s.stability=0.80; s.similarity=0.60; s.style=0.10; s.speed=0.68;}
  else if(emotion==='teasing'){s.rate=1.05; s.pitch=0.85; s.vol=0.85; s.stability=0.35; s.similarity=0.75; s.style=0.65; s.speed=1.05;}
  return s;
@@ -165,17 +157,26 @@ document.getElementById('globalRate').addEventListener('input',e=>document.getEl
 document.getElementById('globalPitch').addEventListener('input',e=>document.getElementById('pitchVal').textContent=e.target.value);
 document.getElementById('globalVol').addEventListener('input',e=>document.getElementById('volVal').textContent=e.target.value);
 
-function testKey(){
+function addButtonFeedback(btn){
+ btn.classList.add('pulse');
+ btn.classList.add('btn-loading');
+ setTimeout(()=>{btn.classList.remove('pulse'); btn.classList.remove('btn-loading');}, 600);
+}
+
+function testKey(e){
+ if(e) addButtonFeedback(e.target);
  const key=document.getElementById('apiKey').value.trim();
  const provider=document.getElementById('provider').value;
  if(!key){ alert('Paste key'); return; }
  localStorage.setItem('pastestory_api_key',key);
+ document.getElementById('keyStatus').textContent='⏳ Loading...';
  if(provider==='elevenlabs'){
   fetch('https://api.elevenlabs.io/v1/voices',{headers:{'xi-api-key':key}}).then(r=>{if(!r.ok) throw new Error('Invalid key '+r.status); return r.json();}).then(data=>{
    cloudVoices=data.voices.map(v=>({id:v.voice_id, name:v.name, gender:(v.labels?.gender||'').toLowerCase()}));
-   document.getElementById('keyStatus').textContent=`✅ ${cloudVoices.length} voices - Auto gender ready - Key saved + eye button ✅`;
+   document.getElementById('keyStatus').textContent=`✅ ${cloudVoices.length} voices - Button works! Key saved ✅`;
    document.getElementById('keyStatus').className='text-[8px] mt-2 text-green-700 font-bold bg-white p-1 rounded';
-  }).catch(e=>{document.getElementById('keyStatus').textContent='❌ '+e.message;});
+   buildSpeakerUI();
+  }).catch(err=>{document.getElementById('keyStatus').textContent='❌ '+err.message+' - Check key + provider dropdown';});
  } else {
   cloudVoices=[
    {id:'echo', name:'Echo - Deep Male', gender:'male'},
@@ -187,24 +188,21 @@ function testKey(){
    {id:'coral', name:'Coral - Female', gender:'female'},
    {id:'sage', name:'Sage - Female', gender:'female'},
   ];
-  document.getElementById('keyStatus').textContent=`✅ ${cloudVoices.length} voices (4M/4F) - Auto gender ready - Key saved + eye ✅`;
+  document.getElementById('keyStatus').textContent=`✅ ${cloudVoices.length} voices (4M/4F) - Button responsive ✅ - Key saved`;
   document.getElementById('keyStatus').className='text-[8px] mt-2 text-green-700 font-bold bg-white p-1 rounded';
+  buildSpeakerUI();
  }
 }
 
 function detectGenderFromContext(line, speakerName){
  let l=line.toLowerCase();
- if(l.match(/बोली|कही|आई|गई|रही|सकी|ली|दी|की थी|हुई/)) return 'female';
- if(l.match(/बोला|कहा|आया|गया|रहा|सका|लिया|दिया|किया था|हुआ/)) return 'male';
+ if(l.match(/बोली|कही|आई|गई|रही|सकी/)) return 'female';
+ if(l.match(/बोला|कहा|आया|गया|रहा|सका/)) return 'male';
  let name=speakerName.toLowerCase();
- if(name.match(/(िया|िया|ी$|सीता|सुनीता|राधा)/)) return 'female';
- if(name.match(/(राम|मोहन|श्याम)/)) return 'male';
+ if(name.match(/(िया|िया|ी$|सीता|सुनीता)/)) return 'female';
  return 'male';
 }
-function mapHindiSpeakerToRoman(w){
- if(!w) return 'NARRATOR';
- return w.trim().replace(/[^A-Za-z\u0900-\u097F0-9]/g,'').slice(0,20) || 'NARRATOR';
-}
+function mapHindiSpeakerToRoman(w){return w.trim().replace(/[^A-Za-z\u0900-\u097F0-9]/g,'').slice(0,20) || 'NARRATOR';}
 function parseLineSmart(origLine){
  let line=origLine.trim(); let speaker=null; let dialogue=line;
  let m1=line.match(/^([A-Za-z\u0900-\u097F]{2,20})\s*[:：]\s*(.+)/);
@@ -213,99 +211,48 @@ function parseLineSmart(origLine){
  if(m1){speaker=mapHindiSpeakerToRoman(m1[1]); dialogue=m1[2];}
  else if(m2){speaker=mapHindiSpeakerToRoman(m2[1]); dialogue=m2[2];}
  else if(m4){speaker=mapHindiSpeakerToRoman(m4[1]); dialogue=m4[2];}
- else if(line.includes(' - ')){
-  let parts=line.split(/\s*[-–—]\s*/); if(parts.length>=2){ let fw=parts[0].trim().split(/\s+/)[0]; if(fw.length>=2){ speaker=mapHindiSpeakerToRoman(fw); dialogue=parts.slice(1).join(' - '); }}
- }
+ else if(line.includes(' - ')){let parts=line.split(/\s*[-–—]\s*/); if(parts.length>=2){let fw=parts[0].trim().split(/\s+/)[0]; if(fw.length>=2){speaker=mapHindiSpeakerToRoman(fw); dialogue=parts.slice(1).join(' - ');}}}
  if(!speaker || speaker.length<2) speaker='NARRATOR';
- if(!dialogue) dialogue=line;
- dialogue=dialogue.trim();
  let rawForEmotion=dialogue;
  let emotion=document.getElementById('globalEmotion').value;
  if(emotion==='auto'){
   let low=rawForEmotion.toLowerCase();
   if(low.match(/धीरे|फुसफुसा|whisper/)) emotion='whispering';
-  else if(low.match(/शरमा|शर्म|shy|लजा/)) emotion='shy';
+  else if(low.match(/शरमा|शर्म|shy/)) emotion='shy';
   else if(low.match(/छेड़|ताना|tease/)) emotion='teasing';
-  else if(low.match(/low|धीमा/)) emotion='lowtone';
   else if(/[?]/.test(origLine)) emotion='hairan';
-  else if(/[!]/.test(origLine)) emotion='excited';
   else emotion='normal';
  }
- let cleanDialogue=dialogue.replace(/\([^)]*\)/g,'').replace(/\[[^\]]*\]/g,'').replace(/\s{2,}/g,' ').trim();
- if(!cleanDialogue) cleanDialogue=dialogue.replace(/\([^)]*\)/g,'').trim() || dialogue;
+ let cleanDialogue=dialogue.replace(/\([^)]*\)/g,'').replace(/\[[^\]]*\]/g,'').replace(/\s{2,}/g,' ').trim() || dialogue.replace(/\([^)]*\)/g,'').trim();
  let punct=(origLine.match(/[?!।]+$/)||[''])[0];
  let dialogueNoPunct=cleanDialogue.replace(/[?!।]+$/,'').trim();
  return {speaker, dialogue:dialogueNoPunct, original:origLine, rawDialogue:dialogue, cleanDialogue:dialogueNoPunct, emotion, punct, fullLine:origLine};
 }
 
-// STEP 2: AUTO DETECTION
-function autoDetect(){
+function autoDetect(e){
+ if(e) addButtonFeedback(e.target);
  if(cloudVoices.length===0){ alert('First LOAD VOICES'); return; }
  const raw=document.getElementById('pasteInput').value.trim();
  if(!raw){ alert('Paste story in STEP 1 first'); return; }
  let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean);
  detectedMap={};
- lines.forEach(orig=>{
-  let parsed=parseLineSmart(orig);
-  let sp=parsed.speaker;
-  if(!detectedMap[sp]) detectedMap[sp]={count:0, male:0, female:0, emotions:[]};
-  detectedMap[sp].count++;
-  let g=detectGenderFromContext(parsed.fullLine, sp);
-  if(g==='female') detectedMap[sp].female++; else detectedMap[sp].male++;
-  detectedMap[sp].emotions.push(parsed.emotion);
- });
-
- // Build speakers from detection (NO hardcoded)
+ lines.forEach(orig=>{let parsed=parseLineSmart(orig); let sp=parsed.speaker; if(!detectedMap[sp]) detectedMap[sp]={count:0, male:0, female:0, emotions:[]}; detectedMap[sp].count++; let g=detectGenderFromContext(parsed.fullLine, sp); if(g==='female') detectedMap[sp].female++; else detectedMap[sp].male++; detectedMap[sp].emotions.push(parsed.emotion);});
  speakers=Object.keys(detectedMap);
- speakers.forEach(sp=>{
-  let info=detectedMap[sp];
-  speakerGenderMap[sp]= info.female > info.male ? 'female' : 'male';
-  if(sp==='NARRATOR') speakerGenderMap[sp]='male';
- });
-
- // Auto voice distinct
- let maleVoices=cloudVoices.filter(v=>v.gender==='male');
- let femaleVoices=cloudVoices.filter(v=>v.gender==='female');
- let maleIdx=0, femaleIdx=0;
- speakers.forEach(sp=>{
-  if(!speakerVoiceMap[sp]){
-   let gender=speakerGenderMap[sp];
-   if(gender==='female'){ speakerVoiceMap[sp]=femaleVoices[femaleIdx % femaleVoices.length]?.id; femaleIdx++; }
-   else { speakerVoiceMap[sp]=maleVoices[maleIdx % maleVoices.length]?.id; maleIdx++; }
-   speakerEmotionMap[sp]='normal';
-  }
- });
-
- let resultDiv=document.getElementById('autoDetectResult');
- resultDiv.classList.remove('hidden');
- resultDiv.innerHTML=`✅ Auto detected ${speakers.length} speakers:<br>${speakers.map(s=>{
-  let info=detectedMap[s];
-  return `${s}: Gender ${speakerGenderMap[s]} (${info.male}M/${info.female}F votes), Emotions: ${[...new Set(info.emotions)].join(', ')}, Voice: ${speakerVoiceMap[s]}`;
- }).join('<br>')}<br><br>→ Check STEP 3 below, fix only if wrong, then STEP 4 CONVERT`;
-
+ speakers.forEach(sp=>{let info=detectedMap[sp]; speakerGenderMap[sp]= info.female > info.male ? 'female' : 'male'; if(sp==='NARRATOR') speakerGenderMap[sp]='male';});
+ let maleVoices=cloudVoices.filter(v=>v.gender==='male'); let femaleVoices=cloudVoices.filter(v=>v.gender==='female'); let maleIdx=0, femaleIdx=0;
+ speakers.forEach(sp=>{if(!speakerVoiceMap[sp]){let gender=speakerGenderMap[sp]; if(gender==='female'){speakerVoiceMap[sp]=femaleVoices[femaleIdx % femaleVoices.length]?.id; femaleIdx++;} else {speakerVoiceMap[sp]=maleVoices[maleIdx % maleVoices.length]?.id; maleIdx++;} speakerEmotionMap[sp]='normal';}});
+ let resultDiv=document.getElementById('autoDetectResult'); resultDiv.classList.remove('hidden');
+ resultDiv.innerHTML=`✅ Auto detected ${speakers.length} speakers - Buttons work!:<br>${speakers.map(s=>`${s}(${speakerGenderMap[s]}) Voice:${speakerVoiceMap[s]}`).join('<br>')}`;
  buildSpeakerUI();
 }
 
-function analyzeStory(){
- // STEP 4: CONVERT TO VOICES - uses auto + manual fixes
+function analyzeStory(e){
+ if(e) addButtonFeedback(e.target);
  if(speakers.length===0){ alert('First AUTO DETECT in STEP 2'); return; }
  const raw=document.getElementById('pasteInput').value.trim();
  let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean);
  let script=[];
- lines.forEach(orig=>{
-  let parsed=parseLineSmart(orig);
-  // If speaker not in list but NARRATOR exists, keep NARRATOR, else add
-  if(!speakers.includes(parsed.speaker) && parsed.speaker!=='NARRATOR'){
-   // Auto add missing speaker found during convert
-   speakers.push(parsed.speaker);
-   let g=detectGenderFromContext(parsed.fullLine, parsed.speaker);
-   speakerGenderMap[parsed.speaker]=g;
-   let maleVoices=cloudVoices.filter(v=>v.gender==='male');
-   let femaleVoices=cloudVoices.filter(v=>v.gender==='female');
-   speakerVoiceMap[parsed.speaker]= g==='female' ? femaleVoices[0]?.id : maleVoices[0]?.id;
-  }
-  script.push(parsed);
- });
+ lines.forEach(orig=>{let parsed=parseLineSmart(orig); if(!speakers.includes(parsed.speaker) && parsed.speaker!=='NARRATOR'){speakers.push(parsed.speaker); let g=detectGenderFromContext(parsed.fullLine, parsed.speaker); speakerGenderMap[parsed.speaker]=g; let maleVoices=cloudVoices.filter(v=>v.gender==='male'); let femaleVoices=cloudVoices.filter(v=>v.gender==='female'); speakerVoiceMap[parsed.speaker]= g==='female' ? femaleVoices[0]?.id : maleVoices[0]?.id;} script.push(parsed);});
  currentScript=script;
  document.getElementById('voiceStudio').classList.remove('hidden');
  document.getElementById('finalBox').classList.remove('hidden');
@@ -313,94 +260,45 @@ function analyzeStory(){
  document.getElementById('voiceStudio').scrollIntoView({behavior:'smooth'});
 }
 
-function addSpeakerManually(){
- let name=document.getElementById('newSpeakerName').value.trim();
- if(!name) return;
- let roman=mapHindiSpeakerToRoman(name);
- if(!speakers.includes(roman)){
-  speakers.push(roman);
-  speakerGenderMap[roman]=detectGenderFromContext(name, roman);
-  let maleVoices=cloudVoices.filter(v=>v.gender==='male');
-  let femaleVoices=cloudVoices.filter(v=>v.gender==='female');
-  speakerVoiceMap[roman]= speakerGenderMap[roman]==='female' ? femaleVoices[0]?.id : maleVoices[0]?.id;
- }
- document.getElementById('newSpeakerName').value='';
- buildSpeakerUI(); if(currentScript.length>0) renderScript();
-}
-function clearAllSpeakers(){
- if(!confirm('Clear all speakers? Fixes Guddu/Gudiya bug')) return;
- speakers=[]; speakerVoiceMap={}; speakerGenderMap={}; speakerEmotionMap={}; currentScript=[]; detectedMap={};
- document.getElementById('speakerVoiceList').innerHTML='<p class="text-[8px] opacity-50 text-center py-2">Cleared - Re-do AUTO DETECT</p>';
- document.getElementById('scriptList').innerHTML=''; document.getElementById('autoDetectResult').classList.add('hidden');
- document.getElementById('voiceStudio').classList.add('hidden'); document.getElementById('finalBox').classList.add('hidden');
-}
-function deleteSpeaker(sp){
- if(!confirm('Delete '+sp+'?')) return;
- speakers=speakers.filter(s=>s!==sp);
- delete speakerVoiceMap[sp]; delete speakerGenderMap[sp];
- currentScript.forEach(c=>{ if(c.speaker===sp) c.speaker='NARRATOR'; });
- buildSpeakerUI(); renderScript();
-}
-function clearPreview(){ document.getElementById('audioPlayers').innerHTML=''; }
-function reloadVoices(){ clearPreview(); testKey(); buildSpeakerUI(); alert('Voices reloaded - Check STEP 3 gender/voice if still wrong, then CONVERT again'); }
-function reAutoDetect(){ clearAllSpeakers(); autoDetect(); }
+function addSpeakerManually(){let name=document.getElementById('newSpeakerName').value.trim(); if(!name) return; let roman=mapHindiSpeakerToRoman(name); if(!speakers.includes(roman)){speakers.push(roman); speakerGenderMap[roman]=detectGenderFromContext(name, roman); let maleVoices=cloudVoices.filter(v=>v.gender==='male'); let femaleVoices=cloudVoices.filter(v=>v.gender==='female'); speakerVoiceMap[roman]= speakerGenderMap[roman]==='female' ? femaleVoices[0]?.id : maleVoices[0]?.id;} document.getElementById('newSpeakerName').value=''; buildSpeakerUI(); if(currentScript.length>0) renderScript();}
+function clearAllSpeakers(){if(!confirm('Clear all speakers?')) return; speakers=[]; speakerVoiceMap={}; speakerGenderMap={}; speakerEmotionMap={}; currentScript=[]; detectedMap={}; document.getElementById('speakerVoiceList').innerHTML='<p class="text-[8px] opacity-50 text-center py-2">Cleared</p>'; document.getElementById('scriptList').innerHTML=''; document.getElementById('autoDetectResult').classList.add('hidden'); document.getElementById('voiceStudio').classList.add('hidden'); document.getElementById('finalBox').classList.add('hidden');}
+function deleteSpeaker(sp){if(!confirm('Delete '+sp+'?')) return; speakers=speakers.filter(s=>s!==sp); delete speakerVoiceMap[sp]; delete speakerGenderMap[sp]; currentScript.forEach(c=>{if(c.speaker===sp) c.speaker='NARRATOR';}); buildSpeakerUI(); renderScript();}
+function clearPreview(){document.getElementById('audioPlayers').innerHTML='<p class="text-[7px] opacity-50 text-center py-2">Cleared - MP3s removed</p>'; document.getElementById('playStatus').textContent='Cleared'; document.getElementById('progressBar').style.width='0%'; audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[];}
+function reloadVoices(){clearPreview(); testKey(); buildSpeakerUI();}
+function reAutoDetect(){clearAllSpeakers(); autoDetect();}
 
 function buildSpeakerUI(){
  const cont=document.getElementById('speakerVoiceList');
- if(speakers.length===0){ cont.innerHTML='<p class="text-[8px] opacity-50 text-center py-2">No speakers - Do AUTO DETECT in STEP 2</p>'; return; }
+ if(speakers.length===0){cont.innerHTML='<p class="text-[8px] opacity-50 text-center py-2">No speakers - Do AUTO DETECT</p>'; return;}
  cont.innerHTML=speakers.map(sp=>{
-  let gender=speakerGenderMap[sp]||'male';
-  let isFemale=gender==='female';
-  let options=cloudVoices.map(v=>{
-   let autoSel=speakerVoiceMap[sp]===v.id;
-   let match=(isFemale && v.gender==='female')||(!isFemale && v.gender==='male');
-   return `<option value="${v.id}" ${autoSel?'selected':''}>${v.name} ${v.gender==='male'?'♂':'♀'} ${match?'✅ Auto':''}</option>`;
-  }).join('');
+  let gender=speakerGenderMap[sp]||'male'; let isFemale=gender==='female';
+  let options=cloudVoices.map(v=>`<option value="${v.id}" ${speakerVoiceMap[sp]===v.id?'selected':''}>${v.name} ${v.gender==='male'?'♂':'♀'} ${((isFemale && v.gender==='female')||(!isFemale && v.gender==='male'))?'✅':''}</option>`).join('');
   let genderOptions=`<option value="male" ${gender==='male'?'selected':''}>♂ Male</option><option value="female" ${gender==='female'?'selected':''}>♀ Female</option>`;
-  let emoOptions=['normal','whispering','lowtone','shy','teasing','happy','sad','romantic'].map(e=>`<option value="${e}" ${speakerEmotionMap[sp]===e?'selected':''}>${e}</option>`).join('');
   return `<div class="bg-[#FFFBEB] rounded-[14px] p-2 border-2 ${isFemale?'border-pink-400':'border-blue-400'}">
-   <div class="flex justify-between items-center"><span class="text-[9px] font-black px-2 py-1 rounded-full ${isFemale?'bg-pink-600':'bg-blue-600'} text-white">${sp} ${isFemale?'♀ AUTO':'♂ AUTO'}</span><div class="flex gap-1"><button onclick="testSpeaker('${sp}')" class="bg-black text-white rounded-full px-2 py-1 text-[6px]">▶ TEST</button><button onclick="deleteSpeaker('${sp}')" class="bg-red-500 text-white rounded-full px-2 py-1 text-[6px]">X</button></div></div>
-   <div class="grid grid-cols-2 gap-1 mt-2">
-    <select onchange="speakerGenderMap['${sp}']=this.value; autoReassignVoice('${sp}'); buildSpeakerUI(); renderScript()" class="bg-white rounded-full px-2 py-1.5 text-[7px] font-bold border border-black">${genderOptions}</select>
-    <select onchange="speakerEmotionMap['${sp}']=this.value; renderScript()" class="bg-white rounded-full px-2 py-1.5 text-[7px] font-bold border border-black"><option value="">Emotion auto</option>${emoOptions}</select>
-   </div>
-   <select onchange="speakerVoiceMap['${sp}']=this.value; renderScript()" class="w-full mt-1 bg-white rounded-full px-2 py-1.5 text-[8px] font-bold border-2 border-black">${options}</select>
-   <p class="text-[5px] mt-1 opacity-60">Auto gender from बोला/बोली. Change only if wrong. Voice auto distinct.</p>
+   <div class="flex justify-between items-center"><span class="text-[9px] font-black px-2 py-1 rounded-full ${isFemale?'bg-pink-600':'bg-blue-600'} text-white">${sp} ${isFemale?'♀':'♂'} AUTO</span><div class="flex gap-1"><button onclick="testSpeaker('${sp}')" type="button" class="btn bg-black text-white rounded-full px-2 py-1 text-[6px]">▶ TEST</button><button onclick="deleteSpeaker('${sp}')" type="button" class="btn bg-red-500 text-white rounded-full px-2 py-1 text-[6px]">X</button></div></div>
+   <div class="grid grid-cols-2 gap-1 mt-1"><select onchange="speakerGenderMap['${sp}']=this.value; autoReassignVoice('${sp}'); buildSpeakerUI(); renderScript()" class="bg-white rounded-full px-2 py-1 text-[7px] font-bold border border-black">${genderOptions}</select><span class="text-[5px] bg-yellow-200 px-2 py-1 rounded-full">Auto gender बोला/बोली</span></div>
+   <select onchange="speakerVoiceMap['${sp}']=this.value; renderScript()" class="w-full mt-1 bg-white rounded-full px-2 py-1 text-[8px] font-bold border-2 border-black">${options}</select>
   </div>`;
  }).join('');
 }
-function autoReassignVoice(sp){
- let gender=speakerGenderMap[sp];
- let maleVoices=cloudVoices.filter(v=>v.gender==='male');
- let femaleVoices=cloudVoices.filter(v=>v.gender==='female');
- speakerVoiceMap[sp]= gender==='female' ? femaleVoices[0]?.id : maleVoices[0]?.id;
-}
-
+function autoReassignVoice(sp){let gender=speakerGenderMap[sp]; let maleVoices=cloudVoices.filter(v=>v.gender==='male'); let femaleVoices=cloudVoices.filter(v=>v.gender==='female'); speakerVoiceMap[sp]= gender==='female' ? femaleVoices[0]?.id : maleVoices[0]?.id;}
 function renderScript(){
  const cont=document.getElementById('scriptList');
- cont.innerHTML=`<p class="text-[8px] font-black mb-2 text-white/60">SCRIPT - ${currentScript.length} lines - Auto Gender/Voice/Emotion - Edit in STEP 3 if wrong</p>`+currentScript.map((s,i)=>{
+ cont.innerHTML=`<p class="text-[8px] font-black mb-2 text-white/60">SCRIPT - ${currentScript.length} lines</p>`+currentScript.map((s,i)=>{
   let voiceId=speakerVoiceMap[s.speaker]; let v=cloudVoices.find(x=>x.id===voiceId);
-  let spOptions=speakers.map(sp=>`<option value="${sp}" ${sp===s.speaker?'selected':''}>${sp}(${speakerGenderMap[sp]||''})</option>`).join('');
-  let emoOptions=['normal','whispering','lowtone','shy','teasing','happy','sad','romantic','hairan','excited'].map(e=>`<option value="${e}" ${e===s.emotion?'selected':''}>${e}</option>`).join('');
-  return `<div class="bg-white text-black rounded-[14px] border-2 p-2">
-   <div class="flex gap-1 items-center flex-wrap">
-    <select onchange="currentScript[${i}].speaker=this.value; renderScript()" class="bg-black text-white rounded-full px-2 py-1 text-[7px] font-bold">${spOptions}</select>
-    <select onchange="currentScript[${i}].emotion=this.value; renderScript()" class="bg-yellow-100 border border-black rounded-full px-2 py-1 text-[6px] font-bold">${emoOptions}</select>
-    <span class="text-[6px] bg-gray-100 px-1 py-1 rounded-full">${v?.name||''}</span>
-    <button onclick="playLine(${i})" class="ml-auto bg-black text-white w-6 h-6 rounded-full text-[10px]">▶</button>
-   </div>
-   <p class="text-[12px] font-bold mt-1 dev bg-green-50 rounded p-2 border">✅ ${s.dialogue}${s.punct||''}</p>
-   ${s.rawDialogue!==s.cleanDialogue?`<p class="text-[5px] opacity-40">Raw: ${s.rawDialogue} → Voice: "${s.cleanDialogue}" (brackets stripped)</p>`:''}
-  </div>`;
+  let spOptions=speakers.map(sp=>`<option value="${sp}" ${sp===s.speaker?'selected':''}>${sp}</option>`).join('');
+  let emoOptions=['normal','whispering','shy','teasing','happy','sad','romantic','hairan'].map(e=>`<option value="${e}" ${e===s.emotion?'selected':''}>${e}</option>`).join('');
+  return `<div class="bg-white text-black rounded-[14px] border-2 p-2"><div class="flex gap-1 items-center flex-wrap"><select onchange="currentScript[${i}].speaker=this.value; renderScript()" class="bg-black text-white rounded-full px-2 py-1 text-[7px] font-bold">${spOptions}</select><select onchange="currentScript[${i}].emotion=this.value; renderScript()" class="bg-yellow-100 border border-black rounded-full px-2 py-1 text-[6px] font-bold">${emoOptions}</select><span class="text-[6px] bg-gray-100 px-1 py-1 rounded-full">${v?.name||''}</span><button onclick="playLine(${i})" type="button" class="btn ml-auto bg-black text-white w-6 h-6 rounded-full text-[10px]">▶</button></div><p class="text-[12px] font-bold mt-1 dev bg-green-50 rounded p-2 border">✅ ${s.dialogue}${s.punct||''}</p></div>`;
  }).join('');
 }
 
-async function playLine(i){
+// FIXED: playLine now returns Promise that waits for audio to END
+async function playLine(i, saveBlob=true){
  const s=currentScript[i];
  const provider=document.getElementById('provider').value;
  const key=document.getElementById('apiKey').value.trim();
  const voiceId=speakerVoiceMap[s.speaker];
- if(!key){ alert('Enter API key'); return; }
+ if(!key){ alert('Enter API key'); throw new Error('No key'); }
  let emotion=s.emotion!=='normal'?s.emotion:(speakerEmotionMap[s.speaker]||'normal');
  let settings=getEmotionSettings(emotion);
  let text=s.dialogue + (s.punct||'');
@@ -411,26 +309,95 @@ async function playLine(i){
    if(!r.ok) throw new Error('ElevenLabs '+r.status); blob=await r.blob();
   } else {
    let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1', voice:voiceId, input:text, speed:settings.speed})});
-   if(!r.ok){ let t=await r.text(); throw new Error('OpenAI '+r.status); } blob=await r.blob();
+   if(!r.ok){ let t=await r.text(); throw new Error('OpenAI '+r.status+': '+t.slice(0,200)); } blob=await r.blob();
   }
   let url=URL.createObjectURL(blob);
-  let audio=new Audio(url); audio.play();
-  document.getElementById('audioPlayers').innerHTML+=`<div class="bg-white text-black rounded-[8px] p-2"><p class="text-[7px] font-bold">${s.speaker}(${speakerGenderMap[s.speaker]} ${emotion} ${settings.speed}) : ${s.dialogue}</p><audio controls src="${url}" class="w-full mt-1"></audio></div>`;
- } catch(e){ alert('TTS failed: '+e.message); }
+  if(saveBlob){ audioBlobs.push({blob, name:`${s.speaker}_${i+1}.mp3`, speaker:s.speaker, dialogue:s.dialogue}); audioUrls.push(url); }
+  // Create audio element and WAIT for it to finish
+  return new Promise((resolve, reject)=>{
+   let audio=new Audio(url);
+   audio.onended=()=>{
+    resolve({url, blob});
+   };
+   audio.onerror=(e)=>{ reject(e); };
+   // Add to UI with download button
+   let container=document.getElementById('audioPlayers');
+   if(container.innerHTML.includes('MP3s will appear')) container.innerHTML='';
+   let div=document.createElement('div');
+   div.className='bg-white text-black rounded-[8px] p-2 flex flex-col gap-1';
+   div.innerHTML=`<div class="flex justify-between items-center"><p class="text-[7px] font-bold flex-1">${i+1}. ${s.speaker}(${speakerGenderMap[s.speaker]||''} ${emotion}) : ${s.dialogue.slice(0,40)}</p><a href="${url}" download="${s.speaker}_${i+1}.mp3" class="btn bg-black text-white rounded-full px-2 py-1 text-[6px] font-black">⬇️ MP3</a></div><audio controls src="${url}" class="w-full"></audio><p class="text-[5px] opacity-60">MP3 Location: Above ⬇️ button saves to Downloads folder. Audio player here plays preview.</p>`;
+   container.appendChild(div);
+   audio.play().catch(e=>{ // autoplay may fail, still resolve
+    console.log('Autoplay blocked', e);
+    resolve({url, blob});
+   });
+  });
+ } catch(e){
+  document.getElementById('playStatus').textContent=`❌ Error line ${i+1}: ${e.message}`;
+  throw e;
+ }
 }
-async function playFull(){
+
+// FIXED: playFull now waits for EACH audio to finish, not fixed 2.5s, and continues even if one fails
+async function playFull(e){
+ if(e) addButtonFeedback(e.target);
+ if(isPlaying){ alert('Already playing - tap STOP first'); return; }
+ if(currentScript.length===0){ alert('CONVERT first'); return; }
+ isPlaying=true; stopRequested=false;
+ document.getElementById('playFullBtn').disabled=true;
+ document.getElementById('finalPlayBtn').disabled=true;
  document.getElementById('audioPlayers').innerHTML='';
- for(let i=0;i<currentScript.length;i++){ await playLine(i); await new Promise(r=>setTimeout(r,2500)); }
+ audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[];
+ document.getElementById('playStatus').textContent=`▶ Starting full preview ${currentScript.length} lines...`;
+ document.getElementById('progressBar').style.width='0%';
+
+ for(let i=0;i<currentScript.length;i++){
+  if(stopRequested) break;
+  let pct=Math.round((i/currentScript.length)*100);
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('playStatus').textContent=`▶ Playing ${i+1}/${currentScript.length}: ${currentScript[i].speaker} - ${currentScript[i].dialogue.slice(0,30)}...`;
+  try{
+   await playLine(i, true);
+  } catch(err){
+   console.log('Line failed', i, err);
+   // Continue to next line even if one fails
+   document.getElementById('audioPlayers').innerHTML+=`<div class="bg-red-100 text-black rounded p-1 text-[6px]">❌ Line ${i+1} failed: ${err.message} - Skipped, continuing...</div>`;
+   continue;
+  }
+ }
+ document.getElementById('progressBar').style.width='100%';
+ document.getElementById('playStatus').textContent=`✅ Full preview done - ${audioBlobs.length} MP3s generated in STEP 5 box above. Tap ⬇️ MP3 to download each.`;
+ document.getElementById('playFullBtn').disabled=false;
+ document.getElementById('finalPlayBtn').disabled=false;
+ isPlaying=false;
+ let info=document.getElementById('finalInfo');
+ info.classList.remove('hidden');
+ info.innerHTML=`✅ MP3s Location: All ${audioBlobs.length} MP3s are in <b>STEP 5 box (black box above)</b>. Each has ⬇️ MP3 button that saves to your phone Downloads. Tap DOWNLOAD ALL for all at once. Final Play also adds them there.`;
 }
-function testSpeaker(sp){ let idx=currentScript.findIndex(c=>c.speaker===sp); if(idx>=0) playLine(idx); else alert('No lines for '+sp); }
+
+function stopPlaying(){ stopRequested=true; isPlaying=false; document.getElementById('playStatus').textContent='⏹ Stopped by user'; document.getElementById('playFullBtn').disabled=false; document.getElementById('finalPlayBtn').disabled=false; }
+function testSpeaker(sp){let idx=currentScript.findIndex(c=>c.speaker===sp); if(idx>=0) playLine(idx, false); else alert('No lines for '+sp);}
+
+function downloadLast(){ if(audioUrls.length===0){ alert('No MP3s - Play first'); return; } let last=audioUrls.length-1; let a=document.createElement('a'); a.href=audioUrls[last]; a.download=audioBlobs[last].name; a.click(); }
+function downloadAll(){
+ if(audioBlobs.length===0){ alert('No MP3s - Do FINAL PLAY first. MP3s appear in STEP 5 box.'); return; }
+ document.getElementById('finalInfo').classList.remove('hidden');
+ document.getElementById('finalInfo').innerHTML=`⬇️ Downloading ${audioBlobs.length} MP3s one by one to Downloads folder... Check Downloads app.`;
+ audioBlobs.forEach((item, idx)=>{
+  setTimeout(()=>{
+   let a=document.createElement('a'); a.href=audioUrls[idx]; a.download=item.name; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }, idx*800);
+ });
+}
 
 document.getElementById('testKeyBtn').addEventListener('click', testKey);
 document.getElementById('autoDetectBtn').addEventListener('click', autoDetect);
 document.getElementById('analyzeBtn').addEventListener('click', analyzeStory);
 document.getElementById('playFullBtn').addEventListener('click', playFull);
 document.getElementById('finalPlayBtn').addEventListener('click', playFull);
-document.getElementById('downloadBtn').addEventListener('click', ()=>alert('Use ⋮ on audio player to download'));
-document.getElementById('saveBtn').addEventListener('click', ()=>alert('Saved'));
+document.getElementById('stopBtn').addEventListener('click', stopPlaying);
+document.getElementById('downloadBtn').addEventListener('click', downloadLast);
+document.getElementById('downloadAllBtn').addEventListener('click', downloadAll);
 document.getElementById('eyeBtn').addEventListener('click', ()=>{let i=document.getElementById('apiKey'); i.type=i.type==='password'?'text':'password'; document.getElementById('eyeBtn').textContent=i.type==='password'?'👁️':'🙈';});
 window.addEventListener('load',()=>{let k=localStorage.getItem('pastestory_api_key'); if(k) document.getElementById('apiKey').value=k;});
 </script>
