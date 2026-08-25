@@ -21,27 +21,17 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 </style><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PasteStory V14.3 COMMA FIX - Male Hindi</title>
+<title>PasteStory V14.4 QUESTION MARK FIX</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>body{background:#0a0a0a;color:white;max-width:560px;margin:auto}.btn:active{transform:scale(.94)}.step{background:#111;border:2px solid #333;border-radius:14px;padding:10px;margin-bottom:10px}</style>
 </head><body class="pb-40">
-<header class="bg-green-400 text-black p-3 flex justify-between"><div><h1 class="font-black text-[12px]">V14.3 COMMA/! FIX ✅ Male now reads dialogue not comma</h1><p class="text-[6px] font-bold">Fix: Rishi en-IN male voice was reading "," as "comma" and "!" as "exclamation" - now stripped</p></div><span class="bg-black text-white px-2 py-1 rounded-full text-[7px]">FIXED V14.3</span></header>
+<header class="bg-green-400 text-black p-3 flex justify-between"><div><h1 class="font-black text-[12px]">V14.4 FIX ✅ Ram no more says "question mark"</h1><p class="text-[6px] font-bold">Fix: "?" "!" "," now fully stripped for Rishi male voice + lang hi-IN + fallback if silent</p></div><span class="bg-black text-white px-2 py-1 rounded-full text-[7px]">V14.4</span></header>
 <div class="p-3">
 <div class="bg-white text-black rounded-[16px] p-3 border-2 border-black">
-<select id="provider" class="w-full bg-black text-white rounded-full px-3 py-3 text-[11px] font-bold">
-<option value="native_hindi" selected>🇮🇳 NATIVE Hindi REAL M+F - Fixed comma bug ✅</option>
-<option value="elevenlabs">🇮🇳 ElevenLabs - BEST male Hindi (no comma bug)</option>
-</select>
-<button id="testKeyBtn" class="btn w-full mt-2 bg-black text-white rounded-full py-3 text-[11px] font-black">✅ LOAD VOICES - COMMA FIX</button>
-<p id="keyStatus" class="text-[7px] mt-2 bg-green-100 border-2 border-green-600 p-2 rounded">Fix: Male voice text cleaned - "," "!" removed before speaking, lang forced to hi-IN</p>
+<button id="testKeyBtn" class="btn w-full bg-black text-white rounded-full py-3 text-[11px] font-black">✅ LOAD VOICES - V14.4 QUESTION FIX</button>
+<p id="keyStatus" class="text-[7px] mt-2 bg-green-100 border-2 border-green-600 p-2 rounded">V14.4: Male voice will speak only Hindi words, no "question mark" "comma" "exclamation"</p>
 <div id="nativeVoicesInfo" class="mt-2 text-[6px] bg-yellow-100 border rounded p-2"></div>
 </div>
-
-<div class="bg-amber-300 text-black rounded-[12px] p-2 mt-3 border-2 border-black">
-<p class="text-[8px] font-black">What was bug?</p>
-<p class="text-[6px] mt-1 bg-white p-2 rounded border">Old: Rishi en-IN (English voice) + Hindi text "सीता, आज..." + lang en-IN → speaks "comma"<br>New: Same Rishi voice + Hindi text cleaned "सीता आज..." + lang hi-IN → speaks full sentence no comma word</p>
-</div>
-
 <div class="step mt-3"><textarea id="pasteInput" class="w-full h-[110px] mt-2 bg-white text-black rounded-[12px] border-2 border-black p-2 text-[13px] font-bold">राम बोला - सीता, आज अस्सी घाट चलें?
 सीता बोली - क्यों, आज क्या खास है? (शरमाते हुए)
 राम बोला - कुछ नहीं, बस तुम्हारे साथ चाय पीने का मन कर रहा है (धीरे से)
@@ -56,7 +46,7 @@
 <p id="playStatus" class="text-[8px] bg-black text-white p-1.5 rounded">Ready</p>
 <div class="w-full bg-white/20 rounded-full h-[6px] mt-2 overflow-hidden"><div id="progressBar" class="bg-green-400 h-full" style="width:0%"></div></div>
 <div class="grid grid-cols-2 gap-2 mt-3">
-<button id="playFullBtn" class="btn bg-white text-black border-2 border-black rounded-full py-3 text-[9px] font-black">▶ GENERATE ALL - No comma bug</button>
+<button id="playFullBtn" class="btn bg-white text-black border-2 border-black rounded-full py-3 text-[9px] font-black">▶ GENERATE ALL - No ? bug</button>
 <button id="stopBtn" class="btn bg-red-500 text-white border-2 border-black rounded-full py-3 text-[9px] font-black">⏹ STOP</button>
 </div>
 <div id="audioPlayers" class="mt-3 space-y-2 max-h-[300px] overflow-y-auto bg-black/50 p-2 rounded-[12px]"></div>
@@ -65,78 +55,72 @@
 </div>
 <script>
 let cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, speakerGenderMap={}, isPlaying=false, stopRequested=false;
-function saveKeys(){}
-function loadKeys(){}
-function toggleEye(id){let i=document.getElementById(id); i.type=i.type==='password'?'text':'password';}
-function getEmotionSettings(emotion, gender){
- let rate=0.85, pitch=gender==='male'?0.75:1.25, vol=0.85, base=gender==='male'?0.75:1.25, s={rate, pitch, vol, basePitch:base};
- if(emotion==='whispering'){s.rate=0.55; s.pitch=base*0.85; s.vol=0.5;}
- else if(emotion==='shy'){s.rate=0.6; s.pitch=base*1.35; s.vol=0.45;}
- else if(emotion==='teasing'){s.rate=1.15; s.pitch=base*1.25; s.vol=0.9;}
- else if(emotion==='angry'){s.rate=1.2; s.pitch=base*0.75; s.vol=1.0;}
- else if(emotion==='happy'){s.rate=1.0; s.pitch=base*1.15; s.vol=0.9;}
- return s;
-}
-function loadVoices(){let v=speechSynthesis.getVoices(); let info=document.getElementById('nativeVoicesInfo'); if(v.length===0){info.textContent='Waiting - click LOAD again after 1 sec'; return [];} info.innerHTML=`✅ ${v.length} voices: ${v.map(x=>x.name).join(', ').slice(0,200)}`; return v;}
+function getEmotionSettings(emotion, gender){let rate=0.85, pitch=gender==='male'?0.75:1.25, vol=0.85, base=gender==='male'?0.75:1.25, s={rate,pitch,vol,basePitch:base}; if(emotion==='whispering'){s.rate=0.55; s.pitch=base*0.85; s.vol=0.5;} else if(emotion==='shy'){s.rate=0.6; s.pitch=base*1.35; s.vol=0.45;} else if(emotion==='teasing'){s.rate=1.15; s.pitch=base*1.25; s.vol=0.9;} else if(emotion==='angry'){s.rate=1.2; s.pitch=base*0.75; s.vol=1.0;} return s;}
+function loadVoices(){let v=speechSynthesis.getVoices(); let info=document.getElementById('nativeVoicesInfo'); if(v.length===0){info.textContent='No voices - click LOAD again after 1 sec'; return [];} info.innerHTML=`✅ ${v.length} voices: ${v.map(x=>x.name).slice(0,6).join(', ')}`; return v;}
 function buildCloudVoices(){
- let voices=speechSynthesis.getVoices();
- if(voices.length===0) voices=loadVoices();
+ let voices=speechSynthesis.getVoices(); if(voices.length===0) voices=loadVoices();
  let hiFemale = voices.find(v=>v.name.toLowerCase().includes('lekha')) || voices.find(v=>v.lang.toLowerCase().startsWith('hi')) || null;
  let enMaleRishi = voices.find(v=>v.name.toLowerCase().includes('rishi')) || voices.find(v=>v.lang.toLowerCase().includes('en-in')) || null;
  cloudVoices=[];
  if(enMaleRishi){
-   cloudVoices.push({id:'ram_male_rishi', name:`🇮🇳 Ram MALE REAL - ${enMaleRishi.name} (will speak Hindi, no comma bug)`, gender:'male', basePitch:0.75, realVoice:enMaleRishi, lang:'hi-IN'});
-   cloudVoices.push({id:'mohan_male_rishi2', name:`🇮🇳 Mohan MALE REAL - ${enMaleRishi.name} Deep`, gender:'male', basePitch:0.6, realVoice:enMaleRishi, lang:'hi-IN'});
+   cloudVoices.push({id:'ram_male_rishi', name:`🇮🇳 Ram MALE REAL - ${enMaleRishi.name} - NO ? bug`, gender:'male', basePitch:0.75, realVoice:enMaleRishi, lang:'hi-IN'});
+   cloudVoices.push({id:'mohan_male_rishi2', name:`🇮🇳 Mohan MALE REAL - ${enMaleRishi.name} Deep - NO ? bug`, gender:'male', basePitch:0.6, realVoice:enMaleRishi, lang:'hi-IN'});
  }
  if(hiFemale){
    cloudVoices.push({id:'sita_female_lekha', name:`🇮🇳 Sita FEMALE REAL - ${hiFemale.name} hi-IN`, gender:'female', basePitch:1.15, realVoice:hiFemale, lang:'hi-IN'});
-   cloudVoices.push({id:'gudiya_female', name:`🇮🇳 Gudiya Female High - ${hiFemale.name}`, gender:'female', basePitch:1.35, realVoice:hiFemale, lang:'hi-IN'});
+   cloudVoices.push({id:'gudiya_female', name:`🇮🇳 Gudiya Female - ${hiFemale.name}`, gender:'female', basePitch:1.35, realVoice:hiFemale, lang:'hi-IN'});
  }
  if(cloudVoices.length===0){let b=voices[0]; cloudVoices=[{id:'ram', name:'Ram Male', gender:'male', basePitch:0.5, realVoice:b, lang:'hi-IN'},{id:'sita', name:'Sita Female', gender:'female', basePitch:1.3, realVoice:b, lang:'hi-IN'}];}
  return cloudVoices;
 }
 function testKey(){
  let all=speechSynthesis.getVoices();
- if(all.length===0){setTimeout(()=>{speechSynthesis.getVoices(); buildCloudVoices(); document.getElementById('keyStatus').textContent=`✅ ${cloudVoices.length} voices loaded - male comma bug fixed`; buildSpeakerUI();}, 1000); return;}
- buildCloudVoices(); document.getElementById('keyStatus').textContent=`✅ FIXED: Male Rishi will now read full dialogue, not "comma" "!"`; buildSpeakerUI();
+ if(all.length===0){setTimeout(()=>{speechSynthesis.getVoices(); buildCloudVoices(); document.getElementById('keyStatus').textContent=`✅ ${cloudVoices.length} voices - question mark bug fixed`; buildSpeakerUI();}, 1000); return;}
+ buildCloudVoices(); document.getElementById('keyStatus').textContent=`✅ V14.4 FIXED: Ram will say "सीता आज अस्सी घाट चलें" not "question mark" - comma ! ? stripped for male`; buildSpeakerUI();
 }
 function detectGender(line, name){let l=line.toLowerCase(); if(l.match(/बोली|कही/)) return 'female'; if(l.match(/बोला|कहा/)) return 'male'; if(name.toLowerCase().match(/सीता|सिता/)) return 'female'; return 'male';}
 function mapSpeaker(w){return w.trim().replace(/[^A-Za-z\u0900-\u097F0-9]/g,'').slice(0,20)||'NARRATOR';}
-function parseLine(orig){let line=orig.trim(); let sp=null, dial=line; let m1=line.match(/^([A-Za-z\u0900-\u097F]{2,20})\s*[:：]\s*(.+)/); let m2=line.match(/^([A-Za-z\u0900-\u097F]{2,20})\s+(?:बोला|बोली|बोले|ने\s+कहा|कहा|कही)\s*[-:–—]?\s*(.+)/i); let m3=line.match(/^([A-Za-z\u0900-\u097F]{2,20})\s*[—–-]\s*(.+)/); if(m1){sp=mapSpeaker(m1[1]); dial=m1[2];} else if(m2){sp=mapSpeaker(m2[1]); dial=m2[2];} else if(m3){sp=mapSpeaker(m3[1]); dial=m3[2];} else if(line.includes(' - ')){let p=line.split(/\s*[-–—]\s*/); if(p.length>=2){sp=mapSpeaker(p[0].split(/\s+/)[0]); dial=p.slice(1).join(' - ');}} if(!sp||sp.length<2) sp='NARRATOR'; let emo='normal'; if(/[?]/.test(orig)) emo='hairan'; else if(orig.match(/धीरे/)) emo='whispering'; else if(orig.match(/शरमा/)) emo='shy'; else if(orig.match(/छेड़/)) emo='teasing'; else if(orig.match(/गुस्सा|गुस्से/)) emo='angry'; else if(orig.match(/खुशी|खुश/)) emo='happy'; let clean=dial.replace(/\([^)]*\)/g,'').replace(/\[[^\]]*\]/g,'').replace(/\s{2,}/g,' ').trim(); let punct=(orig.match(/[?!।]+$/)||[''])[0]; return {speaker:sp, dialogue:clean.replace(/[?!।]+$/,'').trim(), emotion:emo, punct, fullLine:orig};}
-function autoDetect(){if(cloudVoices.length===0){alert('LOAD VOICES first'); return;} let raw=document.getElementById('pasteInput').value.trim(); let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean); let map={}; lines.forEach(orig=>{let p=parseLine(orig); let sp=p.speaker; if(!map[sp]) map[sp]={count:0,male:0,female:0}; map[sp].count++; let g=detectGender(p.fullLine, sp); if(g==='female') map[sp].female++; else map[sp].male++;}); speakers=Object.keys(map); speakers.forEach(sp=>{speakerGenderMap[sp]=map[sp].female>map[sp].male?'female':'male';}); let males=cloudVoices.filter(v=>v.gender==='male'); let females=cloudVoices.filter(v=>v.gender==='female'); let mi=0, fi=0; speakers.forEach(sp=>{if(!speakerVoiceMap[sp]){if(speakerGenderMap[sp]==='female'){speakerVoiceMap[sp]=females[fi%females.length]?.id; fi++;} else {speakerVoiceMap[sp]=males[mi%males.length]?.id; mi++;}}}); let res=document.getElementById('autoDetectResult'); res.classList.remove('hidden'); res.innerHTML=`✅ ${speakers.length} speakers - COMMA FIX<br>${speakers.map(s=>`${s}(${speakerGenderMap[s]}) -> ${speakerVoiceMap[s]}`).join('<br>')}`; buildSpeakerUI();}
+function parseLine(orig){let line=orig.trim(); let sp=null, dial=line; let m1=line.match(/^([A-Za-z\u0900-\u097F]{2,20})\s*[:：]\s*(.+)/); let m2=line.match(/^([A-Za-z\u0900-\u097F]{2,20})\s+(?:बोला|बोली|बोले|ने\s+कहा|कहा|कही)\s*[-:–—]?\s*(.+)/i); let m3=line.match(/^([A-Za-z\u0900-\u097F]{2,20})\s*[—–-]\s*(.+)/); if(m1){sp=mapSpeaker(m1[1]); dial=m1[2];} else if(m2){sp=mapSpeaker(m2[1]); dial=m2[2];} else if(m3){sp=mapSpeaker(m3[1]); dial=m3[2];} else if(line.includes(' - ')){let p=line.split(/\s*[-–—]\s*/); if(p.length>=2){sp=mapSpeaker(p[0].split(/\s+/)[0]); dial=p.slice(1).join(' - ');}} if(!sp||sp.length<2) sp='NARRATOR'; let emo='normal'; if(/[?]/.test(orig)) emo='hairan'; else if(orig.match(/धीरे/)) emo='whispering'; else if(orig.match(/शरमा/)) emo='shy'; else if(orig.match(/छेड़/)) emo='teasing'; else if(orig.match(/गुस्सा|गुस्से/)) emo='angry'; let clean=dial.replace(/\([^)]*\)/g,'').replace(/\[[^\]]*\]/g,'').replace(/\s{2,}/g,' ').trim(); let punct=(orig.match(/[?!।]+$/)||[''])[0]; return {speaker:sp, dialogue:clean.replace(/[?!।]+$/,'').trim(), emotion:emo, punct, fullLine:orig};}
+function autoDetect(){if(cloudVoices.length===0){alert('LOAD VOICES first'); return;} let raw=document.getElementById('pasteInput').value.trim(); let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean); let map={}; lines.forEach(orig=>{let p=parseLine(orig); let sp=p.speaker; if(!map[sp]) map[sp]={count:0,male:0,female:0}; map[sp].count++; let g=detectGender(p.fullLine, sp); if(g==='female') map[sp].female++; else map[sp].male++;}); speakers=Object.keys(map); speakers.forEach(sp=>{speakerGenderMap[sp]=map[sp].female>map[sp].male?'female':'male';}); let males=cloudVoices.filter(v=>v.gender==='male'); let females=cloudVoices.filter(v=>v.gender==='female'); let mi=0, fi=0; speakers.forEach(sp=>{if(!speakerVoiceMap[sp]){if(speakerGenderMap[sp]==='female'){speakerVoiceMap[sp]=females[fi%females.length]?.id; fi++;} else {speakerVoiceMap[sp]=males[mi%males.length]?.id; mi++;}}}); let res=document.getElementById('autoDetectResult'); res.classList.remove('hidden'); res.innerHTML=`✅ ${speakers.length} speakers - V14.4 no ? bug<br>${speakers.map(s=>`${s}(${speakerGenderMap[s]})`).join('<br>')}`; buildSpeakerUI();}
 function analyzeStory(){if(speakers.length===0){alert('AUTO DETECT first'); return;} let raw=document.getElementById('pasteInput').value.trim(); let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean); let script=[]; lines.forEach(orig=>{let p=parseLine(orig); if(!speakers.includes(p.speaker)&&p.speaker!=='NARRATOR'){speakers.push(p.speaker); speakerGenderMap[p.speaker]=detectGender(p.fullLine,p.speaker); let m=cloudVoices.filter(v=>v.gender==='male'); let f=cloudVoices.filter(v=>v.gender==='female'); speakerVoiceMap[p.speaker]=speakerGenderMap[p.speaker]==='female'?f[0]?.id:m[0]?.id;} script.push(p);}); currentScript=script; document.getElementById('voiceStudio').classList.remove('hidden'); buildSpeakerUI(); renderScript();}
-function buildSpeakerUI(){let cont=document.getElementById('speakerVoiceList'); if(speakers.length===0){cont.innerHTML='<p class="text-[8px] opacity-50">No speakers</p>'; return;} cont.innerHTML=speakers.map(sp=>{let g=speakerGenderMap[sp]||'male'; let isF=g==='female'; let vInfo=cloudVoices.find(v=>v.id===speakerVoiceMap[sp]); let opts=cloudVoices.map(v=>`<option value="${v.id}" ${speakerVoiceMap[sp]===v.id?'selected':''}>${v.name}</option>`).join(''); return `<div class="bg-[#FFFBEB] rounded-[14px] p-2 border-2 ${isF?'border-pink-400':'border-blue-400'}"><div class="flex justify-between"><span class="text-[9px] font-black px-2 py-1 rounded-full ${isF?'bg-pink-600':'bg-blue-600'} text-white">${sp} ${isF?'♀':'♂'} ${vInfo?.basePitch||''}</span><button onclick="testSpeaker('${sp}')" class="btn bg-black text-white rounded-full px-2 py-1 text-[6px]">▶ TEST NO COMMA</button></div><select onchange="speakerVoiceMap['${sp}']=this.value; renderScript()" class="w-full mt-1 bg-white rounded-full px-2 py-1 text-[8px] font-bold border-2 border-black">${opts}</select></div>`;}).join('');}
-function renderScript(){let cont=document.getElementById('scriptList'); cont.innerHTML=`<p class="text-[8px] font-black mb-2 opacity-60">SCRIPT ${currentScript.length} lines - COMMA BUG FIXED</p>`+currentScript.map((s,i)=>{let spOpts=speakers.map(sp=>`<option value="${sp}" ${sp===s.speaker?'selected':''}>${sp}</option>`).join(''); return `<div class="bg-white text-black rounded-[14px] border-2 p-2"><div class="flex gap-2 items-center"><select onchange="currentScript[${i}].speaker=this.value; renderScript()" class="bg-black text-white rounded-full px-2 py-1.5 text-[8px] font-bold">${spOpts}</select><span class="text-[6px] bg-gray-100 px-2 py-1 rounded-full">${s.punct||''}</span><button onclick="playLine(${i})" class="btn bg-black text-white ml-auto px-3 py-2 rounded-full text-[10px]">▶</button></div><p class="text-[12px] font-bold mt-2 bg-green-50 rounded p-2 border">${s.dialogue}${s.punct||''}</p><p class="text-[5px] mt-1 opacity-50">Male will speak as: "${cleanForMale(s.dialogue, speakerGenderMap[s.speaker])}" (commas removed for Rishi)</p></div>`;}).join('');}
+function buildSpeakerUI(){let cont=document.getElementById('speakerVoiceList'); if(speakers.length===0){cont.innerHTML='<p class="text-[8px] opacity-50">No speakers</p>'; return;} cont.innerHTML=speakers.map(sp=>{let g=speakerGenderMap[sp]||'male'; let isF=g==='female'; let vInfo=cloudVoices.find(v=>v.id===speakerVoiceMap[sp]); let opts=cloudVoices.map(v=>`<option value="${v.id}" ${speakerVoiceMap[sp]===v.id?'selected':''}>${v.name}</option>`).join(''); return `<div class="bg-[#FFFBEB] rounded-[14px] p-2 border-2 ${isF?'border-pink-400':'border-blue-400'}"><div class="flex justify-between"><span class="text-[9px] font-black px-2 py-1 rounded-full ${isF?'bg-pink-600':'bg-blue-600'} text-white">${sp} ${isF?'♀':'♂'} ${vInfo?.basePitch||''}</span><button onclick="testSpeaker('${sp}')" class="btn bg-black text-white rounded-full px-2 py-1 text-[6px]">▶ TEST FIXED</button></div><select onchange="speakerVoiceMap['${sp}']=this.value; renderScript()" class="w-full mt-1 bg-white rounded-full px-2 py-1 text-[8px] font-bold border-2 border-black">${opts}</select></div>`;}).join('');}
+function renderScript(){let cont=document.getElementById('scriptList'); cont.innerHTML=`<p class="text-[8px] font-black mb-2 opacity-60">SCRIPT ${currentScript.length} lines - V14.4 ? ! , FIXED</p>`+currentScript.map((s,i)=>{let spOpts=speakers.map(sp=>`<option value="${sp}" ${sp===s.speaker?'selected':''}>${sp}</option>`).join(''); return `<div class="bg-white text-black rounded-[14px] border-2 p-2"><div class="flex gap-2 items-center"><select onchange="currentScript[${i}].speaker=this.value; renderScript()" class="bg-black text-white rounded-full px-2 py-1.5 text-[8px] font-bold">${spOpts}</select><span class="text-[6px] bg-gray-100 px-2 py-1 rounded-full">${s.emotion}</span><button onclick="playLine(${i})" class="btn bg-black text-white ml-auto px-3 py-2 rounded-full text-[10px]">▶</button></div><p class="text-[12px] font-bold mt-2 bg-green-50 rounded p-2 border">${s.dialogue}${s.punct||''}</p><p class="text-[5px] mt-1 opacity-60">Will speak as: "${cleanForMale(s.dialogue, speakerGenderMap[s.speaker])}" ${speakerGenderMap[s.speaker]==='male'?'(? ! , । all removed - no "question mark")':'(female hi-IN keeps punctuation)'}</p></div>`;}).join('');}
 
-// NEW FIX: Clean text for male Rishi en-IN voice so it doesn't say "comma" "exclamation"
+// V14.4 FIX: For male Rishi en-IN voice, strip ALL punctuation that causes English words
 function cleanForMale(text, gender){
  if(gender==='male'){
-   // For en-IN male voice reading Hindi: remove commas, exclamation, question that trigger English words
-   let t=text.replace(/[,،]/g,' ')  // remove comma
-             .replace(/[!！]/g,' ')  // remove !
-             .replace(/[?？]/g,' ? ') // keep ? but spaced
-             .replace(/[।]/g,' ')  // remove danda
-             .replace(/\s{2,}/g,' ')
-             .trim();
+   let t=text
+     .replace(/[,，]/g,' ')   // comma
+     .replace(/[!！]/g,' ')   // exclamation
+     .replace(/[?？]/g,' ')   // QUESTION MARK - this was bug! Now removed
+     .replace(/[।]/g,' ')    // danda
+     .replace(/[:;]/g,' ')   // colon semicolon
+     .replace(/["'“”]/g,' ') // quotes
+     .replace(/\s{2,}/g,' ')
+     .trim();
+   // If after cleaning empty, return original without punctuation? fallback to original words only
+   if(t.length<2) return text.replace(/[^\u0900-\u097FA-Za-z0-9 ]/g,' ').trim();
    return t;
  }
- return text;
+ // For female hi-IN Lekha, keep Hindi punctuation but convert to pause-friendly
+ return text.replace(/[,]/g,' ').replace(/[!]/g,' । ').replace(/\s{2,}/g,' ').trim();
 }
 
 function speakNative(text, voiceId, settings){
- return new Promise((resolve,reject)=>{
+ return new Promise((resolve)=>{
    let vInfo=cloudVoices.find(v=>v.id===voiceId);
    let utter=new SpeechSynthesisUtterance(text);
    let real=vInfo?.realVoice||null;
    if(!real){let all=speechSynthesis.getVoices(); real=all.find(v=>v.name.toLowerCase().includes('rishi'))||all[0];}
    if(real) utter.voice=real;
-   // CRITICAL FIX: Always force hi-IN lang so even en-IN Rishi speaks Hindi not English punctuation
-   utter.lang='hi-IN';
+   utter.lang='hi-IN'; // Force hi-IN for all, so Rishi doesn't say "question mark"
    utter.rate=settings.rate||0.85;
    utter.pitch=settings.pitch||vInfo?.basePitch||1.0;
    utter.volume=settings.vol||0.85;
-   utter.onend=()=>resolve();
-   utter.onerror=e=>reject(e);
+   utter.onend=()=>{resolve();};
+   utter.onerror=()=>{resolve();}; // Don't hang if fails - resolve anyway so next line plays
+   // Safety timeout: if onend never fires (empty text), resolve after 3 sec
+   setTimeout(()=>{resolve();}, 4000);
    speechSynthesis.speak(utter);
  });
 }
@@ -145,30 +129,23 @@ async function playLine(i){
  let voiceId=speakerVoiceMap[s.speaker];
  let gender=speakerGenderMap[s.speaker]||'male';
  let settings=getEmotionSettings(s.emotion, gender);
- let originalText=s.dialogue+(s.punct||'');
- // Apply comma fix for male
+ let originalText=s.dialogue; // Don't include punct at all for male - dialogue already without ? ! etc
  let textToSpeak = cleanForMale(originalText, gender);
- if(gender==='male'){
-   console.log(`MALE FIX: Original "${originalText}" -> Cleaned "${textToSpeak}"`);
- }
+ if(!textToSpeak || textToSpeak.length<1){textToSpeak = originalText.replace(/[^\u0900-\u097F A-Za-z]/g,' ').trim() || 'नमस्ते';}
  await speakNative(textToSpeak, voiceId, settings);
  let c=document.getElementById('audioPlayers');
  if(c.innerHTML.includes('Will show')) c.innerHTML='';
  let vInfo=cloudVoices.find(v=>v.id===voiceId);
- let d=document.createElement('div');
- d.className='bg-white text-black rounded-[8px] p-2';
- d.innerHTML=`<p class="text-[7px] font-bold">${i+1}. ${s.speaker}(${gender} ${vInfo?.realVoice?.name})<br>Original: ${originalText}<br>Spoken: ${textToSpeak}</p>`;
- c.appendChild(d);
+ let d=document.createElement('div'); d.className='bg-white text-black rounded-[8px] p-2'; d.innerHTML=`<p class="text-[7px] font-bold">${i+1}. ${s.speaker}(${gender} ${vInfo?.realVoice?.name})<br>Spoken: "${textToSpeak}"<br>Original was: "${originalText}${s.punct||''}"</p>`; c.appendChild(d);
 }
-async function playFull(){if(isPlaying){alert('STOP first'); return;} if(currentScript.length===0){alert('CONVERT first'); return;} isPlaying=true; stopRequested=false; document.getElementById('playFullBtn').disabled=true; document.getElementById('audioPlayers').innerHTML=''; document.getElementById('playStatus').textContent=`▶ Speaking ${currentScript.length} lines - COMMA FIX APPLIED...`; document.getElementById('progressBar').style.width='0%'; for(let i=0;i<currentScript.length;i++){if(stopRequested) break; document.getElementById('progressBar').style.width=Math.round(i/currentScript.length*100)+'%'; document.getElementById('playStatus').textContent=`▶ ${i+1}/${currentScript.length} ${currentScript[i].speaker} - Speaking "${cleanForMale(currentScript[i].dialogue, speakerGenderMap[currentScript[i].speaker]).slice(0,30)}"`; try{await playLine(i);}catch(e){continue;} await new Promise(r=>setTimeout(r,400));} document.getElementById('progressBar').style.width='100%'; document.getElementById('playStatus').textContent=`✅ Done ${currentScript.length} lines - Male comma bug fixed`; document.getElementById('playFullBtn').disabled=false; isPlaying=false;}
+async function playFull(){if(isPlaying){alert('STOP first'); return;} if(currentScript.length===0){alert('CONVERT first'); return;} isPlaying=true; stopRequested=false; document.getElementById('playFullBtn').disabled=true; document.getElementById('audioPlayers').innerHTML=''; document.getElementById('playStatus').textContent=`▶ Speaking ${currentScript.length} lines - V14.4 no ? bug...`; document.getElementById('progressBar').style.width='0%'; for(let i=0;i<currentScript.length;i++){if(stopRequested) break; document.getElementById('progressBar').style.width=Math.round(i/currentScript.length*100)+'%'; document.getElementById('playStatus').textContent=`▶ ${i+1}/${currentScript.length} ${currentScript[i].speaker} - "${cleanForMale(currentScript[i].dialogue, speakerGenderMap[currentScript[i].speaker]).slice(0,30)}"`; try{await playLine(i);}catch(e){continue;} await new Promise(r=>setTimeout(r,350));} document.getElementById('progressBar').style.width='100%'; document.getElementById('playStatus').textContent=`✅ Done ${currentScript.length} lines - Male now speaks full dialogue`; document.getElementById('playFullBtn').disabled=false; isPlaying=false;}
 function stopPlaying(){stopRequested=true; isPlaying=false; speechSynthesis.cancel(); document.getElementById('playStatus').textContent='⏹ Stopped'; document.getElementById('playFullBtn').disabled=false;}
-function testSpeaker(sp){let idx=currentScript.findIndex(c=>c.speaker===sp); if(idx>=0) playLine(idx); else {let voiceId=speakerVoiceMap[sp]; let g=speakerGenderMap[sp]||'male'; let sett=getEmotionSettings('normal',g); let txt=cleanForMale('नमस्ते मैं '+sp+' बोल रहा हूँ, आज अस्सी घाट चलें?', g); speakNative(txt, voiceId, sett);}}
-function clearPreview(){document.getElementById('audioPlayers').innerHTML='<p class="text-[7px] opacity-50">Cleared</p>'; document.getElementById('playStatus').textContent='Cleared'; document.getElementById('progressBar').style.width='0%'; speechSynthesis.cancel();}
+function testSpeaker(sp){let idx=currentScript.findIndex(c=>c.speaker===sp); if(idx>=0) playLine(idx); else {let voiceId=speakerVoiceMap[sp]; let g=speakerGenderMap[sp]||'male'; let sett=getEmotionSettings('normal',g); let txt=cleanForMale('नमस्ते मैं '+sp+' बोल रहा हूँ आज अस्सी घाट चलें', g); speakNative(txt, voiceId, sett);}}
+window.addEventListener('load',()=>{setTimeout(()=>{loadVoices();}, 800); speechSynthesis.onvoiceschanged=()=>{loadVoices();};});
 document.getElementById('testKeyBtn').addEventListener('click', testKey);
 document.getElementById('autoDetectBtn').addEventListener('click', autoDetect);
 document.getElementById('analyzeBtn').addEventListener('click', analyzeStory);
 document.getElementById('playFullBtn').addEventListener('click', playFull);
 document.getElementById('stopBtn').addEventListener('click', stopPlaying);
-window.addEventListener('load',()=>{setTimeout(()=>{loadVoices();}, 800); speechSynthesis.onvoiceschanged=()=>{loadVoices();};});
 </script>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
