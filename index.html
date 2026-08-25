@@ -79,13 +79,12 @@
 
 <div class="bg-[#FFFBEB] text-black rounded-[18px] border-2 border-black p-3">
 <p class="text-[11px] font-black">STEP 1: PASTE STORY</p>
-<textarea id="pasteInput" class="w-full h-[90px] mt-2 bg-white rounded-[12px] border p-2 text-[13px] font-bold dev">गुड्डू घाट पे बैठा था
-गुड़िया आई - कैसे हो?
-गुड्डू बोला - बढ़िया, चाय पियोगी? (धीरे से)
+<textarea id="pasteInput" class="w-full h-[90px] mt-2 bg-white rounded-[12px] border p-2 text-[13px] font-bold dev">गुड़िया आई - कैसे हो?
+गुड्डू बोला - बढ़िया, चाय पियोगी?
 बाबू ने कहा - अरे लड़ना बंद करो!
-गुड़िया बोली - हाँ चलो (शरमाते हुए)</textarea>
+गुड़िया बोली - हाँ चलो</textarea>
 <button id="analyzeBtn" class="w-full mt-3 bg-black text-white rounded-full py-3 font-black text-sm">🔍 CONVERT → Smart Detection (बोला/बोली/ने कहा)</button>
-<p class="text-[6px] mt-1 opacity-60">Now detects: Name: , Name बोला - , Name बोली -, Name ने कहा -, "dialogue" - Name</p>
+<p class="text-[6px] mt-1 opacity-60">Brackets like (धीरे से) auto set emotion but NOT spoken - now fixed ✅</p>
 </div>
 
 <!-- FIX 1: Manual Speakers -->
@@ -193,8 +192,10 @@ function parseLineSmart(origLine, idx){
  if(!dialogue) dialogue=line;
  dialogue=dialogue.replace(/^(गुड़िया|गुड्डू|बाबू|सुनीता)\s+(आई|आया|बैठा)?\s*[-:]?\s*/i,'').trim() || line;
 
+ // FIX: Extract emotion cues from brackets BEFORE stripping them
+ let rawForEmotion = dialogue; // keep original with brackets for emotion detection
  let emotion=document.getElementById('globalEmotion').value;
- let low=dialogue.toLowerCase();
+ let low=rawForEmotion.toLowerCase();
  if(low.match(/धीरे|फुसफुसा|whisper|धीरे से/)) emotion='whispering';
  else if(low.match(/low|धीमा|धीमी|low tone/)) emotion='lowtone';
  else if(low.match(/शरमा|शर्म|shy|लजा/)) emotion='shy';
@@ -203,8 +204,24 @@ function parseLineSmart(origLine, idx){
  else if(/[?]/.test(origLine)) emotion='hairan';
  else if(/[!]/.test(origLine)) emotion='excited';
 
- let punct=(origLine.match(/[?!]+$/)||[''])[0];
- return {speaker, dialogue:dialogue.replace(/[?!]+$/,'').trim(), original:origLine, emotion, punct};
+ // FIX: Strip stage directions like (धीरे से), (शरमाते हुए), [whispering], *action* from SPOKEN text
+ let cleanDialogue = dialogue
+   .replace(/\([^)]*\)/g,'') // remove (धीरे से), (शरमाते हुए) etc.
+   .replace(/\[[^\]]*\]/g,'') // remove [whispering] etc.
+   .replace(/\{[^}]*\}/g,'')
+   .replace(/\*[^*]*\*/g,'')
+   .replace(/—|–/g,' ')
+   .replace(/\s{2,}/g,' ')
+   .trim();
+
+ // If cleaning made it empty, keep original without brackets for fallback
+ if(!cleanDialogue || cleanDialogue.length<2) cleanDialogue = dialogue.replace(/\([^)]*\)/g,'').trim() || dialogue;
+
+ let punct=(origLine.match(/[?!।]+$/)||[''])[0];
+ // Remove punct from clean for storage, will add back at play time
+ let dialogueNoPunct = cleanDialogue.replace(/[?!।]+$/,'').trim();
+
+ return {speaker, dialogue:dialogueNoPunct, original:origLine, rawDialogue:dialogue, cleanDialogue:dialogueNoPunct, emotion, punct};
 }
 
 function analyzeStory(){
@@ -276,10 +293,11 @@ function buildSpeakerUI(){
 
 function renderScript(){
  const cont=document.getElementById('scriptList');
- cont.innerHTML=`<p class="text-[9px] font-black mb-2 text-white/60">SCRIPT - ${currentScript.length} lines - Manual reassign allowed</p>`+currentScript.map((s,i)=>{
+ cont.innerHTML=`<p class="text-[9px] font-black mb-2 text-white/60">SCRIPT - ${currentScript.length} lines - Brackets stripped from voice ✅</p>`+currentScript.map((s,i)=>{
   let voiceId=speakerVoiceMap[s.speaker]; let v=cloudVoices.find(x=>x.id===voiceId);
   let spOptions=speakers.map(sp=>`<option value="${sp}" ${sp===s.speaker?'selected':''}>${sp}</option>`).join('');
   let emoOptions=['normal','happy','sad','angry','excited','whispering','lowtone','shy','teasing','romantic','narrator','hairan'].map(e=>`<option value="${e}" ${e===s.emotion?'selected':''}>${e}</option>`).join('');
+  let hasBrackets = s.rawDialogue && s.rawDialogue!==s.cleanDialogue;
   return `
   <div class="bg-white text-black rounded-[16px] border-2 p-3">
    <div class="flex gap-1 items-center flex-wrap">
@@ -288,7 +306,8 @@ function renderScript(){
     <span class="text-[7px] bg-gray-100 px-2 py-1 rounded-full">${v?.name||voiceId} ${s.punct}</span>
     <button onclick="playLine(${i})" class="ml-auto bg-black text-white w-7 h-7 rounded-full text-xs">▶</button>
    </div>
-   <p class="text-[13px] font-bold mt-2 dev bg-green-50 rounded-[10px] p-2 border">✅ ${s.dialogue}</p>
+   <p class="text-[13px] font-bold mt-2 dev bg-green-50 rounded-[10px] p-2 border">✅ ${s.dialogue}${s.punct? ' '+s.punct:''}</p>
+   ${hasBrackets? `<p class="text-[6px] mt-1 opacity-50">Original had: ${s.rawDialogue} → Voice will say only: "${s.cleanDialogue}" (brackets removed ✅)</p>` : ''}
   </div>`;
  }).join('');
 }
