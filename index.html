@@ -21,70 +21,143 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 </style><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>V15.2 ChatGPT Style - OpenAI Native Hindi Bhojpuri Banarasi</title>
+<title>Story Director V17 BEST - Native Hindi Bhojpuri Banarasi - gpt-4o-mini-tts</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<style>body{background:#0a0a0a;color:white;max-width:560px;margin:auto}.btn:active{transform:scale(.94)}.step{background:#111;border:2px solid #333;border-radius:14px;padding:10px;margin-bottom:10px}</style>
-</head><body class="pb-40">
-<header class="bg-blue-600 text-white p-3"><h1 class="font-black text-[12px]">V15.2 ChatGPT Style ✅ OpenAI Native Hindi/Bhojpuri/Banarasi - Nova Onyx Alloy</h1><p class="text-[6px]">Same as ChatGPT: tts-1-hd + pure Devanagari + no cleaning = native Hindi/Bhojpuri/Banarasi accent</p></header>
-<div class="p-3">
-<div class="bg-white text-black rounded-[16px] p-3 border-2 border-black">
-<p class="text-[11px] font-black">🔑 OpenAI Key - Native Hindi/Bhojpuri/Banarasi (ChatGPT style)</p>
-<p class="text-[6px] bg-blue-100 border border-blue-500 p-1.5 rounded mt-1">You are right: Nova, Onyx, Alloy, Echo, Shimmer ARE native Hindi + Bhojpuri + Banarasi when using tts-1-hd + Devanagari text (like ChatGPT does). My V15 wrongly cleaned text and used speed 0.95 causing US accent.</p>
-<input id="openaiKey" type="password" placeholder="sk-... paste once - saved forever - same as ChatGPT project" class="w-full mt-2 bg-[#FFFBEB] border-2 border-black rounded-full px-3 py-3 text-[11px] font-bold">
-<div class="relative"><select id="provider" class="w-full mt-2 bg-black text-white rounded-full px-3 py-3 text-[11px] font-black"><option value="openai" selected>OpenAI tts-1-hd - Native Hindi/Bhojpuri/Banarasi - Same as ChatGPT</option></select></div>
-<button id="testKeyBtn" class="btn w-full mt-2 bg-blue-600 text-white border-2 border-black rounded-full py-3 text-[11px] font-black">✅ LOAD NATIVE HINDI/BHOJPURI VOICES - ChatGPT Style</button>
-<p id="keyStatus" class="text-[7px] mt-2 bg-black text-white p-2 rounded">Ready - Uses tts-1-hd + pure Devanagari like ChatGPT - Native accent</p>
-<div id="voicesInfo" class="mt-2 text-[6px] bg-yellow-100 border rounded p-2 text-black"></div>
+<style>
+body{background:#120c26;color:#e9e4ff;max-width:580px;margin:auto;font-family:Inter,system-ui}
+.dev{font-family:'Noto Sans Devanagari',Noto Sans, sans-serif}
+.tab-active{color:#fff;border-bottom:2px solid #a78bfa;font-weight:900}
+.tab-inactive{color:#8b7fb8}
+.card{background:#241a3f;border:1px solid #3d2f68;border-radius:16px}
+.input-dark{background:#1e1638;border:1px solid #3d2f68;color:#fff;border-radius:12px}
+.btn-primary{background:linear-gradient(90deg,#8b5cf6,#ec4899);border-radius:9999px}
+.btn:active{transform:scale(.96)}
+</style>
+</head><body class="pb-28">
+<header class="p-4 bg-[#0e091e] flex justify-between items-center"><div><h1 class="font-black text-[18px]">Story Director V17 BEST 👍</h1><p class="text-[10px] text-[#8b7fb8]">AI Story • Director • Voice Studio • Native Hindi/Bhojpuri/Banarasi</p><p class="text-[12px] font-bold text-green-400">READY - gpt-4o-mini-tts + instructions = NATIVE ACCENT</p></div><span class="bg-green-400 text-black px-2 py-1 rounded-full text-[8px] font-black">BEST</span></header>
+
+<div class="flex justify-around p-3 bg-[#120c26] sticky top-0 z-20 border-b border-[#3d2f68] text-[11px] font-bold">
+<button onclick="setTab('ai')" id="tab-ai" class="tab-active pb-2">✨ AI Story</button>
+<button onclick="setTab('paste')" id="tab-paste" class="tab-inactive pb-2">📋 Paste</button>
+<button onclick="setTab('director')" id="tab-director" class="tab-inactive pb-2">🎭 Director</button>
+<button onclick="setTab('voice')" id="tab-voice" class="tab-inactive pb-2">🎙️ Voice</button>
 </div>
 
-<div class="bg-green-200 text-black rounded-[12px] p-2 mt-3 border-2 border-black">
-<p class="text-[8px] font-black">ChatGPT vs My Old V15 Difference:</p>
-<p class="text-[6px] mt-1">ChatGPT HTML: model:'tts-1-hd', voice:'nova', input:"सीता, आज अस्सी घाट चलें?" (pure Devanagari, keep ? ! ,), speed:1.0 → Native Hindi/Bhojpuri accent ✅<br><br>My old V15: model:'tts-1', speed:0.95, stripped ? ! , → US accent ❌<br><br>V15.2 = Same as ChatGPT: tts-1-hd, speed 1.0, pure Devanagari, keep all punctuation, emotion via stability not speed.</p>
+<!-- AI STORY TAB -->
+<div id="view-ai" class="p-3 space-y-3">
+<div class="card p-4 bg-gradient-to-br from-[#2a1f4a] to-[#1e1638]">
+<p class="text-[10px] text-[#a78bfa] font-black">✦ CREATIVE STUDIO - BEST VERSION</p>
+<h2 class="text-[26px] font-black leading-[1.1] mt-1">Your story.<br>Your voice.<br><span class="text-[#a78bfa] text-[18px]">Native Banarasi/Bhojpuri Hindi</span></h2>
+<p class="text-[11px] text-[#8b7fb8] mt-2">ChatGPT uses gpt-4o-mini-tts + instructions for native accent. This V17 does same - not tts-1-hd.</p>
 </div>
 
-<div class="step mt-3"><textarea id="pasteInput" class="w-full h-[110px] bg-white text-black rounded-[12px] border-2 border-black p-2 text-[13px] font-bold">राम बोला - सीता, आज अस्सी घाट चलें?
+<div class="card p-3">
+<label class="text-[12px] font-bold">💡 Story Idea / Prompt</label>
+<textarea id="idea" class="input-dark w-full h-[90px] p-3 mt-2 text-[13px] dev">राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल</textarea>
+
+<div class="grid grid-cols-2 gap-3 mt-3">
+<div><label class="text-[10px] text-[#8b7fb8] font-bold">Language / Dialect - CRITICAL for accent</label>
+<select id="lang" class="input-dark w-full mt-1 p-3 text-[13px] font-black"><option selected>Hindi</option><option>Bhojpuri</option><option>Banarasi</option><option>Hindi + Bhojpuri Mix</option><option>Bhojpuri + Banarasi Mix</option></select></div>
+<div><label class="text-[10px] text-[#8b7fb8]">Genre</label><select id="genre" class="input-dark w-full mt-1 p-3 text-[12px]"><option selected>Drama</option><option>Romance</option><option>Comedy</option></select></div>
+<div><label class="text-[10px] text-[#8b7fb8]">Story Length</label><select id="length" class="input-dark w-full mt-1 p-3 text-[12px]"><option>Short</option><option selected>Medium - 6 lines</option><option>Long</option></select></div>
+<div><label class="text-[10px] text-[#8b7fb8]">Writing Style</label><select id="styleSel" class="input-dark w-full mt-1 p-3 text-[12px]"><option selected>Dialogue Dominant - बोला/बोली</option><option>Cinematic</option><option>Novel</option></select></div>
+</div>
+<div class="mt-3"><label class="text-[10px] text-[#8b7fb8] font-bold">🎯 Extra Direction</label><input id="extra" class="input-dark w-full mt-1 p-3 text-[11px]" value="5 scenes, strong ending, Banarasi tone, भौकाल, अस्सी घाट, राम सीता मोहन की टोकाटोकी, बारिश चाय"></div>
+
+<div class="card p-3 mt-3 border-green-500/50 bg-[#1a1230]">
+<p class="text-[11px] font-black">🔑 OpenAI Key - SAME as ChatGPT project - Native accent via gpt-4o-mini-tts</p>
+<input id="openaiKey" type="password" placeholder="sk-... paste once - saved forever - same as ChatGPT" class="input-dark w-full mt-2 p-3 text-[11px]">
+<p class="text-[7px] mt-2 bg-[#120c26] p-2 rounded border border-[#3d2f68]">V17 FIX: Old V14/V15 used tts-1-hd (no instructions = US accent). ChatGPT V16.5 uses gpt-4o-mini-tts + instructions = native Hindi/Bhojpuri/Banarasi accent. This V17 uses same: gpt-4o-mini-tts + instructions for each character.</p>
+<p id="aiStatus" class="text-[8px] mt-2 bg-black p-2 rounded">Ready V17 BEST - gpt-4o-mini-tts + Banarasi/Bhojpuri instructions</p>
+</div>
+
+<button onclick="generateStory()" class="btn-primary w-full mt-3 py-4 font-black text-[14px]">✨ Generate Story - Native Hindi/Bhojpuri</button>
+<textarea id="storyOut" class="input-dark w-full h-[280px] mt-3 p-3 text-[13px] dev" placeholder="Story will appear here in बोला/बोली format..."></textarea>
+<div class="flex gap-2 mt-2"><button onclick="copyStory()" class="bg-white text-black rounded-full px-4 py-2 text-[9px] font-black">📋 COPY</button><button onclick="sendToDirector()" class="bg-green-400 text-black rounded-full px-4 py-2 text-[9px] font-black">🎭 SEND TO DIRECTOR →</button></div>
+</div>
+</div>
+
+<!-- PASTE TAB -->
+<div id="view-paste" class="hidden p-3 space-y-3">
+<div class="card p-3"><h3 class="font-black">📋 Paste Your Story - Any names</h3>
+<textarea id="pasteInput" class="input-dark w-full h-[220px] mt-2 p-3 text-[13px] dev">राम बोला - सीता, आज अस्सी घाट चलें?
 सीता बोली - क्यों, आज क्या खास है? (शरमाते हुए)
 राम बोला - कुछ नहीं, बस तुम्हारे साथ चाय पीने का मन कर रहा है (धीरे से)
 सीता बोली - अच्छा, तो ये बात है? (छेड़ते हुए)
 मोहन बोला - अरे वाह, दोनों की जोड़ी तो बढ़िया लग रही है!
 राम बोला - मोहन, तू भी चल ले (गुस्से से)
-सीता बोली - हाँ मोहन, आ जाओ (खुशी से)</textarea></div>
-<div class="step"><button id="autoDetectBtn" class="btn w-full bg-green-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">🤖 AUTO DETECT - Ram=Male Hindi, Sita=Female Hindi</button><div id="autoDetectResult" class="mt-2 text-[7px] bg-black text-green-400 p-2 rounded hidden"></div></div>
-<div class="step"><div id="speakerVoiceList" class="space-y-2"></div></div>
-<div class="step"><button id="analyzeBtn" class="btn w-full bg-yellow-400 text-black border-2 border-black rounded-full py-3 font-black text-[11px]">🔊 CONVERT - Keep ? ! , for native accent</button></div>
-<div id="voiceStudio" class="step hidden"><p id="playStatus" class="text-[8px] bg-black text-white p-1.5 rounded">Ready - Native Hindi/Bhojpuri</p><div class="w-full bg-white/20 rounded-full h-[6px] mt-2 overflow-hidden"><div id="progressBar" class="bg-green-400 h-full" style="width:0%"></div></div><div class="grid grid-cols-2 gap-2 mt-3"><button id="playFullBtn" class="btn bg-white text-black border-2 border-black rounded-full py-3 text-[9px] font-black">▶ GENERATE ALL - Native Hindi/Bhojpuri MP3</button><button id="stopBtn" class="btn bg-red-500 text-white border-2 border-black rounded-full py-3 text-[9px] font-black">⏹ STOP</button></div><div id="audioPlayers" class="mt-3 space-y-2 max-h-[500px] overflow-y-auto bg-black/50 p-2 rounded-[12px]"></div><div id="masterPlayerBox" class="hidden mt-3 bg-white text-black rounded-[12px] p-2 border-2 border-black"><audio id="masterAudio" controls class="w-full mt-2"></audio><a id="masterDownload" href="#" download="full_story.mp3" class="btn mt-2 inline-block bg-black text-white rounded-full px-4 py-2 text-[8px] font-black">⬇️ DOWNLOAD FULL MP3</a></div></div>
-<div id="scriptList" class="mt-3 space-y-3"></div>
+सीता बोली - हाँ मोहन, आ जाओ (खुशी से)</textarea>
+<p class="text-[7px] mt-1 text-[#8b7fb8]">Names are dynamic - Ram/Sita/Mohan will auto-detect. Brackets like (धीरे से) will auto-set emotion but not spoken.</p>
+<button onclick="sendPasteToDirector()" class="btn-primary w-full mt-3 py-3 font-black text-[12px]">🎭 SEND TO DIRECTOR</button></div>
 </div>
+
+<!-- DIRECTOR TAB -->
+<div id="view-director" class="hidden p-3 space-y-3">
+<div class="card p-3"><h3 class="font-black">🎭 Director - Smart Detection + Native Accent Setup</h3>
+<p class="text-[8px] text-[#8b7fb8]">Auto detects बोला/बोली/ने कहा. Each speaker gets native accent instruction like ChatGPT V16.5.</p>
+<button onclick="autoDetect()" class="btn-primary w-full mt-3 py-3 font-black text-[11px]">🤖 AUTO DETECT SPEAKERS - Native Hindi/Bhojpuri</button>
+<div id="directorResult" class="mt-2 text-[8px] bg-black p-2 rounded hidden"></div>
+<div id="speakerList" class="mt-3 space-y-2"></div>
+<button onclick="convertForVoice()" class="bg-yellow-400 text-black w-full mt-3 py-3 rounded-full font-black text-[11px]">🔊 CONVERT FOR VOICE STUDIO → Native Accent</button>
+</div>
+<div id="scriptList" class="space-y-2"></div>
+</div>
+
+<!-- VOICE TAB -->
+<div id="view-voice" class="hidden p-3 space-y-3">
+<div class="card p-3 border-2 border-purple-500"><h3 class="font-black text-purple-300">🎙️ Voice Studio V17 BEST - Native Hindi/Bhojpuri/Banarasi - gpt-4o-mini-tts</h3>
+<p class="text-[8px] text-[#8b7fb8]">This uses gpt-4o-mini-tts + instructions (ChatGPT style) not tts-1-hd. Instructions: Speak in Banarasi Hindi accent, warm, dramatic, native Bhojpuri for male, soft for female.</p>
+<div class="flex gap-2 mt-2">
+<label class="text-[8px]">Try fallback if gpt-4o-mini-tts not enabled?</label><input id="allowFallback" type="checkbox" checked>
+</div>
+<p id="playStatus" class="text-[8px] bg-black p-2 rounded mt-2">Ready - Native Hindi/Bhojpuri/Banarasi via gpt-4o-mini-tts + instructions</p>
+<div class="w-full bg-white/20 rounded-full h-[6px] mt-2"><div id="progressBar" class="bg-green-400 h-full" style="width:0%"></div></div>
+<div class="grid grid-cols-2 gap-2 mt-3"><button id="playFullBtn" class="bg-white text-black rounded-full py-3 text-[10px] font-black">▶ GENERATE ALL - NATIVE ACCENT MP3</button><button id="stopBtn" class="bg-red-500 text-white rounded-full py-3 text-[10px] font-black">⏹ STOP</button></div>
+<div id="audioPlayers" class="mt-3 space-y-2 max-h-[450px] overflow-y-auto bg-black/30 p-2 rounded-[12px]"></div>
+<div id="masterBox" class="hidden mt-3 bg-white text-black rounded-[12px] p-2"><audio id="masterAudio" controls class="w-full"></audio><a id="masterDl" href="#" download="story_v17_BEST_native_banarasi.mp3" class="bg-black text-white rounded-full px-4 py-2 text-[8px] font-black mt-2 inline-block">⬇️ DOWNLOAD FULL NATIVE STORY MP3</a></div>
+</div>
+</div>
+
 <script>
-let cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, speakerGenderMap={}, audioBlobs=[], audioUrls=[], masterUrl=null, isPlaying=false, stopRequested=false;
-function saveKeys(){let ok=document.getElementById('openaiKey').value.trim(); if(ok) localStorage.setItem('openai_key_v15_chatgpt',ok); localStorage.setItem('openai_key_v15',ok); localStorage.setItem('openai_key',ok);}
-function loadKeys(){let ok=localStorage.getItem('openai_key_v15_chatgpt')||localStorage.getItem('openai_key_v15')||localStorage.getItem('openai_key')||''; if(ok) document.getElementById('openaiKey').value=ok;}
-function getEmotionSettings(e){
- // For OpenAI native Hindi/Bhojpuri, don't change speed much - keep 1.0 for native accent
- // Emotion via prompt addition, not speed
- let speed=1.0; if(e==='whispering') speed=0.9; else if(e==='shy') speed=0.9; else if(e==='angry') speed=1.1; else if(e==='teasing') speed=1.05;
- return {speed, emotion:e};
+let tab='ai', cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, speakerGenderMap={}, speakerEmotionMap={}, audioBlobs=[], audioUrls=[], masterUrl=null, isPlaying=false, stopRequested=false, storyMemory='';
+
+function setTab(t){
+ tab=t;
+ ['ai','paste','director','voice'].forEach(x=>{
+   document.getElementById('view-'+x).classList.toggle('hidden', x!==t);
+   document.getElementById('tab-'+x).className = x===t ? 'tab-active pb-2' : 'tab-inactive pb-2';
+ });
 }
-function testKey(){
- saveKeys();
- let ok=document.getElementById('openaiKey').value.trim();
- let status=document.getElementById('keyStatus');
- let info=document.getElementById('voicesInfo');
- if(!ok){alert('Paste OpenAI sk-... key - same as ChatGPT project'); return;}
- // Same 6 voices as ChatGPT project - all native Hindi/Bhojpuri/Banarasi
- cloudVoices=[
-   {id:'alloy', name:'Alloy ♂ MALE Native Hindi/Bhojpuri/Banarasi BEST for Ram - ChatGPT uses this', gender:'male'},
-   {id:'onyx', name:'Onyx ♂ MALE Native Hindi/Bhojpuri Deep - BEST for Mohan - ChatGPT uses this', gender:'male'},
-   {id:'echo', name:'Echo ♂ MALE Native Hindi/Bhojpuri/Banarasi - ChatGPT uses this', gender:'male'},
-   {id:'nova', name:'Nova ♀ FEMALE Native Hindi/Bhojpuri/Banarasi BEST for Sita - ChatGPT uses this', gender:'female'},
-   {id:'shimmer', name:'Shimmer ♀ FEMALE Native Hindi/Bhojpuri Soft', gender:'female'},
-   {id:'fable', name:'Fable ♀ FEMALE Native Hindi/Bhojpuri Story', gender:'female'},
- ];
- status.textContent=`✅ ${cloudVoices.length} OpenAI Native Hindi/Bhojpuri/Banarasi voices loaded - Same as ChatGPT project - Nova Onyx Alloy all native`;
- info.innerHTML=`✅ ChatGPT Style Native Voices (tts-1-hd + Devanagari = native accent):<br>${cloudVoices.map(v=>v.name).join('<br>')}<br><br>These will speak "सीता, आज अस्सी घाट चलें?" with pure Hindi/Bhojpuri/Banarasi accent, not US accent, when using tts-1-hd + pure Devanagari (like ChatGPT)`;
- buildSpeakerUI();
+function saveKey(){let k=document.getElementById('openaiKey').value.trim(); if(k){localStorage.setItem('openai_key_v17_best',k); localStorage.setItem('openai_key',k); localStorage.setItem('openai_key_v16_5',k);}}
+function loadKey(){let k=localStorage.getItem('openai_key_v17_best')||localStorage.getItem('openai_key_v16_5')||localStorage.getItem('openai_key')||''; if(k) document.getElementById('openaiKey').value=k;}
+window.addEventListener('load', loadKey);
+document.getElementById('openaiKey').addEventListener('change', saveKey);
+function getKey(){return document.getElementById('openaiKey').value.trim() || localStorage.getItem('openai_key_v17_best') || '';}
+
+async function generateStory(){
+ let key=getKey(); if(!key){alert('Paste OpenAI sk-... key same as ChatGPT project'); return;} saveKey();
+ let idea=document.getElementById('idea').value.trim();
+ let lang=document.getElementById('lang').value;
+ let genre=document.getElementById('genre').value;
+ let extra=document.getElementById('extra').value;
+ let out=document.getElementById('storyOut');
+ let status=document.getElementById('aiStatus');
+ status.textContent='⏳ Generating story with gpt-4o-mini - '+lang+' '+genre+'...';
+ try{
+   let sys=`You are expert ${lang} story writer. Language: ${lang} - ${lang==='Bhojpuri'?'Use Bhojpuri words: का हो, भौकाल, चलब, अरे': lang==='Banarasi'?'Use Banarasi slang: भौकाल, अस्सी घाट, चाय, गुरु, का हो': 'Pure Hindi with Banarasi touch'}. Genre: ${genre}. Format: Dialogue Dominant with बोला/बोली/ने कहा. Example: राम बोला - ... सीता बोली - ... Keep characters Ram, Sita, Mohan dynamic but use their names. Extra: ${extra}. Write 6-8 lines story, no narration, only dialogues with speaker. No refusal.`;
+   let res=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'gpt-4o-mini', messages:[{role:'system',content:sys},{role:'user',content:'Story Idea: '+idea}], temperature:0.85, max_tokens:800})});
+   if(!res.ok){let t=await res.text(); throw new Error('Chat '+res.status+': '+t.slice(0,200));}
+   let data=await res.json();
+   let story=data.choices?.[0]?.message?.content||'';
+   out.value=story; storyMemory=story;
+   status.textContent=`✅ Generated ${story.split(/\s+/).length} words - ${lang} - Ready for Director`;
+   localStorage.setItem('last_story_v17', story);
+ }catch(e){status.textContent='❌ '+e.message;}
 }
-function detectGender(line,name){let l=line.toLowerCase(); if(l.match(/बोली|सीता|गुड़िया|सुनीता/)) return 'female'; return 'male';}
+function copyStory(){let t=document.getElementById('storyOut').value; if(!t){alert('No story'); return;} navigator.clipboard.writeText(t).then(()=>alert('Copied'));}
+function sendToDirector(){let s=document.getElementById('storyOut').value.trim(); if(!s){alert('Generate first'); return;} document.getElementById('pasteInput').value=s; setTab('director'); autoDetect();}
+function sendPasteToDirector(){let s=document.getElementById('pasteInput').value.trim(); if(!s){alert('Paste story'); return;} storyMemory=s; setTab('director'); autoDetect();}
+
 function mapSpeaker(w){return w.trim().replace(/[^A-Za-z\u0900-\u097F0-9]/g,'').slice(0,20)||'NARRATOR';}
 function parseLine(orig){
  let line=orig.trim(); let sp=null,dial=line;
@@ -92,46 +165,139 @@ function parseLine(orig){
  let m1=line.match(/^([A-Za-z\u0900-\u097F]{2,20})\s*[:：]\s*(.+)/);
  if(m1){sp=mapSpeaker(m1[1]); dial=m1[2];} else if(m2){sp=mapSpeaker(m2[1]); dial=m2[2];} else if(line.includes(' - ')){let p=line.split(/\s*[-–—]\s*/); if(p.length>=2){sp=mapSpeaker(p[0].split(/\s+/)[0]); dial=p.slice(1).join(' - ');}}
  if(!sp||sp.length<2) sp='NARRATOR';
- let emo='normal'; let low=dial.toLowerCase(); if(low.match(/धीरे|फुसफुसा/)) emo='whispering'; else if(low.match(/शरमा/)) emo='shy'; else if(low.match(/छेड़/)) emo='teasing'; else if(low.match(/गुस्सा/)) emo='angry'; else if(/[?]/.test(orig)) emo='hairan';
- // KEEP punctuation for native accent - don't strip ? ! , - ChatGPT keeps them
- let clean=dial.replace(/\([^)]*\)/g,'').trim(); // Only remove brackets like (धीरे से) - keep ? ! , । for native prosody
- let punct=''; // punct already in clean, keep it
- // For display, separate dialogue and punct? But for TTS, send full clean with punct
- return {speaker:sp, dialogue:clean, rawDialogue:dial, emotion:emo, punct:'', fullLine:orig};
+ let emo='normal'; let low=dial.toLowerCase(); if(low.match(/धीरे|फुसफुसा/)) emo='whispering'; else if(low.match(/शरमा/)) emo='shy'; else if(low.match(/छेड़|ताना/)) emo='teasing'; else if(low.match(/गुस्सा|गुस्से/)) emo='angry'; else if(/[?]/.test(orig)) emo='question'; else if(low.match(/खुशी|खुश/)) emo='happy';
+ let clean=dial.replace(/\([^)]*\)/g,'').trim();
+ return {speaker:sp, dialogue:clean, raw:dial, emotion:emo, fullLine:orig};
 }
-function autoDetect(){if(cloudVoices.length===0){alert('LOAD NATIVE HINDI VOICES first - same as ChatGPT'); return;} let raw=document.getElementById('pasteInput').value.trim(); let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean); let map={}; lines.forEach(o=>{let p=parseLine(o); let sp=p.speaker; if(!map[sp]) map[sp]={count:0,male:0,female:0}; map[sp].count++; let g=detectGender(p.fullLine,sp); if(g==='female') map[sp].female++; else map[sp].male++;}); speakers=Object.keys(map); speakers.forEach(sp=>{speakerGenderMap[sp]=map[sp].female>map[sp].male?'female':'male';}); let males=cloudVoices.filter(v=>v.gender==='male'); let females=cloudVoices.filter(v=>v.gender==='female'); let mi=0,fi=0; speakers.forEach(sp=>{if(!speakerVoiceMap[sp]){if(speakerGenderMap[sp]==='female'){speakerVoiceMap[sp]=females[fi%females.length]?.id; fi++;} else {speakerVoiceMap[sp]=males[mi%males.length]?.id; mi++;}}}); let res=document.getElementById('autoDetectResult'); res.classList.remove('hidden'); res.innerHTML=`✅ ${speakers.length} speakers - Native Hindi/Bhojpuri/Banarasi - Same as ChatGPT<br>${speakers.map(s=>`${s}(${speakerGenderMap[s]}) -> ${speakerVoiceMap[s]}`).join('<br>')}`; buildSpeakerUI();}
-function analyzeStory(){if(speakers.length===0){alert('AUTO DETECT first'); return;} let raw=document.getElementById('pasteInput').value.trim(); let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean); let script=[]; lines.forEach(o=>{let p=parseLine(o); if(!speakers.includes(p.speaker)&&p.speaker!=='NARRATOR'){speakers.push(p.speaker); speakerGenderMap[p.speaker]=detectGender(p.fullLine,p.speaker); let m=cloudVoices.filter(v=>v.gender==='male'); let f=cloudVoices.filter(v=>v.gender==='female'); speakerVoiceMap[p.speaker]=speakerGenderMap[p.speaker]==='female'?f[0]?.id:m[0]?.id;} script.push(p);}); currentScript=script; document.getElementById('voiceStudio').classList.remove('hidden'); buildSpeakerUI(); renderScript();}
-function buildSpeakerUI(){let c=document.getElementById('speakerVoiceList'); if(speakers.length===0){c.innerHTML='<p class="text-[8px] opacity-50">No speakers</p>'; return;} c.innerHTML=speakers.map(sp=>{let g=speakerGenderMap[sp]||'male'; let isF=g==='female'; let opts=cloudVoices.map(v=>`<option value="${v.id}" ${speakerVoiceMap[sp]===v.id?'selected':''}>${v.name}</option>`).join(''); return `<div class="bg-[#FFFBEB] rounded-[14px] p-2 border-2 ${isF?'border-pink-500':'border-blue-500'}"><div class="flex justify-between"><span class="text-[9px] font-black px-2 py-1 rounded-full ${isF?'bg-pink-600':'bg-blue-600'} text-white">${sp} ${isF?'♀ Native Hindi/Bhojpuri':'♂ Native Hindi/Bhojpuri'}</span><button onclick="testSpeaker('${sp}')" class="btn bg-black text-white rounded-full px-2 py-1 text-[6px]">▶ TEST NATIVE</button></div><select onchange="speakerVoiceMap['${sp}']=this.value; renderScript()" class="w-full mt-1 bg-white rounded-full px-2 py-1 text-[8px] font-bold border-2 border-black">${opts}</select></div>`;}).join('');}
-function renderScript(){let c=document.getElementById('scriptList'); c.innerHTML=`<p class="text-[8px] opacity-60">SCRIPT ${currentScript.length} lines - Native Hindi/Bhojpuri - Keep ? ! , for native prosody (ChatGPT style)</p>`+currentScript.map((s,i)=>{let spOpts=speakers.map(sp=>`<option value="${sp}" ${sp===s.speaker?'selected':''}>${sp}</option>`).join(''); return `<div class="bg-white text-black rounded-[14px] border-2 p-2"><div class="flex gap-2"><select onchange="currentScript[${i}].speaker=this.value; renderScript()" class="bg-black text-white rounded-full px-2 py-1.5 text-[8px] font-bold">${spOpts}</select><span class="text-[6px] bg-gray-100 px-2 py-1 rounded-full">${s.emotion}</span><button onclick="playLine(${i})" class="btn bg-black text-white ml-auto px-3 py-2 rounded-full text-[10px]">▶</button></div><p class="text-[12px] font-bold mt-2 bg-green-50 rounded p-2 border">${s.dialogue}</p></div>`;}).join('');}
+function detectGender(line,name){let l=line.toLowerCase(); if(l.match(/बोली|सीता|गुड़िया|सुनीता|सिया/)) return 'female'; return 'male';}
+
+function autoDetect(){
+ // BEST VOICES - same as ChatGPT V16.5 but will use gpt-4o-mini-tts with instructions
+ cloudVoices=[
+   {id:'alloy', name:'Alloy ♂ MALE - BEST for Ram - Native Banarasi/Bhojpuri', gender:'male', baseInstruction:'Male, young adult, deep warm Banarasi Hindi accent, slight Bhojpuri touch, dramatic, native Hindi, not English accent'},
+   {id:'onyx', name:'Onyx ♂ MALE - BEST for Mohan - Deep Banarasi', gender:'male', baseInstruction:'Male, mature, deep Banarasi Hindi accent, energetic Bhojpuri slang, native Hindi, warm, not English'},
+   {id:'echo', name:'Echo ♂ MALE - Banarasi Hindi', gender:'male', baseInstruction:'Male, Banarasi Hindi accent, clear native Hindi, Bhojpuri touch'},
+   {id:'nova', name:'Nova ♀ FEMALE - BEST for Sita - Native Hindi/Bhojpuri', gender:'female', baseInstruction:'Female, young adult, soft native Hindi accent, Banarasi/Bhojpuri tone, sweet, shy, native Hindi, not English'},
+   {id:'shimmer', name:'Shimmer ♀ FEMALE - Soft Banarasi', gender:'female', baseInstruction:'Female, soft native Hindi accent, Banarasi tone, gentle'},
+   {id:'fable', name:'Fable ♀ FEMALE - Story Banarasi', gender:'female', baseInstruction:'Female, expressive native Hindi accent, Banarasi storytelling'},
+ ];
+ let raw=(document.getElementById('pasteInput').value.trim() || storyMemory).trim();
+ if(!raw){alert('No story'); return;}
+ let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean);
+ let map={};
+ lines.forEach(o=>{let p=parseLine(o); let sp=p.speaker; if(!map[sp]) map[sp]={count:0,male:0,female:0, emotions:[]}; map[sp].count++; let g=detectGender(p.fullLine,sp); if(g==='female') map[sp].female++; else map[sp].male++; map[sp].emotions.push(p.emotion);});
+ speakers=Object.keys(map);
+ speakers.forEach(sp=>{speakerGenderMap[sp]=map[sp].female>map[sp].male?'female':'male'; speakerEmotionMap[sp]=map[sp].emotions[0]||'normal';});
+ let males=cloudVoices.filter(v=>v.gender==='male'), females=cloudVoices.filter(v=>v.gender==='female');
+ let mi=0,fi=0;
+ speakers.forEach(sp=>{if(!speakerVoiceMap[sp]){if(speakerGenderMap[sp]==='female'){speakerVoiceMap[sp]=females[fi%females.length]?.id; fi++;} else {speakerVoiceMap[sp]=males[mi%males.length]?.id; mi++;}}});
+ let res=document.getElementById('directorResult'); res.classList.remove('hidden');
+ let lang=document.getElementById('lang').value;
+ res.innerHTML=`✅ ${speakers.length} speakers - Native ${lang} accent via gpt-4o-mini-tts + instructions (like ChatGPT)<br>${speakers.map(s=>`${s}(${speakerGenderMap[s]}, ${speakerEmotionMap[s]}) -> ${speakerVoiceMap[s]} with ${lang} accent`).join('<br>')}`;
+ renderDirector();
+}
+function renderDirector(){
+ let cont=document.getElementById('speakerList');
+ cont.innerHTML=speakers.map(sp=>{
+   let g=speakerGenderMap[sp]||'male'; let isF=g==='female';
+   let vObj=cloudVoices.find(v=>v.id===speakerVoiceMap[sp]);
+   let opts=cloudVoices.map(v=>`<option value="${v.id}" ${speakerVoiceMap[sp]===v.id?'selected':''}>${v.name}</option>`).join('');
+   let lang=document.getElementById('lang').value;
+   return `<div class="card p-2 border ${isF?'border-pink-500':'border-blue-500'}">
+   <div class="flex justify-between items-center"><span class="text-[10px] font-black px-2 py-1 rounded-full ${isF?'bg-pink-600':'bg-blue-600'} text-white">${sp} ${isF?'♀ Female':'♂ Male'} - ${lang} Native</span><button onclick="testSpeaker('${sp}')" class="bg-black text-white rounded-full px-2 py-1 text-[7px]">▶ TEST NATIVE ${lang}</button></div>
+   <select onchange="speakerVoiceMap['${sp}']=this.value; renderDirector()" class="input-dark w-full mt-2 p-2 text-[9px]">${opts}</select>
+   <p class="text-[6px] mt-1 text-[#8b7fb8]">Instruction: ${vObj?.baseInstruction||''} + ${speakerEmotionMap[sp]} + ${lang}</p>
+   </div>`;
+ }).join('');
+ let raw=(document.getElementById('pasteInput').value.trim() || storyMemory).trim();
+ let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean);
+ currentScript=lines.map(parseLine);
+ document.getElementById('scriptList').innerHTML=`<p class="text-[9px] opacity-60">SCRIPT ${currentScript.length} lines - Native ${document.getElementById('lang').value} - gpt-4o-mini-tts + instructions</p>`+currentScript.map((s,i)=>`<div class="card p-2"><div class="flex gap-2"><span class="bg-black text-white rounded-full px-2 py-1 text-[8px] font-bold">${s.speaker}</span><span class="text-[7px] bg-[#3d2f68] px-2 py-1 rounded-full">${s.emotion}</span></div><p class="text-[12px] mt-2 dev">${s.dialogue}</p></div>`).join('');
+}
+function convertForVoice(){if(currentScript.length===0){alert('Auto detect first'); return;} setTab('voice');}
+
+function buildInstruction(speaker, text){
+ let lang=document.getElementById('lang').value;
+ let vObj=cloudVoices.find(v=>v.id===speakerVoiceMap[speaker]);
+ let base=vObj?.baseInstruction||`Native ${lang} accent`;
+ let emotion=currentScript.find(c=>c.speaker===speaker)?.emotion||speakerEmotionMap[speaker]||'normal';
+ let emoMap={
+   'whispering':'whispering, धीरे से, low voice',
+   'shy':'shy, शरमाते हुए, soft, hesitant',
+   'teasing':'teasing, छेड़ते हुए, playful Banarasi',
+   'angry':'angry, गुस्से से, strong Banarasi',
+   'happy':'happy, खुशी से, cheerful Banarasi',
+   'question':'curious, questioning tone',
+   'normal':`natural ${lang} accent, warm`
+ };
+ let emoText=emoMap[emotion]||emoMap['normal'];
+ // THIS is the key difference from V14/V15 - instructions for native accent
+ return `Speak in ${lang} language, ${base}, ${emoText}, native Hindi/Bhojpuri/Banarasi accent, not US English accent, natural Banarasi intonation, warm, dramatic`;
+}
+
 async function playLine(i,save=true,auto=false){
- let s=currentScript[i]; let voiceId=speakerVoiceMap[s.speaker]; let settings=getEmotionSettings(s.emotion);
- let text=s.dialogue; // Pure Devanagari with ? ! , kept - for native Hindi/Bhojpuri accent like ChatGPT
- // Add emotion hint as prefix for Bhojpuri/Banarasi? ChatGPT adds (whispering) etc as separate instruction, not in text
- let key=document.getElementById('openaiKey').value.trim(); if(!key){alert('Enter OpenAI key same as ChatGPT project'); throw new Error('no key');}
+ let s=currentScript[i]; let voiceId=speakerVoiceMap[s.speaker]; let text=s.dialogue;
+ let instruction=buildInstruction(s.speaker, text);
+ let key=getKey(); if(!key){alert('Paste OpenAI key'); throw new Error('no key');}
  try{
-   // EXACT SAME AS CHATGPT PROJECT: tts-1-hd, voice, input pure Devanagari, speed 1.0
-   let r=await fetch('https://api.openai.com/v1/audio/speech',{
-     method:'POST',
-     headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
-     body:JSON.stringify({model:'tts-1-hd', voice:voiceId, input:text, speed:settings.speed})
-   });
-   if(!r.ok){let t=await r.text(); throw new Error('OpenAI '+r.status+': '+t.slice(0,200));}
-   let blob=await r.blob(); let url=URL.createObjectURL(blob); if(save){audioBlobs.push({url,blob}); audioUrls.push(url);}
-   let container=document.getElementById('audioPlayers'); if(container.innerHTML.includes('MP3s will')) container.innerHTML='';
-   let div=document.createElement('div'); div.className='bg-white text-black rounded-[8px] p-2'; div.innerHTML=`<div class="flex justify-between"><p class="text-[7px] font-bold">${i+1}. ${s.speaker} Native Hindi/Bhojpuri ${voiceId}</p><a href="${url}" download="${s.speaker}_${i+1}.mp3" class="btn bg-black text-white rounded-full px-3 py-1 text-[7px]">⬇️ MP3</a></div><audio controls src="${url}" class="w-full mt-1"></audio><p class="text-[6px]">"${text}"</p>`; container.appendChild(div);
+   // TRY BEST MODEL FIRST: gpt-4o-mini-tts with instructions = NATIVE ACCENT (ChatGPT V16.5 style)
+   let body={model:'gpt-4o-mini-tts', voice:voiceId, input:text, instructions:instruction};
+   let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify(body)});
+   if(!r.ok){
+     let t=await r.text();
+     // If gpt-4o-mini-tts not enabled for this key, fallback to tts-1-hd (still better than tts-1)
+     if(document.getElementById('allowFallback').checked && (r.status===404 || t.includes('model_not_found') || t.includes('gpt-4o-mini-tts'))){
+       document.getElementById('playStatus').textContent=`⚠️ gpt-4o-mini-tts not enabled for this key, fallback to tts-1-hd (still native Hindi but less Banarasi control) - Enable gpt-4o-mini-tts in OpenAI dashboard`;
+       let fb=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1-hd', voice:voiceId, input:text, speed:1.0})});
+       if(!fb.ok) throw new Error('Fallback failed: '+await fb.text());
+       let blob=await fb.blob(); let url=URL.createObjectURL(blob);
+       if(save){audioBlobs.push({url,blob}); audioUrls.push(url);}
+       let container=document.getElementById('audioPlayers'); let div=document.createElement('div'); div.className='bg-white text-black rounded-[8px] p-2'; div.innerHTML=`<p class="text-[7px] font-bold">${i+1}. ${s.speaker} Fallback tts-1-hd ${voiceId} (native Hindi, less Banarasi control)</p><audio controls src="${url}" class="w-full mt-1"></audio><p class="text-[6px]">Instruction was: ${instruction}</p>`; container.appendChild(div);
+       if(auto){let a=new Audio(url); a.play(); return new Promise(res=>{a.onended=()=>res(); setTimeout(()=>res(),8000);});}
+       return {url,blob};
+     } else {
+       throw new Error('OpenAI '+r.status+': '+t.slice(0,300)+' - Try enabling gpt-4o-mini-tts in OpenAI dashboard > Limits');
+     }
+   }
+   let blob=await r.blob(); let url=URL.createObjectURL(blob);
+   if(save){audioBlobs.push({url,blob}); audioUrls.push(url);}
+   let container=document.getElementById('audioPlayers'); let div=document.createElement('div'); div.className='bg-white text-black rounded-[8px] p-2 border-2 border-green-400'; div.innerHTML=`<p class="text-[7px] font-bold text-green-600">✅ ${i+1}. ${s.speaker} NATIVE ${document.getElementById('lang').value} ACCENT - ${voiceId} - gpt-4o-mini-tts + instructions</p><audio controls src="${url}" class="w-full mt-1"></audio><p class="text-[6px]">"${text}"<br>Instruction: ${instruction}</p>`; container.appendChild(div);
    if(auto){let a=new Audio(url); a.play(); return new Promise(res=>{a.onended=()=>res(); setTimeout(()=>res(),8000);});}
    return {url,blob};
  }catch(e){document.getElementById('playStatus').textContent='❌ '+e.message; throw e;}
 }
-async function playFull(){if(isPlaying){alert('STOP first'); return;} if(currentScript.length===0){alert('CONVERT first'); return;} let key=document.getElementById('openaiKey').value.trim(); if(!key){alert('Enter OpenAI key'); return;} isPlaying=true; stopRequested=false; document.getElementById('playFullBtn').disabled=true; document.getElementById('audioPlayers').innerHTML=''; audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[]; if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null; document.getElementById('masterPlayerBox').classList.add('hidden'); document.getElementById('playStatus').textContent=`▶ Generating ${currentScript.length} Native Hindi/Bhojpuri/Banarasi MP3s with tts-1-hd (ChatGPT style)...`; document.getElementById('progressBar').style.width='0%'; for(let i=0;i<currentScript.length;i++){if(stopRequested) break; document.getElementById('progressBar').style.width=Math.round(i/currentScript.length*100)+'%'; document.getElementById('playStatus').textContent=`▶ ${i+1}/${currentScript.length}: ${currentScript[i].speaker} Native`; try{await playLine(i,true,false);}catch(e){continue;}} document.getElementById('progressBar').style.width='100%'; if(audioBlobs.length>0){let combined=new Blob(audioBlobs.map(b=>b.blob),{type:'audio/mpeg'}); masterUrl=URL.createObjectURL(combined); document.getElementById('masterAudio').src=masterUrl; document.getElementById('masterDownload').href=masterUrl; document.getElementById('masterPlayerBox').classList.remove('hidden'); document.getElementById('playStatus').textContent=`✅ ${audioBlobs.length} Native Hindi/Bhojpuri/Banarasi MP3s - Same as ChatGPT project - Nova Onyx Alloy native`; } document.getElementById('playFullBtn').disabled=false; isPlaying=false;}
+
+async function playFull(){
+ let key=getKey(); if(!key){alert('OpenAI key needed same as ChatGPT project'); return;}
+ if(currentScript.length===0){alert('Convert first'); return;}
+ isPlaying=true; stopRequested=false;
+ document.getElementById('playFullBtn').disabled=true;
+ document.getElementById('audioPlayers').innerHTML='';
+ audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[];
+ if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null;
+ document.getElementById('masterBox').classList.add('hidden');
+ document.getElementById('playStatus').textContent=`▶ Generating ${currentScript.length} NATIVE ${document.getElementById('lang').value} ACCENT MP3s with gpt-4o-mini-tts + instructions (ChatGPT V16.5 style)...`;
+ document.getElementById('progressBar').style.width='0%';
+ for(let i=0;i<currentScript.length;i++){
+   if(stopRequested) break;
+   document.getElementById('progressBar').style.width=Math.round(i/currentScript.length*100)+'%';
+   document.getElementById('playStatus').textContent=`▶ ${i+1}/${currentScript.length}: ${currentScript[i].speaker} NATIVE ${document.getElementById('lang').value}`;
+   try{await playLine(i,true,false);}catch(e){console.error(e); continue;}
+ }
+ document.getElementById('progressBar').style.width='100%';
+ if(audioBlobs.length>0){
+   let combined=new Blob(audioBlobs.map(b=>b.blob),{type:'audio/mpeg'});
+   masterUrl=URL.createObjectURL(combined);
+   document.getElementById('masterAudio').src=masterUrl;
+   document.getElementById('masterDl').href=masterUrl;
+   document.getElementById('masterBox').classList.remove('hidden');
+   document.getElementById('playStatus').textContent=`✅ ${audioBlobs.length} NATIVE ${document.getElementById('lang').value} ACCENT MP3s - gpt-4o-mini-tts + instructions - Same as ChatGPT V16.5 - Not US accent`;
+ }
+ document.getElementById('playFullBtn').disabled=false; isPlaying=false;
+}
 function stopPlaying(){stopRequested=true; isPlaying=false; document.getElementById('playStatus').textContent='⏹ Stopped'; document.getElementById('playFullBtn').disabled=false;}
-function testSpeaker(sp){let idx=currentScript.findIndex(c=>c.speaker===sp); if(idx>=0) playLine(idx,false,true); else alert('No lines');}
-document.getElementById('testKeyBtn').addEventListener('click',testKey);
-document.getElementById('autoDetectBtn').addEventListener('click',autoDetect);
-document.getElementById('analyzeBtn').addEventListener('click',analyzeStory);
-document.getElementById('playFullBtn').addEventListener('click',playFull);
-document.getElementById('stopBtn').addEventListener('click',stopPlaying);
-document.getElementById('openaiKey').addEventListener('change',saveKeys);
-window.addEventListener('load',()=>{loadKeys();});
+function testSpeaker(sp){let idx=currentScript.findIndex(c=>c.speaker===sp); if(idx>=0) playLine(idx,false,true); else alert('No lines for '+sp);}
+document.getElementById('playFullBtn').addEventListener('click', playFull);
+document.getElementById('stopBtn').addEventListener('click', stopPlaying);
 </script>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
