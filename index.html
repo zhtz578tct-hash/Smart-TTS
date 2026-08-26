@@ -21,7 +21,7 @@
   font-family: "Optimistic Mono", ui-monospace, monospace;
 }
 </style><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Story Director V18.2 - Final Fixed - All Buttons</title>
+<title>Story Director V18.3 - Paragraph Fix - Smart Director Auto Emotion</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 body{background:#120c26;color:#e9e4ff;max-width:600px;margin:auto;font-family:Inter,system-ui}
@@ -49,7 +49,7 @@ input[type=range]{accent-color:#8b5cf6}
 .edit-panel{background:#0e091e;border:1px solid #3d2f68;border-radius:12px;padding:10px;margin-top:8px}
 </style>
 </head><body class="pb-32">
-<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V18.2 🎬</h1><p class="text-[9px] text-[#a78bfa]">Final Fixed - All Buttons + Auto-Close Save</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">V18.2 FINAL</span></div></header>
+<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V18.3 - Paragraph Fix 🎬</h1><p class="text-[9px] text-[#a78bfa]">FINAL FIX - Paragraph bug fixed - All lines to NARRATOR fixed - Manual speakers preserved</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">V18.3 PARAGRAPH FIX</span></div></header>
 
 <div id="apiBox" class="hidden p-3"><div class="card p-3 border-2 border-yellow-400 bg-[#1a1230]">
 <p class="text-[11px] font-black flex justify-between"><span>🔑 OpenAI Key</span><button onclick="toggleApiBox()" class="bg-black text-white rounded-full px-2 py-1 text-[8px]">✕ HIDE</button></p>
@@ -64,25 +64,29 @@ input[type=range]{accent-color:#8b5cf6}
 <button onclick="setTab('voice')" id="tab-voice" class="tab-inactive pb-2">🎙️ Voice</button>
 </div>
 
-<!-- AI STORY TAB - CLEAN, NO ANNOYING BOX, WITH ALL BUTTONS -->
+<!-- AI STORY TAB -->
 <div id="view-ai" class="p-3 space-y-3">
+<div class="card p-4 bg-gradient-to-br from-[#2a1f4a] to-[#1e1638] border border-purple-500">
+<p class="text-[10px] text-[#a78bfa] font-black">✦ V18.3 PARAGRAPH FIX DIRECTOR</p>
+<h2 class="text-[18px] font-black leading-[1.1] mt-1">Director auto-assigns emotion.<br><span class="text-[#a78bfa] text-[12px]">You just edit if needed via button</span></h2>
+<p class="text-[7px] text-[#c4b5fd] mt-2 bg-black/30 p-2 rounded">Example: "बहुत दर्द हो रहा है।" → Director auto: (कराहती हुई आवाज में) | "सीता, तुम सो गई क्या?" → (अत्यंत धीमी आवाज़ में)</p>
+</div>
 <div class="card p-3">
 <label class="text-[12px] font-bold">💡 Story Idea / Prompt</label>
 <textarea id="idea" class="input-dark w-full h-[70px] p-3 mt-2 text-[13px] dev">राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल</textarea>
 <div class="mt-3"><div class="label-fixed">🎯 Extra Direction</div><input id="extra" class="input-dark w-full p-3 text-[11px]" value="Banarasi tone, with emotions, भौकाल"></div>
-<p id="aiStatus" class="text-[8px] mt-3 bg-black p-2 rounded">Ready V18.2 - Final Fixed - All Buttons Restored</p>
+<p id="aiStatus" class="text-[8px] mt-3 bg-black p-2 rounded">Ready V18.3 - Smart Auto</p>
 <button onclick="generateStory()" class="btn-primary w-full mt-3 py-4 font-black text-[13px]">✨ Generate Story - Smart Director will auto add emotion</button>
 <textarea id="storyOut" class="input-dark w-full h-[220px] mt-3 p-3 text-[13px] dev" placeholder="Story will appear here..."></textarea>
 <div class="grid grid-cols-3 gap-2 mt-2">
 <button onclick="copyStory()" class="btn-primary py-2.5 text-[9px] font-black">📋 COPY</button>
 <button onclick="sendToDirector()" class="btn-primary py-2.5 text-[9px] font-black">🎭 DIRECTOR →</button>
-<button onclick="clearAI()" class="btn-ghost py-2.5 text-[9px] font-black">🗑️ CLEAR ALL</button>
+<button onclick="clearAI()" class="btn-ghost py-2.5 text-[9px] font-black">🗑️ CLEAR</button>
 </div>
-<div class="grid grid-cols-2 gap-2 mt-2"><button onclick="resetAI()" class="btn-ghost py-2 text-[8px]">↺ Reset Inputs</button><button onclick="clearAIOutput()" class="btn-ghost py-2 text-[8px]">Clear Output Only</button></div>
 </div>
 </div>
 
-<!-- PASTE TAB - WITH CLEAR BUTTONS RESTORED -->
+<!-- PASTE TAB -->
 <div id="view-paste" class="hidden p-3 space-y-3">
 <div class="card p-3"><h3 class="font-black">📋 Paste Your Story</h3>
 <textarea id="pasteInput" class="input-dark w-full h-[200px] mt-2 p-3 text-[13px] dev">राम (कराहती हुई आवाज में) "बहुत दर्द हो रहा है।"
@@ -91,16 +95,15 @@ input[type=range]{accent-color:#8b5cf6}
 सीता (शर्मा कर) "धत्त, तुम बड़े बेशर्म हो।"
 राम (डाँटते हुए) "तुम्हारा दिमाग़ ख़राब है क्या?"
 मोहन (हँसते हुए) "अस्सी घाट पर भौकाल देखो!"</textarea>
-<div class="grid grid-cols-2 gap-2 mt-3"><button onclick="sendPasteToDirector()" class="btn-primary py-3 font-black text-[11px]">🎭 SEND TO DIRECTOR - Auto Emotion</button><button onclick="clearPaste()" class="btn-ghost py-3 text-[10px] font-black">🗑️ CLEAR ALL</button></div>
-<button onclick="resetPaste()" class="btn-ghost w-full mt-2 py-2 text-[8px]">↺ Reset Paste Tab</button>
+<button onclick="sendPasteToDirector()" class="btn-primary w-full mt-3 py-3 font-black text-[11px]">🎭 SEND TO DIRECTOR - Auto Emotion</button>
 </div>
 </div>
 
-<!-- DIRECTOR TAB - WITH ALL CLEAR BUTTONS -->
+<!-- DIRECTOR TAB -->
 <div id="view-director" class="hidden p-3 space-y-3">
 <div class="card p-3 border-2 border-purple-500">
-<h3 class="font-black text-[13px]">🎭 Smart Director V18.2 - Auto Emotion</h3>
-<p class="text-[7px] text-[#a78bfa] mt-1 bg-black p-2 rounded">Smart auto emotions - Tap ✏️ to edit any - Manual speaker add available - Save auto-closes now</p>
+<h3 class="font-black text-[13px]">🎭 Smart Director V18.3 - Auto Emotion</h3>
+<p class="text-[7px] text-[#a78bfa] mt-1 bg-black p-2 rounded">NEW: Director auto-assigns emotion based on dialogue. No need to type! Just tap ✏️ Edit in each box if you want to change. Manual speaker add also available.</p>
 
 <div class="mt-3 bg-black/40 rounded-[12px] p-3 border border-[#3d2f68]">
 <p class="text-[9px] font-black text-[#a78bfa]">➕ ADD SPEAKERS MANUALLY</p>
@@ -114,22 +117,19 @@ input[type=range]{accent-color:#8b5cf6}
 <div id="directorResult" class="mt-2 text-[8px] bg-black p-2 rounded hidden"></div>
 <div id="speakerList" class="mt-3 space-y-3"></div>
 <button onclick="convertForVoice()" class="btn-primary w-full mt-4 py-4 font-black text-[11px]">🔊 CONVERT FOR VOICE STUDIO →</button>
-<div class="grid grid-cols-2 gap-2 mt-3"><button onclick="clearDirector()" class="btn-ghost py-3 text-[10px] font-black">🗑️ CLEAR ALL</button><button onclick="resetDirector()" class="btn-ghost py-3 text-[10px] font-black">↺ Reset Director</button></div>
 </div>
 <div id="scriptList" class="space-y-3"></div>
-<div class="card p-2 flex gap-2 mt-2"><button onclick="clearScript()" class="btn-ghost flex-1 py-2 text-[8px]">Clear Script Only</button><button onclick="clearDirectorAll()" class="btn-ghost flex-1 py-2 text-[8px]">🗑️ CLEAR ENTIRE PAGE</button></div>
 </div>
 
-<!-- VOICE TAB - WITH CLEAR BUTTONS RESTORED -->
+<!-- VOICE TAB -->
 <div id="view-voice" class="hidden p-3 space-y-3">
 <div class="card p-3 border border-purple-500">
-<h3 class="font-black text-purple-300 text-[13px]">🎙️ Voice Studio V18.2</h3>
+<h3 class="font-black text-purple-300 text-[13px]">🎙️ Voice Studio V18.3</h3>
 <p id="playStatus" class="text-[8px] bg-black p-2 rounded mt-2">Ready - Smart emotions applied</p>
 <div class="w-full bg-white/20 rounded-full h-[6px] mt-2"><div id="progressBar" class="bg-green-400 h-full" style="width:0%"></div></div>
 <div class="grid grid-cols-3 gap-2 mt-3"><button id="playFullBtn" class="btn-primary col-span-2 py-3 text-[10px] font-black">▶ GENERATE ALL</button><button id="stopBtn" class="btn-stop py-3 text-[10px] font-black">⏹ STOP</button></div>
 <div id="audioBox" class="mt-3 audio-scroll bg-[#0e091e] border border-[#3d2f68] rounded-[16px] p-2"><div id="audioPlayers" class="space-y-2"></div></div>
-<div id="masterBox" class="hidden mt-3"><div class="card p-3 bg-gradient-to-br from-[#2a1f4a] to-[#1e1638] border-2 border-purple-500"><audio id="masterAudio" controls class="w-full rounded-[12px]"></audio><a id="masterDl" href="#" download="story_V18_2_final.mp3" class="btn-primary w-full mt-3 py-4 text-center block font-black text-[12px]">⬇️ DOWNLOAD FULL</a></div></div>
-<div class="grid grid-cols-3 gap-2 mt-3"><button onclick="clearVoice()" class="btn-ghost py-2.5 text-[9px] font-black">🗑️ CLEAR ALL</button><button onclick="resetVoice()" class="btn-ghost py-2.5 text-[9px] font-black">↺ Reset Voice</button><button onclick="clearAudioOnly()" class="btn-ghost py-2.5 text-[9px] font-black">Clear Audio Only</button></div>
+<div id="masterBox" class="hidden mt-3"><div class="card p-3 bg-gradient-to-br from-[#2a1f4a] to-[#1e1638] border-2 border-purple-500"><audio id="masterAudio" controls class="w-full rounded-[12px]"></audio><a id="masterDl" href="#" download="story_V18_1_smart.mp3" class="btn-primary w-full mt-3 py-4 text-center block font-black text-[12px]">⬇️ DOWNLOAD FULL</a></div></div>
 </div>
 </div>
 
@@ -137,31 +137,23 @@ input[type=range]{accent-color:#8b5cf6}
 let tab='ai', cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, speakerGenderMap={}, speakerIntensityMap={}, audioBlobs=[], audioUrls=[], masterUrl=null, isPlaying=false, stopRequested=false, storyMemory='', editingIdx=-1;
 
 const EMOTION_OPTIONS=[
-'कराहती हुई आवाज में','अत्यंत धीमी आवाज़ में','डाँटते हुए','शर्मा कर','गुस्से से','धीरे से','फुसफुसाते हुए','चिल्लाते हुए','रोते हुए','हँसते हुए','खुशी से','उदासी से','आश्चर्य से','चिंता में','प्यार से','छेड़ते हुए','शरमाते हुए','बनारसी भौकाल में','नॉर्मल लहजे में','सवालिया लहजे में','जोश में','करुण स्वर में','व्यंग्य से','रोते हुए'
+'कराहती हुई आवाज में','अत्यंत धीमी आवाज़ में','डाँटते हुए','शर्मा कर','गुस्से से','धीरे से','फुसफुसाते हुए','चिल्लाते हुए','रोते हुए','हँसते हुए','खुशी से','उदासी से','आश्चर्य से','चिंता में','प्यार से','छेड़ते हुए','शरमाते हुए','बनारसी भौकाल में','नॉर्मल लहजे में','सवालिया लहजे में','जोश में','करुण स्वर में','व्यंग्य से'
 ];
 
 function setTab(t){ tab=t; ['ai','paste','director','voice'].forEach(x=>{ document.getElementById('view-'+x).classList.toggle('hidden', x!==t); document.getElementById('tab-'+x).className = x===t ? 'tab-active pb-2' : 'tab-inactive pb-2'; }); }
 function toggleApiBox(){ document.getElementById('apiBox').classList.toggle('hidden'); }
-function saveKey(){let k=document.getElementById('openaiKey').value.trim(); if(k){localStorage.setItem('openai_key_v18_2',k); localStorage.setItem('openai_key',k); document.getElementById('apiStatus').textContent='✅ Saved';}}
-function loadKey(){let k=localStorage.getItem('openai_key_v18_2')||localStorage.getItem('openai_key')||''; if(k) document.getElementById('openaiKey').value=k;}
+function saveKey(){let k=document.getElementById('openaiKey').value.trim(); if(k){localStorage.setItem('openai_key_v18_1',k); localStorage.setItem('openai_key',k); document.getElementById('apiStatus').textContent='✅ Saved';}}
+function loadKey(){let k=localStorage.getItem('openai_key_v18_1')||localStorage.getItem('openai_key')||''; if(k) document.getElementById('openaiKey').value=k;}
 window.addEventListener('load', loadKey);
 document.getElementById('openaiKey').addEventListener('change', saveKey);
-function getKey(){return document.getElementById('openaiKey').value.trim() || localStorage.getItem('openai_key_v18_2') || ''; }
-function clearAI(){ document.getElementById('idea').value=''; document.getElementById('extra').value=''; document.getElementById('storyOut').value=''; document.getElementById('aiStatus').textContent='Cleared'; }
-function resetAI(){ document.getElementById('idea').value='राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल'; document.getElementById('extra').value='Banarasi tone, with emotions, भौकाल'; }
-function clearAIOutput(){ document.getElementById('storyOut').value=''; }
-function clearPaste(){ document.getElementById('pasteInput').value=''; }
-function resetPaste(){ document.getElementById('pasteInput').value=`राम (कराहती हुई आवाज में) "बहुत दर्द हो रहा है।"\nसीता (चिंता में) "राम, क्या हुआ?"\nराम (अत्यंत धीमी आवाज़ में) "सीता, तुम सो गई क्या?"\nसीता (शर्मा कर) "धत्त, तुम बड़े बेशर्म हो।"`; }
-function clearDirector(){ document.getElementById('speakerList').innerHTML=''; document.getElementById('directorResult').classList.add('hidden'); speakers=[]; speakerVoiceMap={}; speakerIntensityMap={}; speakerGenderMap={}; }
-function resetDirector(){ clearDirector(); autoDetect(); }
-function clearScript(){ document.getElementById('scriptList').innerHTML=''; currentScript=[]; }
-function clearDirectorAll(){ clearDirector(); clearScript(); }
-function clearVoice(){ document.getElementById('audioPlayers').innerHTML=''; audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[]; if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null; document.getElementById('masterBox').classList.add('hidden'); document.getElementById('playStatus').textContent='Cleared'; document.getElementById('progressBar').style.width='0%'; }
-function resetVoice(){ clearVoice(); }
-function clearAudioOnly(){ document.getElementById('audioPlayers').innerHTML=''; }
+function getKey(){return document.getElementById('openaiKey').value.trim() || localStorage.getItem('openai_key_v18_1') || ''; }
+function clearAI(){ document.getElementById('storyOut').value=''; }
 
 function smartEmotionFromText(dialogue, fullLine){
-  let d = dialogue.toLowerCase(); let f = fullLine.toLowerCase(); let txt = (d+' '+f);
+  let d = dialogue.toLowerCase();
+  let f = fullLine.toLowerCase();
+  let txt = (d+' '+f);
+  // Priority rules - your examples first
   if(txt.match(/दर्द|कराह|आह|उई|सीने में|बहुत दर्द/)) return 'कराहती हुई आवाज में';
   if(txt.match(/सो गई|सो गए|धीरे.*बोल|चुपके|सो जा/)) return 'अत्यंत धीमी आवाज़ में';
   if(txt.match(/दिमाग.*खराब|पागल|बेवकूफ|चुप|बकवास|शट अप/)) return 'डाँटते हुए';
@@ -229,9 +221,112 @@ function parseLine(orig){
  }
  dial=dial.replace(/^\*\*|\*\*$|^[\"“]|["”]$/g,'').trim().replace(/^\*\*[^*]+\*\*\s*/,'').trim();
  if(!dial) return null;
- if(!dir && sp!=='NARRATOR'){ dir=smartEmotionFromText(dial, orig); }
+ // SMART AUTO ASSIGN if no direction
+ if(!dir && sp!=='NARRATOR'){
+   dir=smartEmotionFromText(dial, orig);
+ }
  if(!dir) dir='नॉर्मल लहजे में';
  return {speaker:sp, dialogue:dial, direction:dir, fullLine:orig, isScene: sp==='NARRATOR' && dial.toLowerCase().includes('scene'), autoAssigned: true};
+}
+
+
+function addSpeakerManual(){
+ let input=document.getElementById('newSpeakerName');
+ let raw=input.value.trim(); if(!raw){ alert('Enter name'); return; }
+ raw.split(/[,]+/).map(s=>s.trim()).filter(Boolean).forEach(n=>{
+   let sp=mapSpeaker(n);
+   if(!speakers.includes(sp)){ speakers.push(sp); speakerGenderMap[sp]= n.match(/सीता|सुनीता|गुड़िया|सीता|Sita|Sunita|Gudiya|पत्नी|बेटी|माँ|बहन)/i)?'female':'male'; if(!speakerIntensityMap[sp]) speakerIntensityMap[sp]=70; if(!speakerVoiceMap[sp]){ let males=cloudVoices.filter(v=>v.gender==='male'), females=cloudVoices.filter(v=>v.gender==='female'); let isF=speakerGenderMap[sp]==='female'; speakerVoiceMap[sp]= isF ? females[0]?.id || 'nova' : males[0]?.id || 'alloy'; } }
+ });
+ input.value=''; renderDirector();
+}
+
+function extractDialoguesFromText(raw){
+ // FIX V18.3 - Paragraph type support - splits one paragraph into multiple dialogues
+ let results=[];
+ let paragraphs = raw.split(/\n+/).map(p=>p.trim()).filter(Boolean);
+ paragraphs.forEach(para=>{
+   // Regex to find all Name बोला/बोली - dialogue patterns inside same paragraph
+   let pattern = /([A-Za-z\u0900-\u097F]{2,25})\s+(?:बोला|बोली|बोले|ने\s+कहा|कहा|ने\s+कहा\s+था|हँसते\s+हुए\s+बोला|हँसते\s+हुए\s+बोली|शरमाते\s+हुए\s+बोला|शरमाते\s+हुए\s+बोली|थोड़ा\s+शरमाते\s+हुए\s+बोला|हल्की\s+सी\s+मुस्कान\s+के\s+साथ\s+बोली|आश्चर्य\s+से\s+बोली|चाय\s+की\s+चुस्की\s+लेते\s+हुए\s+बोला|उत्साह\s+में\s+कहा|सोचते\s+हुए\s+बोली|जोर\s+से\s+हँसा\s+और\s+बोला)\s*[-:–—]?\s*([^।!?]*[।!?]?)/gi;
+   let matches = [...para.matchAll(pattern)];
+   if(matches.length>0){
+     matches.forEach(m=>{
+       let sp = mapSpeaker(m[1]);
+       let dial = m[2].trim().replace(/^["“'\s]+|["”'\s]+$/g,'');
+       if(dial.length<2) return;
+       // Clean dial from trailing speaker of next line if captured
+       results.push({speaker:sp, dialogue:dial, fullLine:m[0], rawPara:para});
+     });
+     // If para had narration before first dialogue and it's long, add as narrator
+     let firstIdx = para.indexOf(matches[0][0]);
+     if(firstIdx>20){
+       let narr = para.slice(0, firstIdx).trim();
+       if(narr.length>15){
+         results.unshift({speaker:'NARRATOR', dialogue:narr, fullLine:narr, rawPara:para});
+       }
+     }
+   } else {
+     // No dialogue pattern, treat whole para as narrator or try old parseLine
+     let p = parseLine(para);
+     if(p) results.push(p);
+   }
+ });
+ return results;
+}
+
+function autoDetect(){
+ cloudVoices=[
+   {id:'alloy', name:'Alloy ♂ MALE - Ram', gender:'male', baseInstruction:'Male, deep warm Banarasi Hindi accent'},
+   {id:'onyx', name:'Onyx ♂ MALE - Mohan', gender:'male', baseInstruction:'Male, deep Banarasi Hindi accent, energetic'},
+   {id:'echo', name:'Echo ♂ MALE - Golu/Babu', gender:'male', baseInstruction:'Male young, Banarasi Hindi accent'},
+   {id:'nova', name:'Nova ♀ FEMALE - Sita', gender:'female', baseInstruction:'Female, soft native Hindi accent, Banarasi tone'},
+   {id:'shimmer', name:'Shimmer ♀ FEMALE - Gudiya', gender:'female', baseInstruction:'Female, warm native Hindi accent'},
+ ];
+ let raw=(document.getElementById('pasteInput').value.trim() || storyMemory).trim(); if(!raw){alert('No story'); return;}
+ 
+ // V18.3 FIX: Use new paragraph splitter
+ let extracted = extractDialoguesFromText(raw);
+ let parsed=[];
+ extracted.forEach(item=>{
+   if(item.speaker && item.dialogue){
+     let sp=item.speaker;
+     let dial=item.dialogue;
+     let dir='';
+     // Try to extract emotion from brackets if present
+     let mBrack = dial.match(/^(.*)\(([^\)]+)\)\s*$/);
+     if(mBrack){ dial=mBrack[1].trim(); dir=mBrack[2].trim(); }
+     if(!dir){
+       dir=smartEmotionFromText(dial, item.fullLine||'');
+     }
+     parsed.push({speaker:sp, dialogue:dial, direction:dir, fullLine:item.fullLine||item.rawPara||dial, autoAssigned: !mBrack, isScene: sp==='NARRATOR' && (dial.toLowerCase().includes('scene') || dial.length>120)});
+   }
+ });
+ 
+ if(parsed.length===0){
+   // Fallback old method
+   let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean);
+   parsed=lines.map(parseLine).filter(Boolean);
+ }
+
+ let map={}; parsed.forEach(p=>{ if(!map[p.speaker]) map[p.speaker]={count:0,male:0,female:0}; map[p.speaker].count++; let g=detectGender(p.fullLine); if(g==='female') map[p.speaker].female++; else map[p.speaker].male++; });
+ speakers=Object.keys(map);
+ speakers.forEach(sp=>{ 
+   // Respect manually added speakers - don't overwrite gender if already set
+   if(!speakerGenderMap[sp]){
+     speakerGenderMap[sp]= map[sp].female>map[sp].male ? 'female':'male'; 
+   }
+   if(!speakerIntensityMap[sp]) speakerIntensityMap[sp]=70; 
+ });
+ // Also keep manually added speakers that weren't detected in this parse
+ // (Important: Don't delete speakers that user added manually)
+ let manuallyAdded = Object.keys(speakerGenderMap).filter(s=>!speakers.includes(s));
+ manuallyAdded.forEach(s=>{ if(!speakers.includes(s)) speakers.push(s); });
+
+ let males=cloudVoices.filter(v=>v.gender==='male'), females=cloudVoices.filter(v=>v.gender==='female'); let mi=0,fi=0;
+ speakers.forEach(sp=>{ if(!speakerVoiceMap[sp]){ if((speakerGenderMap[sp]||'male')==='female'){ speakerVoiceMap[sp]=females[fi%females.length]?.id; fi++; } else { speakerVoiceMap[sp]=males[mi%males.length]?.id; mi++; } } });
+ currentScript=parsed;
+ document.getElementById('directorResult').classList.remove('hidden');
+ document.getElementById('directorResult').innerHTML=`✅ V18.3 FIXED: ${speakers.length} speakers (${speakers.join(', ')}) - ${parsed.length} lines split from ${raw.split(/\n+/).length} paragraphs - Paragraph bug fixed - Auto emotions assigned - Manual speakers preserved`;
+ renderDirector();
 }
 
 function detectGender(line){
@@ -245,31 +340,11 @@ function addSpeakerManual(){
  let raw=input.value.trim(); if(!raw){ alert('Enter name'); return; }
  raw.split(/[,]+/).map(s=>s.trim()).filter(Boolean).forEach(n=>{
    let sp=mapSpeaker(n);
-   if(!speakers.includes(sp)){ speakers.push(sp); speakerGenderMap[sp]= n.match(/सीता|सुनीता|गुड़िया/)?'female':'male'; if(!speakerIntensityMap[sp]) speakerIntensityMap[sp]=70; if(!speakerVoiceMap[sp]){ let males=cloudVoices.filter(v=>v.gender==='male'), females=cloudVoices.filter(v=>v.gender==='female'); let isF=speakerGenderMap[sp]==='female'; speakerVoiceMap[sp]= isF ? females[0]?.id || 'nova' : males[0]?.id || 'alloy'; } }
+   if(!speakers.includes(sp)){ speakers.push(sp); speakerGenderMap[sp]= n.match(/सीता|सुनीता|गुड़िया|सीता|Sita|Sunita|Gudiya|पत्नी|बेटी|माँ|बहन)/i)?'female':'male'; if(!speakerIntensityMap[sp]) speakerIntensityMap[sp]=70; if(!speakerVoiceMap[sp]){ let males=cloudVoices.filter(v=>v.gender==='male'), females=cloudVoices.filter(v=>v.gender==='female'); let isF=speakerGenderMap[sp]==='female'; speakerVoiceMap[sp]= isF ? females[0]?.id || 'nova' : males[0]?.id || 'alloy'; } }
  });
  input.value=''; renderDirector();
 }
-function autoDetect(){
- cloudVoices=[
-   {id:'alloy', name:'Alloy ♂ MALE - Ram', gender:'male', baseInstruction:'Male, deep warm Banarasi Hindi accent'},
-   {id:'onyx', name:'Onyx ♂ MALE - Mohan', gender:'male', baseInstruction:'Male, deep Banarasi Hindi accent, energetic'},
-   {id:'echo', name:'Echo ♂ MALE - Golu', gender:'male', baseInstruction:'Male young, Banarasi Hindi accent'},
-   {id:'nova', name:'Nova ♀ FEMALE - Sita', gender:'female', baseInstruction:'Female, soft native Hindi accent, Banarasi tone'},
-   {id:'shimmer', name:'Shimmer ♀ FEMALE', gender:'female', baseInstruction:'Female, warm native Hindi accent'},
- ];
- let raw=(document.getElementById('pasteInput').value.trim() || storyMemory).trim(); if(!raw){alert('No story'); return;}
- let lines=raw.split(/\n+/).map(l=>l.trim()).filter(Boolean);
- let parsed=lines.map(parseLine).filter(Boolean);
- let map={}; parsed.forEach(p=>{ if(!map[p.speaker]) map[p.speaker]={count:0,male:0,female:0}; map[p.speaker].count++; let g=detectGender(p.fullLine); if(g==='female') map[p.speaker].female++; else map[p.speaker].male++; });
- speakers=Object.keys(map);
- speakers.forEach(sp=>{ speakerGenderMap[sp]= map[sp].female>map[sp].male ? 'female':'male'; if(!speakerIntensityMap[sp]) speakerIntensityMap[sp]=70; });
- let males=cloudVoices.filter(v=>v.gender==='male'), females=cloudVoices.filter(v=>v.gender==='female'); let mi=0,fi=0;
- speakers.forEach(sp=>{ if(!speakerVoiceMap[sp]){ if(speakerGenderMap[sp]==='female'){ speakerVoiceMap[sp]=females[fi%females.length]?.id; fi++; } else { speakerVoiceMap[sp]=males[mi%males.length]?.id; mi++; } } });
- currentScript=parsed;
- document.getElementById('directorResult').classList.remove('hidden');
- document.getElementById('directorResult').innerHTML=`✅ ${speakers.length} speakers (${speakers.join(', ')}) - ${parsed.filter(p=>p.direction).length} auto emotions assigned - Tap ✏️ to edit any`;
- renderDirector();
-}
+
 function updateIntensity(sp,val){
  speakerIntensityMap[sp]=parseInt(val);
  let el=document.getElementById('intensityVal_'+sp); if(el) el.textContent=val+'%';
@@ -279,7 +354,7 @@ function updateDirection(idx,newDir){
  if(currentScript[idx]){ 
    currentScript[idx].direction=newDir; 
    currentScript[idx].autoAssigned=false; 
-   editingIdx=-1; // FIX: auto-close after Save
+   editingIdx=-1; // <-- FIX: auto-close edit window after Save
    renderDirector(); 
  }
 }
@@ -299,7 +374,7 @@ function renderDirector(){
    <div class="flex justify-between items-center"><span class="speaker-badge ${badgeClass}">${sp} ${isF?'♀':'♂'}</span><button onclick="testSpeaker('${sp}')" class="bg-[#1e1638] border border-[#3d2f68] text-white rounded-full px-3 py-1.5 text-[8px] font-black">▶ TEST ${intensity}%</button></div>
    <select onchange="speakerVoiceMap['${sp}']=this.value" class="input-dark w-full mt-3 p-2.5 text-[10px]">${opts}</select>
    <div class="mt-3 bg-[#1e1638] border border-[#3d2f68] rounded-[12px] p-3">
-     <div class="flex justify-between items-center"><span class="text-[9px] font-black">Intensity</span><span id="intensityVal_${sp}" class="bg-[#8b5cf6] text-white px-2 py-1 rounded-full text-[9px] font-black">${intensity}%</span></div>
+     <div class="flex justify-between items-center"><span class="text-[9px] font-black">🎭 Intensity</span><span id="intensityVal_${sp}" class="bg-[#8b5cf6] text-white px-2 py-1 rounded-full text-[9px] font-black">${intensity}%</span></div>
      <input type="range" min="20" max="150" step="5" value="${intensity}" oninput="updateIntensity('${sp}', this.value)" class="w-full mt-2">
    </div>
    </div>`;
