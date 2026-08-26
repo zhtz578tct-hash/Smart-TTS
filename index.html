@@ -64,7 +64,7 @@ input[type=range]{accent-color:#8b5cf6}
 <button onclick="setTab('voice')" id="tab-voice" class="tab-inactive pb-2">🎙️ Voice</button>
 </div>
 
-<!-- AI STORY TAB - CLEAN, NO ANNOYING BOX -->
+<!-- AI STORY TAB - CLEAN, NO ANNOYING BOX, WITH ALL BUTTONS -->
 <div id="view-ai" class="p-3 space-y-3">
 <div class="card p-3">
 <label class="text-[12px] font-bold">💡 Story Idea / Prompt</label>
@@ -76,12 +76,13 @@ input[type=range]{accent-color:#8b5cf6}
 <div class="grid grid-cols-3 gap-2 mt-2">
 <button onclick="copyStory()" class="btn-primary py-2.5 text-[9px] font-black">📋 COPY</button>
 <button onclick="sendToDirector()" class="btn-primary py-2.5 text-[9px] font-black">🎭 DIRECTOR →</button>
-<button onclick="clearAI()" class="btn-ghost py-2.5 text-[9px] font-black">🗑️ CLEAR</button>
+<button onclick="clearAI()" class="btn-ghost py-2.5 text-[9px] font-black">🗑️ CLEAR ALL</button>
 </div>
+<div class="grid grid-cols-2 gap-2 mt-2"><button onclick="resetAI()" class="btn-ghost py-2 text-[8px]">↺ Reset Inputs</button><button onclick="clearAIOutput()" class="btn-ghost py-2 text-[8px]">Clear Output Only</button></div>
 </div>
 </div>
 
-<!-- PASTE TAB -->
+<!-- PASTE TAB - WITH CLEAR BUTTONS RESTORED -->
 <div id="view-paste" class="hidden p-3 space-y-3">
 <div class="card p-3"><h3 class="font-black">📋 Paste Your Story</h3>
 <textarea id="pasteInput" class="input-dark w-full h-[200px] mt-2 p-3 text-[13px] dev">राम (कराहती हुई आवाज में) "बहुत दर्द हो रहा है।"
@@ -90,7 +91,8 @@ input[type=range]{accent-color:#8b5cf6}
 सीता (शर्मा कर) "धत्त, तुम बड़े बेशर्म हो।"
 राम (डाँटते हुए) "तुम्हारा दिमाग़ ख़राब है क्या?"
 मोहन (हँसते हुए) "अस्सी घाट पर भौकाल देखो!"</textarea>
-<button onclick="sendPasteToDirector()" class="btn-primary w-full mt-3 py-3 font-black text-[11px]">🎭 SEND TO DIRECTOR - Auto Emotion</button>
+<div class="grid grid-cols-2 gap-2 mt-3"><button onclick="sendPasteToDirector()" class="btn-primary py-3 font-black text-[11px]">🎭 SEND TO DIRECTOR - Auto Emotion</button><button onclick="clearPaste()" class="btn-ghost py-3 text-[10px] font-black">🗑️ CLEAR ALL</button></div>
+<button onclick="resetPaste()" class="btn-ghost w-full mt-2 py-2 text-[8px]">↺ Reset Paste Tab</button>
 </div>
 </div>
 
@@ -98,7 +100,7 @@ input[type=range]{accent-color:#8b5cf6}
 <div id="view-director" class="hidden p-3 space-y-3">
 <div class="card p-3 border-2 border-purple-500">
 <h3 class="font-black text-[13px]">🎭 Smart Director V18.1 - Auto Emotion</h3>
-<p class="text-[7px] text-[#a78bfa] mt-1 bg-black p-2 rounded">NEW: Director auto-assigns emotion based on dialogue. No need to type! Just tap ✏️ Edit in each box if you want to change. Manual speaker add also available.</p>
+<p class="text-[7px] text-[#a78bfa] mt-1 bg-black p-2 rounded">Smart auto emotions - Tap ✏️ to edit any - Manual speaker add available</p>
 
 <div class="mt-3 bg-black/40 rounded-[12px] p-3 border border-[#3d2f68]">
 <p class="text-[9px] font-black text-[#a78bfa]">➕ ADD SPEAKERS MANUALLY</p>
@@ -112,11 +114,13 @@ input[type=range]{accent-color:#8b5cf6}
 <div id="directorResult" class="mt-2 text-[8px] bg-black p-2 rounded hidden"></div>
 <div id="speakerList" class="mt-3 space-y-3"></div>
 <button onclick="convertForVoice()" class="btn-primary w-full mt-4 py-4 font-black text-[11px]">🔊 CONVERT FOR VOICE STUDIO →</button>
+<div class="grid grid-cols-2 gap-2 mt-3"><button onclick="clearDirector()" class="btn-ghost py-3 text-[10px] font-black">🗑️ CLEAR ALL</button><button onclick="resetDirector()" class="btn-ghost py-3 text-[10px] font-black">↺ Reset Director</button></div>
 </div>
 <div id="scriptList" class="space-y-3"></div>
+<div class="card p-2 flex gap-2 mt-2"><button onclick="clearScript()" class="btn-ghost flex-1 py-2 text-[8px]">Clear Script Only</button><button onclick="clearDirectorAll()" class="btn-ghost flex-1 py-2 text-[8px]">🗑️ CLEAR ENTIRE PAGE</button></div>
 </div>
 
-<!-- VOICE TAB -->
+<!-- VOICE TAB - WITH CLEAR BUTTONS RESTORED -->
 <div id="view-voice" class="hidden p-3 space-y-3">
 <div class="card p-3 border border-purple-500">
 <h3 class="font-black text-purple-300 text-[13px]">🎙️ Voice Studio V18.1</h3>
@@ -125,6 +129,7 @@ input[type=range]{accent-color:#8b5cf6}
 <div class="grid grid-cols-3 gap-2 mt-3"><button id="playFullBtn" class="btn-primary col-span-2 py-3 text-[10px] font-black">▶ GENERATE ALL</button><button id="stopBtn" class="btn-stop py-3 text-[10px] font-black">⏹ STOP</button></div>
 <div id="audioBox" class="mt-3 audio-scroll bg-[#0e091e] border border-[#3d2f68] rounded-[16px] p-2"><div id="audioPlayers" class="space-y-2"></div></div>
 <div id="masterBox" class="hidden mt-3"><div class="card p-3 bg-gradient-to-br from-[#2a1f4a] to-[#1e1638] border-2 border-purple-500"><audio id="masterAudio" controls class="w-full rounded-[12px]"></audio><a id="masterDl" href="#" download="story_V18_1_smart.mp3" class="btn-primary w-full mt-3 py-4 text-center block font-black text-[12px]">⬇️ DOWNLOAD FULL</a></div></div>
+<div class="grid grid-cols-3 gap-2 mt-3"><button onclick="clearVoice()" class="btn-ghost py-2.5 text-[9px] font-black">🗑️ CLEAR ALL</button><button onclick="resetVoice()" class="btn-ghost py-2.5 text-[9px] font-black">↺ Reset Voice</button><button onclick="clearAudioOnly()" class="btn-ghost py-2.5 text-[9px] font-black">Clear Audio Only</button></div>
 </div>
 </div>
 
@@ -142,7 +147,18 @@ function loadKey(){let k=localStorage.getItem('openai_key_v18_1')||localStorage.
 window.addEventListener('load', loadKey);
 document.getElementById('openaiKey').addEventListener('change', saveKey);
 function getKey(){return document.getElementById('openaiKey').value.trim() || localStorage.getItem('openai_key_v18_1') || ''; }
-function clearAI(){ document.getElementById('storyOut').value=''; }
+function clearAI(){ document.getElementById('idea').value=''; document.getElementById('extra').value=''; document.getElementById('storyOut').value=''; document.getElementById('aiStatus').textContent='Cleared'; }
+function resetAI(){ document.getElementById('idea').value='राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल'; document.getElementById('extra').value='Banarasi tone, with emotions, भौकाल'; }
+function clearAIOutput(){ document.getElementById('storyOut').value=''; }
+function clearPaste(){ document.getElementById('pasteInput').value=''; }
+function resetPaste(){ document.getElementById('pasteInput').value=`राम (कराहती हुई आवाज में) "बहुत दर्द हो रहा है।"\nसीता (चिंता में) "राम, क्या हुआ?"\nराम (अत्यंत धीमी आवाज़ में) "सीता, तुम सो गई क्या?"\nसीता (शर्मा कर) "धत्त, तुम बड़े बेशर्म हो।"`; }
+function clearDirector(){ document.getElementById('speakerList').innerHTML=''; document.getElementById('directorResult').classList.add('hidden'); speakers=[]; speakerVoiceMap={}; speakerIntensityMap={}; speakerGenderMap={}; }
+function resetDirector(){ clearDirector(); autoDetect(); }
+function clearScript(){ document.getElementById('scriptList').innerHTML=''; currentScript=[]; }
+function clearDirectorAll(){ clearDirector(); clearScript(); }
+function clearVoice(){ document.getElementById('audioPlayers').innerHTML=''; audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[]; if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null; document.getElementById('masterBox').classList.add('hidden'); document.getElementById('playStatus').textContent='Cleared'; document.getElementById('progressBar').style.width='0%'; }
+function resetVoice(){ clearVoice(); }
+function clearAudioOnly(){ document.getElementById('audioPlayers').innerHTML=''; }
 
 function smartEmotionFromText(dialogue, fullLine){
   let d = dialogue.toLowerCase();
