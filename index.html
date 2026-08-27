@@ -48,7 +48,7 @@ input[type=range]{accent-color:#8b5cf6}
 .edit-panel{background:#0e091e;border:1px solid #3d2f68;border-radius:12px;padding:10px;margin-top:8px}
 </style>
 </head><body class="pb-32">
-<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V18.4.2 🎬 Pitch + Smart Fixed</h1><p class="text-[9px] text-[#a78bfa]">V18.4.2 SUPER FIX - Paragraph Guaranteed</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">V18.4.2 11V+PITCH SUPER FIX</span></div></header>
+<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V18.4.3 🎬 Pitch + Smart Fixed</h1><p class="text-[9px] text-[#a78bfa]">V18.4.3 SPEAKER FIX - Ram/Sita/Babu Correct</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">V18.4.3 11V+PITCH SPEAKER FIX</span></div></header>
 
 <div id="apiBox" class="hidden p-3"><div class="card p-3 border-2 border-yellow-400 bg-[#1a1230]">
 <p class="text-[11px] font-black flex justify-between"><span>🔑 OpenAI Key</span><button onclick="toggleApiBox()" class="bg-black text-white rounded-full px-2 py-1 text-[8px]">✕ HIDE</button></p>
@@ -235,58 +235,58 @@ function addSpeakerManual(){
  input.value=''; renderDirector();
 }
 
+
 function autoDetect(){
  cloudVoices=[
-   {id:'alloy', name:'Alloy ♂ Ram - deep warm', gender:'male', baseInstruction:'Male, deep warm Banarasi Hindi accent'},
-   {id:'ash', name:'Ash ♂ Deep Cinematic', gender:'male', baseInstruction:'Male, deep cinematic Banarasi Hindi accent'},
-   {id:'ballad', name:'Ballad ♀ Soft Melodic', gender:'female', baseInstruction:'Female, soft melodic Banarasi Hindi accent'},
-   {id:'coral', name:'Coral ♀ Warm', gender:'female', baseInstruction:'Female, warm friendly native Hindi accent'},
-   {id:'echo', name:'Echo ♂ Golu - young', gender:'male', baseInstruction:'Male young, Banarasi Hindi accent'},
-   {id:'fable', name:'Fable ♂ British Story - Narrator', gender:'male', baseInstruction:'Male, British story-teller, deep narrator Banarasi Hindi'},
-   {id:'nova', name:'Nova ♀ Sita - soft', gender:'female', baseInstruction:'Female, soft native Hindi accent, Banarasi tone'},
-   {id:'onyx', name:'Onyx ♂ Mohan - energetic', gender:'male', baseInstruction:'Male, deep Banarasi Hindi accent, energetic'},
-   {id:'sage', name:'Sage ♀ Wise', gender:'female', baseInstruction:'Female, calm wise Banarasi Hindi accent'},
-   {id:'shimmer', name:'Shimmer ♀ Warm', gender:'female', baseInstruction:'Female, warm native Hindi accent'},
-   {id:'verse', name:'Verse ♀ Poetic dynamic', gender:'female', baseInstruction:'Female, poetic dynamic Banarasi Hindi accent'},
+   {id:'alloy', name:'Alloy Ram - deep warm', gender:'male', baseInstruction:'Male, deep warm Banarasi Hindi accent'},
+   {id:'ash', name:'Ash Deep Cinematic', gender:'male', baseInstruction:'Male, deep cinematic Banarasi Hindi accent'},
+   {id:'ballad', name:'Ballad Soft Melodic', gender:'female', baseInstruction:'Female, soft melodic Banarasi Hindi accent'},
+   {id:'coral', name:'Coral Warm', gender:'female', baseInstruction:'Female, warm friendly native Hindi accent'},
+   {id:'echo', name:'Echo Golu - young', gender:'male', baseInstruction:'Male young, Banarasi Hindi accent'},
+   {id:'fable', name:'Fable British Story - Narrator', gender:'male', baseInstruction:'Male, British story-teller, deep narrator Banarasi Hindi'},
+   {id:'nova', name:'Nova Sita - soft', gender:'female', baseInstruction:'Female, soft native Hindi accent, Banarasi tone'},
+   {id:'onyx', name:'Onyx Mohan - energetic', gender:'male', baseInstruction:'Male, deep Banarasi Hindi accent, energetic'},
+   {id:'sage', name:'Sage Wise', gender:'female', baseInstruction:'Female, calm wise Banarasi Hindi accent'},
+   {id:'shimmer', name:'Shimmer Warm', gender:'female', baseInstruction:'Female, warm native Hindi accent'},
+   {id:'verse', name:'Verse Poetic dynamic', gender:'female', baseInstruction:'Female, poetic dynamic Banarasi Hindi accent'},
  ];
  let raw=(document.getElementById('pasteInput').value.trim() || document.getElementById('storyOut').value.trim() || storyMemory).trim(); 
  if(!raw){alert('No story'); return;}
  currentScript=[]; speakers=[]; let seen={};
- let knownNames=["राम","सीता","बाबू","मोहन","गुड्डू","गुड़िया","सुनीता"];
- function findSpeaker(leftText){
-   for(let kn of knownNames){ if(leftText.includes(kn)) return kn; }
-   let words=leftText.trim().split(/\s+/);
-   for(let w of words){
-     let clean=w.replace(/[^A-Za-z\u0900-\u097F]/g,'');
-     if(clean.length>=2 && clean.length<=15) return clean;
+ let knownNames=["राम","सीता","बाबू","मोहन","गुड्डू","गुड़िया","सुनीता","बाबु"];
+ function getSpeakerByPosition(leftText){
+   let best=null; let bestPos=99999;
+   for(let nm of knownNames){
+     let p=leftText.indexOf(nm);
+     if(p!==-1 && p<bestPos){ bestPos=p; best=nm; }
    }
-   return "NARRATOR";
+   if(best) return best;
+   let m=leftText.match(/[A-Za-z\u0900-\u097F]{2,15}/);
+   return m ? m[0] : "NARRATOR";
  }
- // SUPER SIMPLE: split by danda
  let chunks=[];
  raw.split(/[।\n]+/).forEach(c=>{ let t=c.trim(); if(t) chunks.push(t); });
  let paraMatches=[];
  chunks.forEach(chunk=>{
-   if(chunk.includes('बोला') || chunk.includes('बोली') || chunk.includes('ने कहा') || chunk.includes('कहा')){
-     let parts=chunk.split(/(?:बोला|बोली|ने कहा|कहा)/);
-     // Actually we need left and right
-     let m=chunk.match(/^(.*)(?:बोला|बोली|ने कहा|कहा)\s*[-:–—]?\s*(.*)$/);
-     if(m){
-       let left=m[1]||""; let right=m[2]||"";
-       let dialogue=right.trim().replace(/^["'“”\s-]+|["'“”\s-]+$/g,'');
-       if(dialogue.length<2) return;
-       let speaker=findSpeaker(left);
-       let dir=smartEmotionFromText(dialogue, left+' '+dialogue);
-       paraMatches.push({speaker:mapSpeaker(speaker), dialogue:dialogue, direction:dir, fullLine:chunk, autoAssigned:true});
-       let sp=mapSpeaker(speaker);
-       if(!seen[sp]){ seen[sp]=true; speakers.push(sp); speakerGenderMap[sp]=sp.match(/सीता|सुनीता|गुड़िया/)?'female':'male'; speakerIntensityMap[sp]=70; speakerPitchMap[sp]= sp.match(/सीता|सुनीता|गुड़िया/)?1.25:0.85; if(!speakerVoiceMap[sp]){ let isF=speakerGenderMap[sp]==='female'; speakerVoiceMap[sp]= isF ? 'nova' : 'alloy'; } }
-     }
+   if(!(chunk.includes('बोला') || chunk.includes('बोली') || chunk.includes('कहा'))) return;
+   let mm=chunk.match(/^(.*)(?:बोला|बोली|ने कहा|कहा)\s*[-:–—]?\s*(.*)$/);
+   if(!mm) return;
+   let left=mm[1]||""; let right=mm[2]||"";
+   if(right.length<2) return;
+   let speakerRaw=getSpeakerByPosition(left);
+   let dialogue=right.trim().replace(/^["'“”\s-]+|["'“”\s-]+$/g,'');
+   if(dialogue.length>2){
+     let dir=smartEmotionFromText(dialogue, left+' '+dialogue);
+     let sp=mapSpeaker(speakerRaw);
+     if(sp==="") sp="NARRATOR";
+     paraMatches.push({speaker:sp, dialogue:dialogue, direction:dir, fullLine:chunk, autoAssigned:true});
+     if(!seen[sp]){ seen[sp]=true; speakers.push(sp); speakerGenderMap[sp]=sp.match(/सीता|सुनीता|गुड़िया/)?'female':'male'; speakerIntensityMap[sp]=70; speakerPitchMap[sp]= sp.match(/सीता|सुनीता|गुड़िया/)?1.25:0.85; if(!speakerVoiceMap[sp]){ let isF=speakerGenderMap[sp]==='female'; speakerVoiceMap[sp]= isF ? 'nova' : 'alloy'; } }
    }
  });
  if(paraMatches.length>=1){
    currentScript=paraMatches;
    let firstChunk=chunks[0]||"";
-   if(firstChunk.length>25 && !firstChunk.match(/बोला|बोली|ने कहा/) && !seen['NARRATOR']){
+   if(firstChunk.length>25 && !firstChunk.match(/बोला|बोली|कहा/) && !seen['NARRATOR']){
      currentScript.unshift({speaker:'NARRATOR', dialogue:firstChunk.trim(), direction:'गंभीर आवाज में', fullLine:firstChunk, autoAssigned:true});
      speakers.unshift('NARRATOR'); speakerGenderMap['NARRATOR']='male'; speakerIntensityMap['NARRATOR']=60; speakerPitchMap['NARRATOR']=0.8; speakerVoiceMap['NARRATOR']='fable'; seen['NARRATOR']=true;
    }
@@ -298,9 +298,10 @@ function autoDetect(){
  }
  speakers.forEach(sp=>{ if(!speakerPitchMap[sp]) speakerPitchMap[sp]= sp==='NARRATOR'?0.8 : 1.0; });
  document.getElementById('directorResult').classList.remove('hidden');
- document.getElementById('directorResult').textContent = '✅ V18.4.2 SUPER FIX: '+currentScript.length+' lines detected. Speakers: '+speakers.join(', ')+'. Pitch active.';
+ document.getElementById('directorResult').textContent = '✅ V18.4.3 FIXED: '+currentScript.length+' lines. Speakers: '+speakers.join(', ')+' (Ram/Sita/Babu correctly assigned). Pitch sliders active.';
  renderDirector();
 }
+
 function updatePitchForSpeaker(sp,val){ speakerPitchMap[sp]=parseFloat(val); let el=document.getElementById('pitchVal_'+sp); if(el) el.textContent=val; }
 function updateIntensityForSpeaker(sp,val){ speakerIntensityMap[sp]=parseInt(val); let el=document.getElementById('intensityVal_'+sp); if(el) el.textContent=val+'%'; }
 function updateSpeakerForLine(i,val){ currentScript[i].speaker=val; renderDirector(); }
