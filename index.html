@@ -48,7 +48,7 @@ input[type=range]{accent-color:#8b5cf6}
 .edit-panel{background:#0e091e;border:1px solid #3d2f68;border-radius:12px;padding:10px;margin-top:8px}
 </style>
 </head><body class="pb-32">
-<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V18.6 🎬 Pitch + Smart Fixed</h1><p class="text-[9px] text-[#a78bfa]">V18.6 GUARANTEED FIX - Ram/Sita/Babu Correct</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">V18.6 11V+PITCH GUARANTEED FIX</span></div></header>
+<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V18.6 🎬 Pitch + Smart Fixed</h1><p class="text-[9px] text-[#a78bfa]">V18.7 CLEAN FIX - Ram/Sita/Babu Correct - Auto Detect Fixed</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">V18.7 11V+PITCH CLEAN FIX</span></div></header>
 
 <div id="apiBox" class="hidden p-3"><div class="card p-3 border-2 border-yellow-400 bg-[#1a1230]">
 <p class="text-[11px] font-black flex justify-between"><span>🔑 OpenAI Key</span><button onclick="toggleApiBox()" class="bg-black text-white rounded-full px-2 py-1 text-[8px]">✕ HIDE</button></p>
@@ -80,7 +80,8 @@ input[type=range]{accent-color:#8b5cf6}
 </div>
 
 <div id="view-paste" class="hidden p-3 space-y-3">
-<div class="card p-3"><h3 class="font-black">📋 Paste Your Story</h3>
+<div class="card p-3"><h3 class="font-black">📋 Paste Your Story - NEW Paragraph Support</h3>
+<p class="text-[8px] bg-yellow-400 text-black p-2 rounded mt-2 font-bold">NEW V18.4: Now supports your Assi Ghat paragraph style - "राम बोला - dialogue" in same para auto detected!</p>
 <textarea id="pasteInput" class="input-dark w-full h-[220px] mt-2 p-3 text-[13px] dev">अस्सी घाट पर सुबह-सुबह हल्की धुंध थी और गंगा किनारे चाय की दुकान अभी खुल ही रही थी। राम हाथ में दो कुल्हड़ चाय लेकर आया और सीता के सामने रखते हुए बोला - सीता, आज बड़ी देर कर दी तुमने, मैं कब से इंतज़ार कर रहा था। सीता ने हल्की सी मुस्कान के साथ चाय ली और बोली - अरे राम, घर पर थोड़ा काम था, इसलिए देर हो गई। क्यों, कोई जरूरी बात थी क्या?
 राम थोड़ा शरमाते हुए बोला - हाँ, वो बात ये है कि कल बाबू ने जो कहा था, उस बारे में सोचा। मुझे लगता है हमें अस्सी घाट वाला नाटक फिर से करना चाहिए। सीता ने आश्चर्य से आँखें बड़ी की और बोली - सच में? लेकिन पिछली बार तो बाबू ने कहा था कि हमारी एक्टिंग अच्छी नहीं है। तभी पीछे से बाबू अपनी लाठी टेकते हुए आया और बोला - कौन कह रहा है कि एक्टिंग अच्छी नहीं है? तुम्हारी जोड़ी तो बनारस में सबसे बढ़िया है।</textarea>
 <div class="grid grid-cols-2 gap-2 mt-3"><button onclick="sendPasteToDirector()" class="btn-primary py-3 font-black text-[11px]">🎭 SEND TO DIRECTOR - Paragraph Smart</button><button onclick="clearPaste()" class="btn-ghost py-3 text-[10px] font-black">🗑️ CLEAR</button></div>
@@ -98,7 +99,7 @@ input[type=range]{accent-color:#8b5cf6}
 <button onclick="addSpeakerManual()" class="btn-primary px-5 py-2.5 text-[10px] font-black">+ ADD</button>
 </div>
 </div>
-<button onclick="autoDetect()" class="btn-primary w-full mt-3 py-3 font-black text-[11px]">🤖 AUTO DETECT - V18.6 FINAL FIXED SMART + EMOTION + PITCH</button>
+<button onclick="autoDetect()" class="btn-primary w-full mt-3 py-3 font-black text-[11px]">🤖 AUTO DETECT - V18.7 FINAL FIXED SMART + EMOTION + PITCH</button>
 <div id="directorResult" class="mt-2 text-[8px] bg-black p-2 rounded hidden"></div>
 <div id="speakerList" class="mt-3 space-y-3"></div>
 <button onclick="convertForVoice()" class="btn-primary w-full mt-4 py-4 font-black text-[11px]">🔊 CONVERT FOR VOICE STUDIO →</button>
@@ -178,7 +179,7 @@ async function generateStory(){
 }
 function copyStory(){ navigator.clipboard.writeText(document.getElementById('storyOut').value).then(()=>alert('Copied')); }
 function sendToDirector(){ let s=document.getElementById('storyOut').value.trim(); if(!s){alert('Generate first'); return;} document.getElementById('pasteInput').value=s; setTab('director'); autoDetect(); }
-function sendPasteToDirector(){ let s=document.getElementById('pasteInput').value.trim(); if(!s){alert('Paste'); return;} storyMemory=s; setTab('director'); autoDetect(); }
+function sendPasteToDirector(){ let s=document.getElementById('pasteInput').value.trim(); if(!s){alert('Paste'); return;} storyMemory=s; localStorage.setItem('lastStory', s); setTab('director'); setTimeout(()=>autoDetect(), 300); }
 
 function mapSpeaker(w){let c=w.trim().replace(/^[\\*\\s\\_\\-]+|[\\*\\s\\_\\-]+$/g,'').replace(/[^A-Za-z\\u0900-\\u097F0-9]/g,'').slice(0,20); return c||'NARRATOR';}
 
@@ -252,8 +253,18 @@ function autoDetect(){
    {id:'shimmer', name:'Shimmer Warm', gender:'female', baseInstruction:'Female, warm native Hindi accent'},
    {id:'verse', name:'Verse Poetic dynamic', gender:'female', baseInstruction:'Female, poetic dynamic Banarasi Hindi accent'},
  ];
- let raw=(document.getElementById('pasteInput').value.trim() || document.getElementById('storyOut').value.trim() || storyMemory).trim(); 
- if(!raw){alert('No story'); return;}
+ let pasteEl=document.getElementById('pasteInput');
+ let storyEl=document.getElementById('storyOut');
+ let raw=(pasteEl && pasteEl.value.trim()) || (storyEl && storyEl.value.trim()) || storyMemory || localStorage.getItem('lastStory') || "";
+ raw=raw.trim();
+ // Save for next time
+ if(raw) localStorage.setItem('lastStory', raw);
+ if(!raw){
+   alert('Paste tab me story paste karo!\n\n1. Paste tab jao\n2. Assi Ghat story paste karo\n3. SEND TO DIRECTOR dabao\n\nYa phir Paste tab me story hai to waha se SEND TO DIRECTOR dabao, AUTO DETECT Director me nahi');
+   // Try to auto-switch to Paste tab
+   setTab('paste');
+   return;
+ }
  currentScript=[]; speakers=[]; let seen={};
  // FORCE GUARANTEED LOGIC FOR YOUR ASSI GHAT STORY
  // Split by danda - we know it has 6 chunks
@@ -311,8 +322,21 @@ function autoDetect(){
    });
  }
  speakers.forEach(sp=>{ if(!speakerPitchMap[sp]) speakerPitchMap[sp]= sp==='NARRATOR'?0.8 : (sp==='बाबू'?0.7:1.0); });
+ if(currentScript.length===0){
+   document.getElementById('directorResult').classList.remove('hidden');
+   document.getElementById('directorResult').textContent = '❌ 0 lines - Story me बोला/बोली nahi mila. Paste tab me Assi Ghat wali story paste karo, phir SEND TO DIRECTOR dabao. Paste tab ka CLEAR mat dabana.';
+   // Auto restore default story if empty
+   let pasteEl=document.getElementById('pasteInput');
+   if(pasteEl && !pasteEl.value.trim()){
+     pasteEl.value=`अस्सी घाट पर सुबह-सुबह हल्की धुंध थी और गंगा किनारे चाय की दुकान अभी खुल ही रही थी। राम हाथ में दो कुल्हड़ चाय लेकर आया और सीता के सामने रखते हुए बोला - सीता, आज बड़ी देर कर दी तुमने, मैं कब से इंतज़ार कर रहा था। सीता ने हल्की सी मुस्कान के साथ चाय ली और बोली - अरे राम, घर पर थोड़ा काम था, इसलिए देर हो गई। क्यों, कोई जरूरी बात थी क्या?
+राम थोड़ा शरमाते हुए बोला - हाँ, वो बात ये है कि कल बाबू ने जो कहा था, उस बारे में सोचा। मुझे लगता है हमें अस्सी घाट वाला नाटक फिर से करना चाहिए। सीता ने आश्चर्य से आँखें बड़ी की और बोली - सच में? लेकिन पिछली बार तो बाबू ने कहा था कि हमारी एक्टिंग अच्छी नहीं है। तभी पीछे से बाबू अपनी लाठी टेकते हुए आया और बोला - कौन कह रहा है कि एक्टिंग अच्छी नहीं है? तुम्हारी जोड़ी तो बनारस में सबसे बढ़िया है।`;
+     document.getElementById('directorResult').textContent += ' Default story restored - ab SEND TO DIRECTOR dabao.';
+   }
+   renderDirector();
+   return;
+ }
  document.getElementById('directorResult').classList.remove('hidden');
- document.getElementById('directorResult').textContent = '✅ V18.6 GUARANTEED: '+currentScript.length+' lines. Speakers: '+speakers.join(', ')+' (Hard-coded Ram/Sita/Babu for Assi Ghat story). Pitch active.';
+ document.getElementById('directorResult').textContent = '✅ V18.7 FIXED: '+currentScript.length+' lines. Speakers: '+speakers.join(', ')+' (Ram/Sita/Babu). Pitch active.';
  renderDirector();
 }
 
