@@ -255,6 +255,15 @@ function autoDetect(){
  ];
  let raw=(document.getElementById('pasteInput').value.trim() || document.getElementById('storyOut').value.trim() || storyMemory).trim(); 
  if(!raw){alert('No story'); return;}
+ // SAVE LOCKED VALUES BEFORE RESET - THIS IS THE FIX
+ if(typeof window._lockedPitch==='undefined') window._lockedPitch={};
+ if(typeof window._lockedIntensity==='undefined') window._lockedIntensity={};
+ // Save currently locked values from existing maps
+ for(let sp in speakerPitchLocked){ if(speakerPitchLocked[sp] && speakerPitchMap[sp]!==undefined) window._lockedPitch[sp]=speakerPitchMap[sp]; }
+ for(let sp in speakerIntensityLocked){ if(speakerIntensityLocked[sp] && speakerIntensityMap[sp]!==undefined) window._lockedIntensity[sp]=speakerIntensityMap[sp]; }
+ // Also save from window if already there
+ let savedPitch={...window._lockedPitch};
+ let savedIntensity={...window._lockedIntensity};
  currentScript=[]; speakers=[]; let seen={};
  // FORCE GUARANTEED LOGIC FOR YOUR ASSI GHAT STORY
  // Split by danda - we know it has 6 chunks
@@ -280,7 +289,11 @@ function autoDetect(){
    if(intro.length>20){
      currentScript.push({speaker:'NARRATOR', dialogue:intro.trim(), direction:'गंभीर आवाज में', fullLine:intro, autoAssigned:true});
      speakers.push('NARRATOR'); seen['NARRATOR']=true;
-     speakerGenderMap['NARRATOR']='male'; speakerIntensityMap['NARRATOR']=60; speakerPitchMap['NARRATOR']=0.8; speakerVoiceMap['NARRATOR']='fable';
+     speakerGenderMap['NARRATOR']='male'; 
+     // Use saved locked value if exists, else default
+     if(savedPitch['NARRATOR']!==undefined){ speakerPitchMap['NARRATOR']=savedPitch['NARRATOR']; speakerPitchLocked['NARRATOR']=true; } else { speakerPitchMap['NARRATOR']=0.8; }
+     if(savedIntensity['NARRATOR']!==undefined){ speakerIntensityMap['NARRATOR']=savedIntensity['NARRATOR']; speakerIntensityLocked['NARRATOR']=true; } else { speakerIntensityMap['NARRATOR']=60; }
+     speakerVoiceMap['NARRATOR']='fable';
    }
    dialogues.forEach((dia,i)=>{
      let spName = fixedOrder[i] || (i%2===0 ? "राम" : "सीता");
@@ -292,7 +305,10 @@ function autoDetect(){
      if(i===3) dir='आश्चर्य से';
      if(i===4) dir='बनारसी भौकाल में';
      currentScript.push({speaker:spName, dialogue:dia, direction:dir, fullLine:dia, autoAssigned:true});
-     if(!seen[spName]){ seen[spName]=true; speakers.push(spName); speakerGenderMap[spName]=spName.match(/सीता|सुनीता|गुड़िया/)?'female':'male'; speakerIntensityMap[spName]=70; speakerPitchMap[spName]= spName.match(/सीता|सुनीता|गुड़िया/)?1.25:0.85; if(spName==="बाबू") speakerPitchMap[spName]=0.7; if(!speakerVoiceMap[spName]){ let isF=speakerGenderMap[spName]==='female'; speakerVoiceMap[spName]= isF ? 'nova' : (spName==="बाबू" ? 'onyx' : 'alloy'); } }
+     if(!seen[spName]){ seen[spName]=true; speakers.push(spName); speakerGenderMap[spName]=spName.match(/सीता|सुनीता|गुड़िया/)?'female':'male'; 
+       if(savedIntensity[spName]!==undefined){ speakerIntensityMap[spName]=savedIntensity[spName]; speakerIntensityLocked[spName]=true; } else { speakerIntensityMap[spName]=70; }
+       if(savedPitch[spName]!==undefined){ speakerPitchMap[spName]=savedPitch[spName]; speakerPitchLocked[spName]=true; } else { let def= spName.match(/सीता|सुनीता|गुड़िया/)?1.25:0.85; if(spName==="बाबू") def=0.7; speakerPitchMap[spName]=def; }
+       if(!speakerVoiceMap[spName]){ let isF=speakerGenderMap[spName]==='female'; speakerVoiceMap[spName]= isF ? 'nova' : (spName==="बाबू" ? 'onyx' : 'alloy'); } }
    });
  } else {
    // generic fallback - old logic
@@ -307,22 +323,21 @@ function autoDetect(){
      let dia=right.trim().replace(/^["'“”\s-]+|["'“”\s-]+$/g,'');
      if(dia.length>2){
        currentScript.push({speaker:sp, dialogue:dia, direction:smartEmotionFromText(dia,left), fullLine:chunk, autoAssigned:true});
-       if(!seen[sp]){ seen[sp]=true; speakers.push(sp); speakerGenderMap[sp]=sp.match(/सीता/)?'female':'male'; speakerIntensityMap[sp]=70; speakerPitchMap[sp]= sp.match(/सीता/)?1.25:0.85; speakerVoiceMap[sp]= sp.match(/सीता/)?'nova':'alloy'; }
+       if(!seen[sp]){ seen[sp]=true; speakers.push(sp); speakerGenderMap[sp]=sp.match(/सीता/)?'female':'male'; 
+         if(savedIntensity[sp]!==undefined){ speakerIntensityMap[sp]=savedIntensity[sp]; speakerIntensityLocked[sp]=true; } else { speakerIntensityMap[sp]=70; }
+         if(savedPitch[sp]!==undefined){ speakerPitchMap[sp]=savedPitch[sp]; speakerPitchLocked[sp]=true; } else { speakerPitchMap[sp]= sp.match(/सीता/)?1.25:0.85; }
+         speakerVoiceMap[sp]= sp.match(/सीता/)?'nova':'alloy'; }
      }
    });
  }
- // Preserve locked sliders - window storage
- if(typeof window._lockedPitch==='undefined') window._lockedPitch={};
- if(typeof window._lockedIntensity==='undefined') window._lockedIntensity={};
+ // Final ensure - locked values already restored above, just ensure defaults for non-locked
+ speakers.forEach(sp=>{ 
+   if(!speakerPitchMap[sp]) speakerPitchMap[sp]= sp==='NARRATOR'?0.8 : (sp==='बाबू'?0.7:1.0);
+   if(!speakerIntensityMap[sp]) speakerIntensityMap[sp]= sp==='NARRATOR'?60:70;
+ });
+ // Update window storage for next time
  for(let sp in speakerPitchLocked){ if(speakerPitchLocked[sp]) window._lockedPitch[sp]=speakerPitchMap[sp]; }
  for(let sp in speakerIntensityLocked){ if(speakerIntensityLocked[sp]) window._lockedIntensity[sp]=speakerIntensityMap[sp]; }
- speakers.forEach(sp=>{ 
-   if(window._lockedPitch[sp]!==undefined && speakerPitchLocked[sp]){ speakerPitchMap[sp]=window._lockedPitch[sp]; }
-   else { if(!speakerPitchMap[sp]) speakerPitchMap[sp]= sp==='NARRATOR'?0.8 : (sp==='बाबू'?0.7:1.0); }
-   if(window._lockedIntensity[sp]!==undefined && speakerIntensityLocked[sp]){ speakerIntensityMap[sp]=window._lockedIntensity[sp]; }
- });
- for(let sp in window._lockedPitch){ if(speakers.includes(sp)){ speakerPitchMap[sp]=window._lockedPitch[sp]; speakerPitchLocked[sp]=true; } }
- for(let sp in window._lockedIntensity){ if(speakers.includes(sp)){ speakerIntensityMap[sp]=window._lockedIntensity[sp]; speakerIntensityLocked[sp]=true; } }
  document.getElementById('directorResult').classList.remove('hidden');
  document.getElementById('directorResult').textContent = '✅ Smart-TTS V1.1: '+currentScript.length+' lines. Speakers: '+speakers.join(', ')+' (Locked preserved).';
  renderDirector();
