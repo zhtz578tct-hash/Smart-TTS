@@ -48,7 +48,7 @@ input[type=range]{accent-color:#8b5cf6}
 .edit-panel{background:#0e091e;border:1px solid #3d2f68;border-radius:12px;padding:10px;margin-top:8px}
 </style>
 </head><body class="pb-32">
-<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Smart-TTS V1.3 🎬 Persistent + Locked</h1><p class="text-[9px] text-[#a78bfa]">Smart-TTS V1.3 - Story Persists After Close + Locked Sliders</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">Smart-TTS V1.3 FIXED</span></div></header>
+<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Smart-TTS V1.4 🎬 Dynamic Names</h1><p class="text-[9px] text-[#a78bfa]">Smart-TTS V1.4 - Dynamic: Any Names (Vijay/Neha/Ramesh etc)</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">Smart-TTS V1.4 DYNAMIC</span></div></header>
 
 <div id="apiBox" class="hidden p-3"><div class="card p-3 border-2 border-yellow-400 bg-[#1a1230]">
 <p class="text-[11px] font-black flex justify-between"><span>🔑 OpenAI Key</span><button onclick="toggleApiBox()" class="bg-black text-white rounded-full px-2 py-1 text-[8px]">✕ HIDE</button></p>
@@ -242,124 +242,151 @@ function addSpeakerManual(){
 
 function autoDetect(){
  cloudVoices=[
-   {id:'alloy', name:'Alloy Ram - deep warm', gender:'male', baseInstruction:'Male, deep warm Banarasi Hindi accent'},
-   {id:'ash', name:'Ash Deep Cinematic', gender:'male', baseInstruction:'Male, deep cinematic Banarasi Hindi accent'},
-   {id:'ballad', name:'Ballad Soft Melodic', gender:'female', baseInstruction:'Female, soft melodic Banarasi Hindi accent'},
-   {id:'coral', name:'Coral Warm', gender:'female', baseInstruction:'Female, warm friendly native Hindi accent'},
-   {id:'echo', name:'Echo Golu - young', gender:'male', baseInstruction:'Male young, Banarasi Hindi accent'},
-   {id:'fable', name:'Fable British Story - Narrator', gender:'male', baseInstruction:'Male, British story-teller, deep narrator Banarasi Hindi'},
-   {id:'nova', name:'Nova Sita - soft', gender:'female', baseInstruction:'Female, soft native Hindi accent, Banarasi tone'},
-   {id:'onyx', name:'Onyx Mohan - energetic', gender:'male', baseInstruction:'Male, deep Banarasi Hindi accent, energetic'},
-   {id:'sage', name:'Sage Wise', gender:'female', baseInstruction:'Female, calm wise Banarasi Hindi accent'},
-   {id:'shimmer', name:'Shimmer Warm', gender:'female', baseInstruction:'Female, warm native Hindi accent'},
-   {id:'verse', name:'Verse Poetic dynamic', gender:'female', baseInstruction:'Female, poetic dynamic Banarasi Hindi accent'},
+   {id:'alloy', name:'Alloy - deep warm', gender:'male', baseInstruction:'Male, deep warm Hindi accent'},
+   {id:'ash', name:'Ash Deep Cinematic', gender:'male', baseInstruction:'Male, deep cinematic Hindi accent'},
+   {id:'ballad', name:'Ballad Soft Melodic', gender:'female', baseInstruction:'Female, soft melodic Hindi accent'},
+   {id:'coral', name:'Coral Warm', gender:'female', baseInstruction:'Female, warm friendly Hindi accent'},
+   {id:'echo', name:'Echo - young', gender:'male', baseInstruction:'Male young, Hindi accent'},
+   {id:'fable', name:'Fable British Story - Narrator', gender:'male', baseInstruction:'Male, British story-teller, deep narrator Hindi'},
+   {id:'nova', name:'Nova - soft female', gender:'female', baseInstruction:'Female, soft Hindi accent'},
+   {id:'onyx', name:'Onyx - energetic', gender:'male', baseInstruction:'Male, deep Hindi accent, energetic'},
+   {id:'sage', name:'Sage Wise', gender:'female', baseInstruction:'Female, calm wise Hindi accent'},
+   {id:'shimmer', name:'Shimmer Warm', gender:'female', baseInstruction:'Female, warm Hindi accent'},
+   {id:'verse', name:'Verse Poetic', gender:'female', baseInstruction:'Female, poetic dynamic Hindi accent'},
  ];
- // Load story from multiple sources + localStorage persistence
+ // --- STORY PERSISTENCE + DYNAMIC SPEAKER DETECTION ---
  let pasteVal=document.getElementById('pasteInput')?.value?.trim()||'';
  let outVal=document.getElementById('storyOut')?.value?.trim()||'';
  let lsStory=localStorage.getItem(LS_STORY)||'';
  let raw=(pasteVal || outVal || storyMemory || lsStory).trim();
- // Default fallback story if nothing found (so never 0 lines)
  let defaultStory=`अस्सी घाट पर सुबह-सुबह हल्की धुंध थी और गंगा किनारे चाय की दुकान अभी खुल ही रही थी। राम हाथ में दो कुल्हड़ चाय लेकर आया और सीता के सामने रखते हुए बोला - सीता, आज बड़ी देर कर दी तुमने, मैं कब से इंतज़ार कर रहा था। सीता ने हल्की सी मुस्कान के साथ चाय ली और बोली - अरे राम, घर पर थोड़ा काम था, इसलिए देर हो गई। क्यों, कोई जरूरी बात थी क्या?
 राम थोड़ा शरमाते हुए बोला - हाँ, वो बात ये है कि कल बाबू ने जो कहा था, उस बारे में सोचा। मुझे लगता है हमें अस्सी घाट वाला नाटक फिर से करना चाहिए। सीता ने आश्चर्य से आँखें बड़ी की और बोली - सच में? लेकिन पिछली बार तो बाबू ने कहा था कि हमारी एक्टिंग अच्छी नहीं है। तभी पीछे से बाबू अपनी लाठी टेकते हुए आया और बोला - कौन कह रहा है कि एक्टिंग अच्छी नहीं है? तुम्हारी जोड़ी तो बनारस में सबसे बढ़िया है।`;
- if(!raw || (!raw.includes('बोला') && !raw.includes('बोली'))){
-   // If no valid story, restore default
+ if(!raw){
    raw=defaultStory;
-   let pasteEl=document.getElementById('pasteInput');
-   if(pasteEl) pasteEl.value=raw;
-   localStorage.setItem(LS_STORY, raw);
+   let pe=document.getElementById('pasteInput'); if(pe) pe.value=raw;
  }
- // Save story for next reopen
- if(raw) localStorage.setItem(LS_STORY, raw);
- storyMemory=raw;
- // Load locked pitch/intensity from localStorage (only numbers, not dialogue)
+ // If pasted story has no बोला/बोली at all, keep it as is (might be new format), but don't force default if user pasted Vijay/Neha story which DOES have बोला/बोली
+ if(raw && !raw.includes('बोला') && !raw.includes('बोली')){
+   // No बोला/बोली - maybe it's a different format, still try to use it, don't force Ram/Sita
+ }
+ if(raw) { localStorage.setItem(LS_STORY, raw); storyMemory=raw; }
+ // Load locked pitches
  let savedPitch={}; let savedInt={};
  try{ savedPitch=JSON.parse(localStorage.getItem(LS_PITCH)||'{}'); }catch(e){ savedPitch={}; }
  try{ savedInt=JSON.parse(localStorage.getItem(LS_INT)||'{}'); }catch(e){ savedInt={}; }
+
  currentScript=[]; speakers=[]; let seen={};
- // FORCE GUARANTEED LOGIC FOR YOUR ASSI GHAT STORY
- // Split by danda - we know it has 6 chunks
+
+ // --- DYNAMIC SPEAKER EXTRACTION ---
+ // Common Hindi stop words that are NOT names
+ let stopWords=new Set(["अस्सी","घाट","पर","सुबह","हल्की","धुंध","थी","और","गंगा","किनारे","चाय","की","दुकान","अभी","खुल","रही","हाथ","में","दो","कुल्हड़","लेकर","आया","सीता","के","सामने","रखते","हुए","आज","बड़ी","देर","कर","दी","तुमने","मैं","कब","से","इंतजार","रहा","ने","मुस्कान","साथ","ली","अरे","घर","थोड़ा","काम","था","इसलिए","हो","गई","क्यों","कोई","जरूरी","बात","क्या","वो","है","कि","कल","जो","कहा","बारे","सोचा","मुझे","लगता","हमें","वाला","नाटक","फिर","करना","चाहिए","आश्चर्य","से","आँखें","बड़ी","सच","लेकिन","पिछली","बार","तो","हमारी","एक्टिंग","अच्छी","नहीं","तभी","पीछे","अपनी","लाठी","टेकते","आया","कौन","तुम्हारी","जोड़ी","बनारस","सबसे","बढ़िया","है","तुम्हारी","हूँ","हैं","हो","था","थी","हुआ","हुई","कर","रहा","रही","रहे","गया","गई","लिए","दिया","दिए","ले","दे","जा","आ","यह","ये","वह","वो","इस","उस","जब","तब","अब","तक","का","के","को","से","ने","ना","नहीं","हाँ","अरे","ओह","सब","कुछ","बहुत","थोड़ा","ज्यादा","कम","अच्छा","बुरा","बड़ा","छोटा"]);
+
+ function extractSpeakerName(leftPart){
+   // leftPart is text before बोला/बोली
+   // Find last Hindi name-like word before बोला
+   // Clean left
+   let cleaned=leftPart.trim();
+   // Remove common phrases
+   // Split into words
+   let words=cleaned.split(/\s+/).map(w=>w.replace(/[^A-Za-z\u0900-\u097F]/g,'')).filter(w=>w.length>=2 && w.length<=15);
+   // Search from end to start for first word not in stopWords and looks like name (capitalized or not common)
+   for(let i=words.length-1; i>=0; i--){
+     let w=words[i];
+     if(!stopWords.has(w) && w.length>=2){
+       // Check if it's likely a name: not a common verb
+       // If word ends with ने, remove ने
+       if(w.endsWith('ने')) w=w.slice(0,-2);
+       if(w.length>=2 && !stopWords.has(w)){
+         return w;
+       }
+     }
+   }
+   // Fallback: first word of chunk if not stop word
+   if(words.length>0 && !stopWords.has(words[0])) return words[0];
+   return null;
+ }
+
  let chunks=[];
  raw.split(/[।\n]+/).forEach(c=>{ let t=c.trim(); if(t) chunks.push(t); });
- let dialogues=[];
- chunks.forEach(chunk=>{
-   if(chunk.includes('बोला') || chunk.includes('बोली')){
-     let mm=chunk.match(/^(.*?)\s*(?:बोला|बोली)\s*[-:–—]?\s*(.*)$/);
-     if(mm){
-       let right=mm[2]||"";
-       if(right.length>2) dialogues.push(right.trim().replace(/^["'“”\s-]+|["'“”\s-]+$/g,''));
-     }
-   }
- });
- // If we got dialogues from this paragraph, assign speakers in fixed order that matches story
- // Order for your story: Ram, Sita, Ram, Sita, Babu
- let fixedOrder = ["राम","सीता","राम","सीता","बाबू"];
- let isAssiGhat = raw.includes("अस्सी घाट") || raw.includes("कुल्हड़") || dialogues.length>=4;
- if(isAssiGhat && dialogues.length>=3){
-   // Add intro narration as NARRATOR
-   let intro = chunks[0]||"";
-   if(intro.length>20){
-     currentScript.push({speaker:'NARRATOR', dialogue:intro.trim(), direction:'गंभीर आवाज में', fullLine:intro, autoAssigned:true});
-     speakers.push('NARRATOR'); seen['NARRATOR']=true;
-     speakerGenderMap['NARRATOR']='male'; 
-     if(savedPitch['NARRATOR']!==undefined){ speakerPitchMap['NARRATOR']=savedPitch['NARRATOR']; speakerPitchLocked['NARRATOR']=true; } else { speakerPitchMap['NARRATOR']=0.8; }
-     if(savedInt['NARRATOR']!==undefined){ speakerIntensityMap['NARRATOR']=savedInt['NARRATOR']; speakerIntensityLocked['NARRATOR']=true; } else { speakerIntensityMap['NARRATOR']=60; }
-     speakerVoiceMap['NARRATOR']='fable';
-   }
-   dialogues.forEach((dia,i)=>{
-     let spName = fixedOrder[i] || (i%2===0 ? "राम" : "सीता");
-     let dir=smartEmotionFromText(dia, dia);
-     // custom emotions for this story
-     if(i===0) dir='शिकायती लहजे में';
-     if(i===1) dir='खुशी से';
-     if(i===2) dir='शरमाते हुए';
-     if(i===3) dir='आश्चर्य से';
-     if(i===4) dir='बनारसी भौकाल में';
-     currentScript.push({speaker:spName, dialogue:dia, direction:dir, fullLine:dia, autoAssigned:true});
-     if(!seen[spName]){ seen[spName]=true; speakers.push(spName); speakerGenderMap[spName]=spName.match(/सीता|सुनीता|गुड़िया/)?'female':'male'; 
-       if(savedInt[spName]!==undefined){ speakerIntensityMap[spName]=savedInt[spName]; speakerIntensityLocked[spName]=true; } else { speakerIntensityMap[spName]=70; }
-       if(savedPitch[spName]!==undefined){ speakerPitchMap[spName]=savedPitch[spName]; speakerPitchLocked[spName]=true; } else { let d= spName.match(/सीता|सुनीता|गुड़िया/)?1.25:0.85; if(spName==="बाबू") d=0.7; speakerPitchMap[spName]=d; }
-       if(!speakerVoiceMap[spName]){ let isF=speakerGenderMap[spName]==='female'; speakerVoiceMap[spName]= isF ? 'nova' : (spName==="बाबू" ? 'onyx' : 'alloy'); } }
-   });
- } else {
-   // generic fallback - old logic
-   let knownNames=["राम","सीता","बाबू","मोहन"];
-   chunks.forEach(chunk=>{
-     if(!(chunk.includes('बोला') || chunk.includes('बोली'))) return;
-     let mm=chunk.match(/^(.*?)\s*(?:बोला|बोली)\s*[-:–—]?\s*(.*)$/);
-     if(!mm) return;
-     let left=mm[1]||""; let right=mm[2]||"";
-     let sp="NARRATOR";
-     for(let nm of knownNames){ if(left.includes(nm) || chunk.includes(nm)){ sp=nm; break; } }
-     let dia=right.trim().replace(/^["'“”\s-]+|["'“”\s-]+$/g,'');
-     if(dia.length>2){
-       currentScript.push({speaker:sp, dialogue:dia, direction:smartEmotionFromText(dia,left), fullLine:chunk, autoAssigned:true});
-       if(!seen[sp]){ seen[sp]=true; speakers.push(sp); speakerGenderMap[sp]=sp.match(/सीता/)?'female':'male'; 
-         if(savedInt[sp]!==undefined){ speakerIntensityMap[sp]=savedInt[sp]; speakerIntensityLocked[sp]=true; } else { speakerIntensityMap[sp]=70; }
-         if(savedPitch[sp]!==undefined){ speakerPitchMap[sp]=savedPitch[sp]; speakerPitchLocked[sp]=true; } else { speakerPitchMap[sp]= sp.match(/सीता/)?1.25:0.85; }
-         speakerVoiceMap[sp]= sp.match(/सीता/)?'nova':'alloy'; }
-     }
-   });
+
+ // If first chunk has no बोला/बोली and is long, treat as NARRATOR
+ let hasDialogues=chunks.some(ch=>ch.includes('बोला')||ch.includes('बोली'));
+ let startIdx=0;
+ if(hasDialogues && chunks[0] && !chunks[0].includes('बोला') && !chunks[0].includes('बोली') && chunks[0].length>20){
+   currentScript.push({speaker:'NARRATOR', dialogue:chunks[0].trim(), direction:'गंभीर आवाज में', fullLine:chunks[0], autoAssigned:true});
+   speakers.push('NARRATOR'); seen['NARRATOR']=true;
+   speakerGenderMap['NARRATOR']='male'; 
+   speakerIntensityMap['NARRATOR']=savedInt['NARRATOR']!==undefined?savedInt['NARRATOR']:60;
+   speakerPitchMap['NARRATOR']=savedPitch['NARRATOR']!==undefined?savedPitch['NARRATOR']:0.8;
+   if(savedPitch['NARRATOR']!==undefined) speakerPitchLocked['NARRATOR']=true;
+   if(savedInt['NARRATOR']!==undefined) speakerIntensityLocked['NARRATOR']=true;
+   speakerVoiceMap['NARRATOR']='fable';
+   startIdx=1;
  }
- // Ensure defaults for any missing (non-locked)
+
+ for(let idx=startIdx; idx<chunks.length; idx++){
+   let chunk=chunks[idx];
+   if(!(chunk.includes('बोला') || chunk.includes('बोली'))) {
+     // No dialogue marker, skip or treat as continuation? Skip for now
+     continue;
+   }
+   let mm=chunk.match(/^(.*?)\s*(?:बोला|बोली)\s*[-:–—]?\s*(.*)$/);
+   if(!mm) continue;
+   let left=mm[1]||""; let right=mm[2]||"";
+   let dia=right.trim().replace(/^["'“”\s-]+|["'“”\s-]+$/g,'');
+   if(dia.length<2) continue;
+   let spName=extractSpeakerName(left);
+   if(!spName){
+     // If can't extract, try to find any known speaker from previous
+     // Or use generic fallback: look for first capitalized Hindi word in left that is not stop
+     // Last resort: use last speaker or NARRATOR
+     spName='NARRATOR';
+   }
+   // Normalize speaker name (remove extra chars)
+   spName=spName.replace(/[^A-Za-z\u0900-\u097F]/g,'').trim();
+   if(spName.length<2) spName='NARRATOR';
+   let dir=smartEmotionFromText(dia, left);
+   currentScript.push({speaker:spName, dialogue:dia, direction:dir, fullLine:chunk, autoAssigned:true});
+   if(!seen[spName]){
+     seen[spName]=true; speakers.push(spName);
+     // Gender heuristic: if name ends with आ or contains female indicators, or previous female names
+     let isFemale = spName.match(/सीता|सुनीता|गुड़िया|नेहा|गीता|राधा|प्रिया|पूजा|अंजली|.*ी$/) ? 'female' : 'male';
+     // Special check: if left contains बोली then female
+     if(chunk.includes('बोली')) isFemale='female';
+     if(chunk.includes('बोला')) isFemale='male';
+     // Override with explicit list
+     if(spName.match(/सीता|सुनीता|गुड़िया|नेहा|गीता/)) isFemale='female';
+     speakerGenderMap[spName]=isFemale;
+     speakerIntensityMap[spName]=savedInt[spName]!==undefined?savedInt[spName]:70;
+     speakerPitchMap[spName]=savedPitch[spName]!==undefined?savedPitch[spName]:(isFemale==='female'?1.25:0.85);
+     if(spName==="बाबू"||spName==="रमेश") speakerPitchMap[spName]=savedPitch[spName]!==undefined?savedPitch[spName]:0.7;
+     if(savedPitch[spName]!==undefined) speakerPitchLocked[spName]=true;
+     if(savedInt[spName]!==undefined) speakerIntensityLocked[spName]=true;
+     if(!speakerVoiceMap[spName]){
+       let isF=isFemale==='female';
+       speakerVoiceMap[spName]= isF ? 'nova' : (spName==="बाबू"||spName==="रमेश" ? 'onyx' : 'alloy');
+     }
+   }
+ }
+
+ // Ensure defaults
  speakers.forEach(sp=>{ 
-   if(!speakerPitchMap[sp]) speakerPitchMap[sp]= sp==='NARRATOR'?0.8 : (sp==='बाबू'?0.7:1.0);
+   if(!speakerPitchMap[sp]) speakerPitchMap[sp]= sp==='NARRATOR'?0.8 : (sp==='बाबू'||sp==='रमेश'?0.7: (speakerGenderMap[sp]==='female'?1.25:0.85));
    if(!speakerIntensityMap[sp]) speakerIntensityMap[sp]= sp==='NARRATOR'?60:70;
  });
- // If still 0 lines (should not happen due to default fallback), force default story
+ // If still 0 lines (no बोला/बोली found), try generic line-by-line
  if(currentScript.length===0){
-   let defaultStory=`अस्सी घाट पर सुबह-सुबह हल्की धुंध थी और गंगा किनारे चाय की दुकान अभी खुल ही रही थी। राम हाथ में दो कुल्हड़ चाय लेकर आया और सीता के सामने रखते हुए बोला - सीता, आज बड़ी देर कर दी तुमने, मैं कब से इंतज़ार कर रहा था। सीता ने हल्की सी मुस्कान के साथ चाय ली और बोली - अरे राम, घर पर थोड़ा काम था, इसलिए देर हो गई। क्यों, कोई जरूरी बात थी क्या?\nराम थोड़ा शरमाते हुए बोला - हाँ, वो बात ये है कि कल बाबू ने जो कहा था, उस बारे में सोचा। मुझे लगता है हमें अस्सी घाट वाला नाटक फिर से करना चाहिए। सीता ने आश्चर्य से आँखें बड़ी की और बोली - सच में? लेकिन पिछली बार तो बाबू ने कहा था कि हमारी एक्टिंग अच्छी नहीं है। तभी पीछे से बाबू अपनी लाठी टेकते हुए आया और बोला - कौन कह रहा है कि एक्टिंग अच्छी नहीं है? तुम्हारी जोड़ी तो बनारस में सबसे बढ़िया है।`;
-   document.getElementById('pasteInput').value=defaultStory;
-   localStorage.setItem(LS_STORY, defaultStory);
-   // Re-run quickly with default
-   let chunks2=[]; defaultStory.split(/[।\n]+/).forEach(c=>{ let t=c.trim(); if(t) chunks2.push(t); });
-   let dialogues2=[]; chunks2.forEach(chunk=>{ if(chunk.includes('बोला')||chunk.includes('बोली')){ let mm=chunk.match(/^(.*?)\s*(?:बोला|बोली)\s*[-:–—]?\s*(.*)$/); if(mm && mm[2].length>2) dialogues2.push(mm[2].trim()); } });
-   if(chunks2[0]){ currentScript.push({speaker:'NARRATOR', dialogue:chunks2[0].trim(), direction:'गंभीर आवाज में', fullLine:chunks2[0], autoAssigned:true}); speakers.push('NARRATOR'); seen['NARRATOR']=true; speakerGenderMap['NARRATOR']='male'; speakerIntensityMap['NARRATOR']=savedInt['NARRATOR']||60; speakerPitchMap['NARRATOR']=savedPitch['NARRATOR']||0.8; speakerVoiceMap['NARRATOR']='fable'; }
-   let fixedOrder2=["राम","सीता","राम","सीता","बाबू"];
-   dialogues2.forEach((dia,i)=>{ let spName=fixedOrder2[i]||"राम"; currentScript.push({speaker:spName, dialogue:dia, direction:'नॉर्मल लहजे में', fullLine:dia, autoAssigned:true}); if(!seen[spName]){ seen[spName]=true; speakers.push(spName); speakerGenderMap[spName]=spName.match(/सीता/)?'female':'male'; speakerIntensityMap[spName]=savedInt[spName]||70; speakerPitchMap[spName]=savedPitch[spName]||(spName.match(/सीता/)?1.25:0.85); if(spName==="बाबू") speakerPitchMap[spName]=savedPitch[spName]||0.7; speakerVoiceMap[spName]= spName.match(/सीता/)?'nova':(spName==="बाबू"?'onyx':'alloy'); } });
+   // Try each line as dialogue with auto speaker numbering
+   let lines=raw.split(/\n+/).filter(l=>l.trim().length>5);
+   lines.forEach((line,i)=>{
+     let sp='Speaker'+(i+1);
+     currentScript.push({speaker:sp, dialogue:line.trim(), direction:'नॉर्मल लहजे में', fullLine:line, autoAssigned:true});
+     if(!seen[sp]){ seen[sp]=true; speakers.push(sp); speakerGenderMap[sp]='male'; speakerIntensityMap[sp]=70; speakerPitchMap[sp]=0.85; speakerVoiceMap[sp]='alloy'; }
+   });
  }
+
  document.getElementById('directorResult').classList.remove('hidden');
- document.getElementById('directorResult').textContent = '✅ Smart-TTS V1.3: '+currentScript.length+' lines. Speakers: '+speakers.join(', ')+' (Story persists after close + Locked preserved).';
+ document.getElementById('directorResult').textContent = '✅ Smart-TTS V1.4: '+currentScript.length+' lines. Speakers: '+speakers.join(', ')+' (Dynamic detection - any names).';
  renderDirector();
 }
 
@@ -416,7 +443,7 @@ function renderDirector(){
    </div>`;
  }).join('');
 }
-function deleteSpeaker(sp){ speakers=speakers.filter(s=>s!==sp); delete speakerVoiceMap[sp]; delete speakerGenderMap[sp]; delete speakerIntensityMap[sp]; delete speakerPitchMap[sp]; currentScript.forEach(c=>{ if(c.speaker===sp) c.speaker='NARRATOR'; }); renderDirector(); }
+function deleteSpeaker(sp){ speakers=speakers.filter(s=>s!==sp); delete speakerVoiceMap[sp]; delete speakerGenderMap[sp]; delete speakerIntensityMap[sp]; delete speakerPitchMap[sp]; delete speakerPitchLocked[sp]; delete speakerIntensityLocked[sp]; let p={}; try{ p=JSON.parse(localStorage.getItem(LS_PITCH)||'{}'); }catch(e){}; delete p[sp]; localStorage.setItem(LS_PITCH, JSON.stringify(p)); let q={}; try{ q=JSON.parse(localStorage.getItem(LS_INT)||'{}'); }catch(e){}; delete q[sp]; localStorage.setItem(LS_INT, JSON.stringify(q)); currentScript.forEach(c=>{ if(c.speaker===sp) c.speaker='NARRATOR'; }); renderDirector(); }
 function convertForVoice(){if(currentScript.length===0){alert('Auto detect first'); return;} setTab('voice');}
 function buildInstruction(speaker, direction){
  let lang='Hindi';
