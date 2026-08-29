@@ -84,7 +84,48 @@ function sendPasteToDirector(){ setTab('director'); autoDetect(); }
 function addSpeakerManual(){ let name=document.getElementById('newSpeakerName').value.trim(); if(!name) return; if(!speakers.includes(name)) speakers.push(name); document.getElementById('newSpeakerName').value=''; renderSpeakers(); }
 function renderSpeakers(){ let box=document.getElementById('speakerList'); box.innerHTML=''; speakers.forEach(sp=>{ let div=document.createElement('div'); div.className='speaker-card'; div.innerHTML=`<div class="flex justify-between"><span class="font-black text-[11px]">${sp}</span><button onclick="testSpeaker('${sp}')" class="btn-ghost px-2 py-1 text-[8px]">🔊 Test</button></div>`; box.appendChild(div); }); }
 function smartEmotionFromText(dialogue, fullLine){ let txt=(dialogue+' '+fullLine).toLowerCase(); if(txt.match(/दर्द|कराह|आह/)) return 'कराहती हुई आवाज में'; if(txt.match(/सो गई|सो गए|धीरे/)) return 'अत्यंत धीमी आवाज़ में'; if(txt.match(/पागल|बेवकूफ|बकवास/)) return 'डाँटते हुए'; if(txt.match(/धत्त|बेशर्म|शर्म/)) return 'शर्मा कर'; if(txt.match(/रो|उदास/)) return 'रोते हुए'; if(txt.match(/हँस|हाहा|भौकाल/)) return 'हँसते हुए'; if(txt.match(/वाह|क्या बात|खुश/)) return 'खुशी से'; if(txt.includes('?')) return 'सवालिया लहजे में'; if(txt.includes('!')) return 'जोश में'; return 'नॉर्मल लहजे में'; }
-function autoDetect(){ let src=document.getElementById('pasteInput').value.trim(); if(!src){alert('Paste story first'); return;} let lines=src.split('\n').filter(l=>l.trim()); currentScript=[]; speakers=[]; let result=document.getElementById('directorResult'); result.classList.remove('hidden'); currentScript=[]; lines.forEach(line=>{ let m=line.match(/^(.+?)\s*(?:\(([^)]+)\))?\s*[:：-]?\s*["“”']?(.+?)["“”']?\s*$/); if(!m) return; let sp=m[1].trim().replace(/[^\u0900-\u097Fa-zA-Z0-9 ]/g,'').trim(); let dir=m[2]||smartEmotionFromText(m[3]||'', line); let dlg=m[3]||''; if(!sp) return; if(!speakers.includes(sp)) speakers.push(sp); currentScript.push({speaker:sp, direction:dir.trim(), dialogue:dlg.trim(), raw:line}); }); renderSpeakers(); renderScript(); result.textContent=`✅ ${currentScript.length} lines, ${speakers.length} speakers detected`; }
+function autoDetect(){
+  let src=document.getElementById('pasteInput').value.trim();
+  if(!src){alert('Paste story first'); return;}
+  // Clean markdown ** and extra spaces
+  let lines=src.split('\n').map(l=>l.trim()).filter(l=>l);
+  currentScript=[]; speakers=[];
+  let result=document.getElementById('directorResult'); result.classList.remove('hidden');
+  lines.forEach(rawLine=>{
+    let line=rawLine.replace(/^\*\*|\*\*$/g,'').trim(); // remove ** at start/end
+    line=line.replace(/^\*\*\s*/, '').replace(/\s*\*\*$/, ''); // handle **Name**
+    // Try pattern: Speaker (emotion): "dialogue"  OR Speaker: "dialogue" OR Speaker (emotion) "dialogue"
+    // First remove leading ** and trailing **
+    let m = line.match(/^(?:\*\*)?\s*([^:(\n]+?)(?:\s*\(([^)]+)\))?\s*(?:\*\*)?\s*[:：-]\s*(.+)$/);
+    if(!m){
+      // fallback: maybe "Speaker: dialogue" without colon after emotion
+      m = line.match(/^(?:\*\*)?\s*([^:(\n]+?)(?:\s*\(([^)]+)\))?\s*["“”'](.+?)["“”']\s*$/);
+    }
+    if(!m) return;
+    let sp = m[1].trim().replace(/\*\*/g,'').trim();
+    // Clean speaker: keep Hindi + English letters + spaces, remove trailing * and :
+    sp = sp.replace(/[:：]+$/, '').replace(/\*+/g,'').trim();
+    if(!sp || sp.length>40) return;
+    let dir = (m[2]||'').trim().replace(/\*+/g,'');
+    let dlg = (m[3]||'').trim();
+    // Clean dialogue: remove surrounding ** and quotes
+    dlg = dlg.replace(/^\*\*/, '').replace(/\*\*$/, '').trim();
+    dlg = dlg.replace(/^["“”'\s]+/, '').replace(/["“”'\s]+$/, '').trim();
+    dlg = dlg.replace(/^[:：-]+\s*/, '');
+    if(!dlg) return;
+    if(!dir) dir = smartEmotionFromText(dlg, rawLine);
+    if(!speakers.includes(sp)) speakers.push(sp);
+    currentScript.push({speaker:sp, direction:dir, dialogue:dlg, raw:rawLine});
+  });
+  renderSpeakers(); renderScript();
+  if(currentScript.length===0){
+    result.textContent=`❌ 0 lines detected. Format should be: Speaker (emotion): "dialogue"`;
+    result.classList.add('bg-red-900');
+  } else {
+    result.textContent=`✅ ${currentScript.length} lines, ${speakers.length} speakers: ${speakers.join(', ')}`;
+    result.classList.remove('bg-red-900');
+  }
+}
 function renderScript(){ let box=document.getElementById('scriptList'); box.innerHTML=''; currentScript.forEach((c,i)=>{ let div=document.createElement('div'); div.className='line-card'; div.innerHTML=`<div class="flex justify-between"><span class="text-[10px] font-black">${i+1}. ${c.speaker}</span><span class="direction-tag">${c.direction}</span></div><p class="text-[12px] mt-2 dev">${c.dialogue}</p>`; box.appendChild(div); }); }
 function convertForVoice(){ if(!currentScript.length){alert('Detect first'); return;} setTab('voice'); document.getElementById('playStatus').textContent=`Ready - ${currentScript.length} lines`; }
 function buildInstruction(speaker, direction){ return `Speak as ${speaker} in Hindi, emotion: ${direction}. Natural Banarasi accent.`; }
