@@ -140,16 +140,24 @@ async function generateStory(){
 function addSpeakerManual(){ let name=document.getElementById('newSpeakerName').value.trim(); if(!name) return; if(!speakers.includes(name)) speakers.push(name); document.getElementById('newSpeakerName').value=''; renderSpeakers(); }
 function renderSpeakers(){
  let box=document.getElementById('speakerList'); box.innerHTML='';
- speakers.forEach(sp=>{
+ speakers.forEach((sp, idx)=>{
   let v=speakerVoiceMap[sp]||'alloy';
   let g=speakerGenderMap[sp]||'male';
+  let intensity=speakerIntensityMap[sp]!==undefined ? speakerIntensityMap[sp] : 70;
   let div=document.createElement('div'); div.className='speaker-card';
   let voiceOpts=VOICES.map(vo=>`<option value="${vo.id}" ${vo.id===v?'selected':''}>${vo.name}</option>`).join('');
-  div.innerHTML=`<div class="flex justify-between items-center"><div class="flex gap-2 items-center"><span class="font-black text-[11px]">${sp}</span><span class="speaker-badge ${g==='female'?'badge-female':'badge-male'}">${g}</span></div><button onclick="testSpeaker('${sp}')" class="btn-ghost px-2 py-1 text-[8px]">🔊 Test</button></div><div class="grid grid-cols-2 gap-2 mt-2"><select onchange="speakerVoiceMap['${sp}']=this.value; saveSpeakerMap()" class="input-dark p-2 text-[9px]">${voiceOpts}</select><select onchange="speakerGenderMap['${sp}']=this.value; renderSpeakers()" class="input-dark p-2 text-[9px]"><option value="male" ${g==='male'?'selected':''}>Male</option><option value="female" ${g==='female'?'selected':''}>Female</option><option value="narrator" ${g==='narrator'?'selected':''}>Narrator</option></select></div>`;
+  div.innerHTML=`<div class="flex justify-between items-center"><div class="flex gap-2 items-center"><span class="font-black text-[11px]">${sp}</span><span class="speaker-badge ${g==='female'?'badge-female':'badge-male'}">${g}</span></div><button data-sp="${sp}" class="test-btn btn-ghost px-3 py-1.5 text-[8px] font-black">🔊 Test</button></div><div class="grid grid-cols-2 gap-2 mt-3"><select data-voice="${sp}" class="voice-sel input-dark p-2.5 text-[9px]">${voiceOpts}</select><select data-gender="${sp}" class="gender-sel input-dark p-2.5 text-[9px]"><option value="male" ${g==='male'?'selected':''}>Male</option><option value="female" ${g==='female'?'selected':''}>Female</option><option value="narrator" ${g==='narrator'?'selected':''}>Narrator</option></select></div><div class="mt-3"><div class="flex justify-between items-center"><span class="text-[10px] font-bold text-[#a78bfa]">Intensity</span><span class="bg-[#2a1f4a] border border-[#3d2f68] text-[9px] font-black px-2 py-1 rounded-full">${intensity}%</span></div><input type="range" min="0" max="100" value="${intensity}" data-intensity="${sp}" class="intensity-slider w-full mt-2"></div>`;
   box.appendChild(div);
  });
+ // Bind events after render to avoid Hindi quote escaping issues
+ document.querySelectorAll('.test-btn').forEach(btn=>{ btn.addEventListener('click', ()=>{ let sp=btn.getAttribute('data-sp'); testSpeaker(sp); }); });
+ document.querySelectorAll('.voice-sel').forEach(sel=>{ sel.addEventListener('change', ()=>{ let sp=sel.getAttribute('data-voice'); speakerVoiceMap[sp]=sel.value; saveSpeakerMap(); }); });
+ document.querySelectorAll('.gender-sel').forEach(sel=>{ sel.addEventListener('change', ()=>{ let sp=sel.getAttribute('data-gender'); speakerGenderMap[sp]=sel.value; renderSpeakers(); }); });
+ document.querySelectorAll('.intensity-slider').forEach(slider=>{ slider.addEventListener('input', ()=>{ let sp=slider.getAttribute('data-intensity'); speakerIntensityMap[sp]=parseInt(slider.value); let badge=slider.parentElement.querySelector('span:last-child'); if(badge) badge.textContent=slider.value+'%'; }); slider.addEventListener('change', ()=>{ let sp=slider.getAttribute('data-intensity'); speakerIntensityMap[sp]=parseInt(slider.value); localStorage.setItem('speakerIntensityMap', JSON.stringify(speakerIntensityMap)); }); });
 }
-function saveSpeakerMap(){ localStorage.setItem('speakerVoiceMap', JSON.stringify(speakerVoiceMap)); }
+function saveSpeakerMap(){ localStorage.setItem('speakerVoiceMap', JSON.stringify(speakerVoiceMap)); localStorage.setItem('speakerGenderMap', JSON.stringify(speakerGenderMap)); }
+
+
 function autoDetect(){
   let src=document.getElementById('pasteInput').value.trim();
   if(!src){alert('Paste story first'); return;}
@@ -215,7 +223,7 @@ function editLine(i){ document.getElementById(`edit-${i}`).classList.remove('hid
 function cancelEdit(i){ document.getElementById(`edit-${i}`).classList.add('hidden'); }
 function saveEdit(i){ let sel=document.getElementById(`dir-${i}`); if(sel) currentScript[i].direction=sel.value; renderScript(); }
 function convertForVoice(){ if(!currentScript.length){alert('Detect first'); return;} setTab('voice'); document.getElementById('playStatus').textContent=`Ready - ${currentScript.length} lines, ${speakers.length} speakers`; }
-function buildInstruction(speaker, direction){ return `Speak as ${speaker} in Hindi, emotion: ${direction}. Natural Banarasi accent.`; }
+function buildInstruction(speaker, direction){ let intensity=speakerIntensityMap[speaker]||70; return `Speak as ${speaker} in Hindi, emotion: ${direction}, intensity ${intensity}%. Natural Banarasi accent, expressive.`; }
 async function playLine(i,save=true){
  let s=currentScript[i]; let voiceId=speakerVoiceMap[s.speaker]||'alloy'; let text=s.dialogue; let instruction=buildInstruction(s.speaker, s.direction);
  let key=getKey(); if(!key){toggleApiBox(); throw new Error('no key');}
@@ -241,7 +249,36 @@ async function playFull(){
  document.getElementById('playFullBtn').disabled=false; isPlaying=false;
 }
 function stopPlaying(){stopRequested=true; isPlaying=false; document.getElementById('playStatus').textContent='⏹ Stopped'; document.getElementById('playFullBtn').disabled=false;}
-function testSpeaker(sp){let idx=currentScript.findIndex(c=>c.speaker===sp); if(idx>=0) playLine(idx,false);}
+function testSpeaker(sp){
+  // Find first line for this speaker, or create preview line
+  let idx=currentScript.findIndex(c=>c.speaker===sp);
+  if(idx>=0){
+    playLinePreview(idx);
+  } else {
+    // Fallback: generate a short preview
+    let prevIdx=currentScript.length;
+    currentScript.push({speaker:sp, direction:'नॉर्मल लहजे में', dialogue:`नमस्ते, मैं ${sp} हूँ। यह मेरी आवाज़ का परीक्षण है।`, raw:''});
+    playLinePreview(prevIdx).then(()=>{ currentScript.pop(); });
+  }
+}
+async function playLinePreview(i){
+  try{
+    let s=currentScript[i];
+    let voiceId=speakerVoiceMap[s.speaker]||'alloy';
+    let instruction=buildInstruction(s.speaker, s.direction);
+    let key=getKey(); if(!key){toggleApiBox(); alert('Add API key first'); return;}
+    let status=document.getElementById('directorResult');
+    if(status){ status.textContent=`🔊 Testing ${s.speaker} with ${voiceId}...`; status.classList.remove('hidden'); }
+    let body={model:'gpt-4o-mini-tts', voice:voiceId, input:s.dialogue, instructions:instruction};
+    let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok) throw new Error('Voice '+voiceId+' failed');
+    let blob=await r.blob(); let url=URL.createObjectURL(blob);
+    let audio=new Audio(url); audio.play();
+    if(status){ status.textContent=`✅ ${s.speaker} (${voiceId}) - Playing...`; }
+  }catch(e){
+    alert('Test failed: '+e.message);
+  }
+}
 document.getElementById('playFullBtn').addEventListener('click', playFull);
 document.getElementById('stopBtn').addEventListener('click', stopPlaying);
 </script>
