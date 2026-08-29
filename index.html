@@ -24,7 +24,7 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Story Director V18.4 - 1.25x Download Fix</title>
+<title>Story Director V18.5 - Full 11 Voices - Same UI + 1.25x Fix</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 body{background:#120c26;color:#e9e4ff;max-width:600px;margin:auto;font-family:Inter,system-ui}
@@ -38,13 +38,22 @@ body{background:#120c26;color:#e9e4ff;max-width:600px;margin:auto;font-family:In
 .btn-ghost{background:transparent;border:1px solid #3d2f68;color:#8b7fb8;border-radius:9999px}
 .btn:active{transform:scale(.97)}
 .label-fixed{height:28px;display:flex;align-items:flex-end;font-size:10px;color:#8b7fb8;font-weight:700;white-space:nowrap}
-.speaker-card{background:transparent;border:1px solid #3d2f68;border-radius:16px;padding:12px}
+.speaker-card{background:#1e1638;border:1px solid #3d2f68;border-radius:16px;padding:12px}
+.speaker-badge{background:transparent;border:1.5px solid currentColor;border-radius:9999px;padding:4px 12px;font-size:10px;font-weight:900}
+.badge-male{color:#60a5fa;border-color:#60a5fa}
+.badge-female{color:#f472b6;border-color:#f472b6}
+.badge-narrator{color:#a78bfa;border-color:#a78bfa}
 .audio-item{background:#1e1638;border:1px solid #3d2f68;border-radius:12px;padding:8px 10px}
 .audio-scroll{max-height:380px;overflow-y:auto}
+input[type=range]{accent-color:#8b5cf6}
+.line-card{background:#1e1638;border:1px solid #3d2f68;border-radius:14px;padding:10px}
+.direction-tag{background:#2a1f4a;border:1px solid #8b5cf6;color:#c4b5fd;border-radius:9999px;padding:3px 10px;font-size:8px;font-weight:800}
+.direction-auto{background:#1a1230;border:1px dashed #8b5cf6;color:#a78bfa;border-radius:9999px;padding:3px 10px;font-size:8px}
+.edit-panel{background:#0e091e;border:1px solid #3d2f68;border-radius:12px;padding:10px;margin-top:8px}
 </style>
 </head>
 <body class="pb-32">
-<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V18.4 🎬 11 Voices</h1><p class="text-[9px] text-[#a78bfa]">1.25x Download Fix - All Buttons Working</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button></div></header>
+<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V18.5 🎬 11 Voices</h1><p class="text-[9px] text-[#a78bfa]">Original UI Restored + 1.25x Download Fix</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">V18.5 FIXED</span></div></header>
 <div id="apiBox" class="hidden p-3"><div class="card p-3 border-2 border-yellow-400 bg-[#1a1230]"><p class="text-[11px] font-black flex justify-between"><span>🔑 OpenAI Key</span><button onclick="toggleApiBox()" class="bg-black text-white rounded-full px-2 py-1 text-[8px]">✕ HIDE</button></p><input id="openaiKey" type="password" placeholder="sk-... paste once - saved forever" class="input-dark w-full mt-2 p-3 text-[11px]"><p id="apiStatus" class="text-[7px] mt-1 text-green-400"></p></div></div>
 <div class="flex justify-around p-3 bg-[#120c26] sticky top-[64px] z-20 border-b border-[#3d2f68] text-[11px] font-bold">
 <button onclick="setTab('ai')" id="tab-ai" class="tab-active pb-2">✨ AI Story</button>
@@ -52,23 +61,31 @@ body{background:#120c26;color:#e9e4ff;max-width:600px;margin:auto;font-family:In
 <button onclick="setTab('director')" id="tab-director" class="tab-inactive pb-2">🎭 Director</button>
 <button onclick="setTab('voice')" id="tab-voice" class="tab-inactive pb-2">🎙 Voice</button>
 </div>
-<div id="view-ai" class="p-3 space-y-3"><div class="card p-3"><label class="text-[12px] font-bold">💡 Story Idea / Prompt</label><textarea id="idea" class="input-dark w-full h-[70px] p-3 mt-2 text-[13px] dev">राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल</textarea><div class="mt-3"><div class="label-fixed">🎯 Extra Direction</div><input id="extra" class="input-dark w-full p-3 text-[11px]" value="Banarasi tone, with emotions, भौकाल"></div><p id="aiStatus" class="text-[8px] mt-3 bg-black p-2 rounded">Ready V18.4 - 11 Voices + 1.25x Fix</p><button onclick="generateStory()" class="btn-primary w-full mt-3 py-4 font-black text-[13px]">✨ Generate Story</button><textarea id="storyOut" class="input-dark w-full h-[220px] mt-3 p-3 text-[13px] dev" placeholder="Story will appear here..."></textarea><div class="grid grid-cols-3 gap-2 mt-2"><button onclick="copyStory()" class="btn-primary py-2.5 text-[9px] font-black">📋 COPY</button><button onclick="sendToDirector()" class="btn-primary py-2.5 text-[9px] font-black">🎭 DIRECTOR →</button><button onclick="clearAI()" class="btn-ghost py-2.5 text-[9px] font-black">🗑 CLEAR</button></div></div></div>
+<div id="view-ai" class="p-3 space-y-3"><div class="card p-3"><label class="text-[12px] font-bold">💡 Story Idea / Prompt</label><textarea id="idea" class="input-dark w-full h-[70px] p-3 mt-2 text-[13px] dev">राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल</textarea><div class="mt-3"><div class="label-fixed">🎯 Extra Direction</div><input id="extra" class="input-dark w-full p-3 text-[11px]" value="Banarasi tone, with emotions, भौकाल"></div><p id="aiStatus" class="text-[8px] mt-3 bg-black p-2 rounded">Ready V18.5 - Original UI</p><button onclick="generateStory()" class="btn-primary w-full mt-3 py-4 font-black text-[13px]">✨ Generate Story - Smart Director will auto add emotion</button><textarea id="storyOut" class="input-dark w-full h-[220px] mt-3 p-3 text-[13px] dev" placeholder="Story will appear here..."></textarea><div class="grid grid-cols-3 gap-2 mt-2"><button onclick="copyStory()" class="btn-primary py-2.5 text-[9px] font-black">📋 COPY</button><button onclick="sendToDirector()" class="btn-primary py-2.5 text-[9px] font-black">🎭 DIRECTOR →</button><button onclick="clearAI()" class="btn-ghost py-2.5 text-[9px] font-black">🗑 CLEAR ALL</button></div></div></div>
 <div id="view-paste" class="hidden p-3 space-y-3"><div class="card p-3"><h3 class="font-black">📋 Paste Your Story</h3><textarea id="pasteInput" class="input-dark w-full h-[200px] mt-2 p-3 text-[13px] dev">राम (कराहती हुई आवाज में) "बहुत दर्द हो रहा है।"
 सीता (चिंता में) "राम, क्या हुआ?"
 राम (अत्यंत धीमी आवाज़ में) "सीता, तुम सो गई क्या?"
-सीता (शर्मा कर) "धत्त, तुम बड़े बेशर्म हो।"</textarea><div class="grid grid-cols-2 gap-2 mt-3"><button onclick="sendPasteToDirector()" class="btn-primary py-3 font-black text-[11px]">🎭 SEND TO DIRECTOR</button><button onclick="clearPaste()" class="btn-ghost py-3 text-[10px] font-black">🗑 CLEAR ALL</button></div></div></div>
-<div id="view-director" class="hidden p-3 space-y-3"><div class="card p-3 border-2 border-purple-500"><h3 class="font-black text-[13px]">🎭 Smart Director</h3><div class="mt-3 bg-black/40 rounded-[12px] p-3 border border-[#3d2f68]"><p class="text-[9px] font-black text-[#a78bfa]">➕ ADD SPEAKERS MANUALLY</p><div class="flex gap-2 mt-2"><input id="newSpeakerName" placeholder="राम, सीता, मोहन" class="input-dark flex-1 p-2.5 text-[11px]"><button onclick="addSpeakerManual()" class="btn-primary px-5 py-2.5 text-[10px] font-black">+ ADD</button></div></div><button onclick="autoDetect()" class="btn-primary w-full mt-3 py-3 font-black text-[11px]">🤖 AUTO DETECT + SMART EMOTION ASSIGN</button><div id="directorResult" class="mt-2 text-[8px] bg-black p-2 rounded hidden"></div><div id="speakerList" class="mt-3 space-y-3"></div><button onclick="convertForVoice()" class="btn-primary w-full mt-4 py-4 font-black text-[11px]">🔊 CONVERT FOR VOICE STUDIO →</button></div><div id="scriptList" class="space-y-3"></div></div>
-<div id="view-voice" class="hidden p-3 space-y-3"><div class="card p-3 border border-purple-500"><h3 class="font-black text-purple-300 text-[13px]">🎙 Voice Studio V18.4</h3><p id="playStatus" class="text-[8px] bg-black p-2 rounded mt-2">Ready</p><div class="w-full bg-white/20 rounded-full h-[6px] mt-2"><div id="progressBar" class="bg-green-400 h-full" style="width:0%"></div></div><div class="grid grid-cols-3 gap-2 mt-3"><button id="playFullBtn" class="btn-primary col-span-2 py-3 text-[10px] font-black">▶ GENERATE ALL</button><button id="stopBtn" class="btn-stop py-3 text-[10px] font-black">⏹ STOP</button></div><div id="audioBox" class="mt-3 audio-scroll bg-[#0e091e] border border-[#3d2f68] rounded-[16px] p-2"><div id="audioPlayers" class="space-y-2"></div></div>
-<div id="masterBox" class="hidden mt-3"><div class="card p-3 bg-gradient-to-br from-[#2a1f4a] to-[#1e1638] border-2 border-purple-500"><audio id="masterAudio" controls class="w-full rounded-[12px]"></audio>
-<div class="flex gap-2 mt-3 items-center"><label class="text-[10px] font-black whitespace-nowrap">Preview:</label><select id="previewSpeed" class="input-dark px-2 py-2 text-[11px] rounded-full flex-1"><option value="0.5">0.50x</option><option value="0.75">0.75x</option><option value="1" selected>1.00x</option><option value="1.25">1.25x</option><option value="1.5">1.50x</option><option value="1.75">1.75x</option><option value="2">2.00x</option></select></div>
-<div class="flex gap-2 mt-2 items-center"><label class="text-[10px] font-black whitespace-nowrap">Download:</label><select id="downloadSpeed" class="input-dark px-2 py-2 text-[11px] rounded-full flex-1"><option value="0.5">0.50x</option><option value="0.75">0.75x</option><option value="1">1.00x</option><option value="1.25" selected>1.25x - Fast</option><option value="1.5">1.50x</option><option value="2">2.00x</option></select></div>
-<a id="masterDl" href="#" download="story_1x.mp3" class="btn-ghost w-full mt-3 py-3 text-center block font-black text-[10px]">⬇️ DOWNLOAD 1.00x (MP3)</a>
-<button id="masterDlFast" onclick="downloadAtSpeed()" class="btn-primary w-full mt-2 py-4 text-center block font-black text-[12px]">⬇️ DOWNLOAD AT 1.25x (WAV)</button>
-<p id="dlStatus" class="text-[8px] mt-2 text-center text-[#a78bfa]"></p>
-</div></div></div></div>
+सीता (शर्मा कर) "धत्त, तुम बड़े बेशर्म हो।"
+राम (डाँटते हुए) "तुम्हारा दिमाग़ ख़राब है क्या?"
+मोहन (हँसते हुए) "अस्सी घाट पर भौकाल देखो!"</textarea><div class="grid grid-cols-2 gap-2 mt-3"><button onclick="sendPasteToDirector()" class="btn-primary py-3 font-black text-[11px]">🎭 SEND TO DIRECTOR - Auto Emotion</button><button onclick="clearPaste()" class="btn-ghost py-3 text-[10px] font-black">🗑 CLEAR ALL</button></div></div></div>
+<div id="view-director" class="hidden p-3 space-y-3"><div class="card p-3 border-2 border-purple-500"><h3 class="font-black text-[13px]">🎭 Smart Director V18.5 - Auto Emotion</h3><p class="text-[7px] text-[#a78bfa] mt-1 bg-black p-2 rounded">Smart auto emotions - Tap ✏️ to edit any - Manual speaker add available</p><div class="mt-3 bg-black/40 rounded-[12px] p-3 border border-[#3d2f68]"><p class="text-[9px] font-black text-[#a78bfa]">➕ ADD SPEAKERS MANUALLY</p><div class="flex gap-2 mt-2"><input id="newSpeakerName" placeholder="राम, सीता, मोहन" class="input-dark flex-1 p-2.5 text-[11px]"><button onclick="addSpeakerManual()" class="btn-primary px-5 py-2.5 text-[10px] font-black">+ ADD</button></div></div><button onclick="autoDetect()" class="btn-primary w-full mt-3 py-3 font-black text-[11px]">🤖 AUTO DETECT + SMART EMOTION ASSIGN</button><div id="directorResult" class="mt-2 text-[8px] bg-black p-2 rounded hidden"></div><div id="speakerList" class="mt-3 space-y-3"></div><button onclick="convertForVoice()" class="btn-primary w-full mt-4 py-4 font-black text-[11px]">🔊 CONVERT FOR VOICE STUDIO →</button><div class="grid grid-cols-2 gap-2 mt-3"><button onclick="clearDirector()" class="btn-ghost py-3 text-[10px] font-black">🗑 CLEAR ALL</button><button onclick="resetDirector()" class="btn-ghost py-3 text-[10px] font-black">↺ Reset Director</button></div></div><div id="scriptList" class="space-y-3"></div><div class="card p-2 flex gap-2 mt-2"><button onclick="clearScript()" class="btn-ghost flex-1 py-2 text-[8px]">Clear Script Only</button><button onclick="clearDirectorAll()" class="btn-ghost flex-1 py-2 text-[8px]">🗑 CLEAR ENTIRE PAGE</button></div></div>
+<div id="view-voice" class="hidden p-3 space-y-3"><div class="card p-3 border border-purple-500"><h3 class="font-black text-purple-300 text-[13px]">🎙 Voice Studio V18.5 + 1.25x Fix</h3><p id="playStatus" class="text-[8px] bg-black p-2 rounded mt-2">Ready - Smart emotions applied</p><div class="w-full bg-white/20 rounded-full h-[6px] mt-2"><div id="progressBar" class="bg-green-400 h-full" style="width:0%"></div></div><div class="grid grid-cols-3 gap-2 mt-3"><button id="playFullBtn" class="btn-primary col-span-2 py-3 text-[10px] font-black">▶ GENERATE ALL</button><button id="stopBtn" class="btn-stop py-3 text-[10px] font-black">⏹ STOP</button></div><div id="audioBox" class="mt-3 audio-scroll bg-[#0e091e] border border-[#3d2f68] rounded-[16px] p-2"><div id="audioPlayers" class="space-y-2"></div></div><div id="masterBox" class="hidden mt-3"><div class="card p-3 bg-gradient-to-br from-[#2a1f4a] to-[#1e1638] border-2 border-purple-500"><audio id="masterAudio" controls class="w-full rounded-[12px]"></audio><div class="flex gap-2 mt-3 items-center"><label class="text-[10px] font-black whitespace-nowrap">Preview:</label><select id="previewSpeed" class="input-dark px-2 py-2 text-[10px] rounded-full flex-1"><option value="0.5">0.50x</option><option value="0.75">0.75x</option><option value="1" selected>1.00x</option><option value="1.25">1.25x</option><option value="1.5">1.50x</option><option value="2">2.00x</option></select></div><div class="flex gap-2 mt-2 items-center"><label class="text-[10px] font-black whitespace-nowrap">Download:</label><select id="downloadSpeed" class="input-dark px-2 py-2 text-[11px] rounded-full flex-1"><option value="0.5">0.50x</option><option value="0.75">0.75x</option><option value="1">1.00x</option><option value="1.25" selected>1.25x - Fast</option><option value="1.5">1.50x</option><option value="2">2.00x</option></select></div><a id="masterDl" href="#" download="story_V18_5_final.mp3" class="btn-ghost w-full mt-3 py-3 text-center block font-black text-[10px]">⬇️ DOWNLOAD 1.00x (MP3 Original)</a><button id="masterDlFast" onclick="downloadAtSpeed()" class="btn-primary w-full mt-2 py-4 text-center block font-black text-[12px]">⬇️ DOWNLOAD AT 1.25x (WAV - Fast)</button><p id="dlStatus" class="text-[8px] mt-2 text-center text-[#a78bfa]"></p></div></div><div class="grid grid-cols-3 gap-2 mt-3"><button onclick="clearVoice()" class="btn-ghost py-2.5 text-[9px] font-black">🗑 CLEAR ALL</button><button onclick="resetVoice()" class="btn-ghost py-2.5 text-[9px] font-black">↺ Reset Voice</button><button onclick="clearAudioOnly()" class="btn-ghost py-2.5 text-[9px] font-black">Clear Audio Only</button></div></div></div>
 <script>
-let tab='ai', currentScript=[], speakers=[], speakerVoiceMap={}, speakerGenderMap={}, speakerIntensityMap={}, audioBlobs=[], audioUrls=[], masterUrl=null, isPlaying=false, stopRequested=false, storyMemory='', editingIdx=-1;
-const EMOTION_OPTIONS=['कराहती हुई आवाज में','अत्यंत धीमी आवाज़ में','डाँटते हुए','शर्मा कर','गुस्से से','धीरे से','फुसफुसाते हुए','चिल्लाते हुए','रोते हुए','हँसते हुए','खुशी से','उदासी से','आश्चर्य से','चिंता में','प्यार से','बनारसी भौकाल में','नॉर्मल लहजे में','सवालिया लहजे में','जोश में'];
+let tab='ai', cloudVoices=[], currentScript=[], speakers=[], speakerVoiceMap={}, speakerGenderMap={}, speakerIntensityMap={}, audioBlobs=[], audioUrls=[], masterUrl=null, isPlaying=false, stopRequested=false, storyMemory='', editingIdx=-1;
+const VOICES=[
+ {id:'alloy', name:'Alloy - Balanced Male', gender:'male'},
+ {id:'echo', name:'Echo - Deep Male', gender:'male'},
+ {id:'fable', name:'Fable - Warm British', gender:'male'},
+ {id:'onyx', name:'Onyx - Deep Narrator', gender:'male'},
+ {id:'nova', name:'Nova - Warm Female', gender:'female'},
+ {id:'shimmer', name:'Shimmer - Soft Female', gender:'female'},
+ {id:'alloy2', name:'Amit - Banarasi Male', gender:'male'},
+ {id:'echo2', name:'Smriti - Strong Female', gender:'female'},
+ {id:'fable2', name:'Mohan - Funny Male', gender:'male'},
+ {id:'onyx2', name:'Sita - Sweet Female', gender:'female'},
+ {id:'nova2', name:'Ram - Hero Male', gender:'male'}
+];
+const EMOTION_OPTIONS=['कराहती हुई आवाज में','अत्यंत धीमी आवाज़ में','डाँटते हुए','शर्मा कर','गुस्से से','धीरे से','फुसफुसाते हुए','चिल्लाते हुए','रोते हुए','हँसते हुए','खुशी से','उदासी से','आश्चर्य से','चिंता में','प्यार से','छेड़ते हुए','शरमाते हुए','बनारसी भौकाल में','नॉर्मल लहजे में','सवालिया लहजे में','जोश में','करुण स्वर में','व्यंग्य से','उदास','सहानुभूति से','चुलबुले अंदाज में','थोड़ा मुस्कुराते हुए','गंभीरता से'];
 function setTab(t){ tab=t; ['ai','paste','director','voice'].forEach(x=>{document.getElementById('view-'+x).classList.toggle('hidden', x!==t); document.getElementById('tab-'+x).className = x===t ? 'tab-active pb-2' : 'tab-inactive pb-2'; }); }
 function toggleApiBox(){ document.getElementById('apiBox').classList.toggle('hidden'); }
 function saveKey(){let k=document.getElementById('openaiKey').value.trim(); if(k){localStorage.setItem('openai_key_v18_2',k); localStorage.setItem('openai_key',k); document.getElementById('apiStatus').textContent='✅ Saved';}}
@@ -77,41 +94,78 @@ window.addEventListener('load', loadKey);
 document.getElementById('openaiKey').addEventListener('change', saveKey);
 function getKey(){return document.getElementById('openaiKey').value.trim() || localStorage.getItem('openai_key_v18_2') || ''; }
 function clearAI(){ document.getElementById('idea').value=''; document.getElementById('extra').value=''; document.getElementById('storyOut').value=''; document.getElementById('aiStatus').textContent='Cleared'; }
+function resetAI(){ document.getElementById('idea').value='राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल'; document.getElementById('extra').value='Banarasi tone, with emotions, भौकाल'; }
+function clearAIOutput(){ document.getElementById('storyOut').value=''; }
 function copyStory(){ navigator.clipboard.writeText(document.getElementById('storyOut').value); document.getElementById('aiStatus').textContent='✅ Copied'; }
-function clearPaste(){ document.getElementById('pasteInput').value=''; }
 function sendToDirector(){ let txt=document.getElementById('storyOut').value; if(!txt.trim()){alert('Generate first'); return;} document.getElementById('pasteInput').value=txt; setTab('director'); autoDetect(); }
+function clearPaste(){ document.getElementById('pasteInput').value=''; }
+function resetPaste(){ document.getElementById('pasteInput').value=`राम (कराहती हुई आवाज में) "बहुत दर्द हो रहा है।"\nसीता (चिंता में) "राम, क्या हुआ?"\nराम (अत्यंत धीमी आवाज़ में) "सीता, तुम सो गई क्या?"\nसीता (शर्मा कर) "धत्त, तुम बड़े बेशर्म हो।"`; }
 function sendPasteToDirector(){ setTab('director'); autoDetect(); }
+function clearDirector(){ document.getElementById('speakerList').innerHTML=''; document.getElementById('directorResult').classList.add('hidden'); speakers=[]; speakerVoiceMap={}; speakerIntensityMap={}; speakerGenderMap={}; }
+function resetDirector(){ clearDirector(); autoDetect(); }
+function clearScript(){ document.getElementById('scriptList').innerHTML=''; currentScript=[]; }
+function clearDirectorAll(){ clearDirector(); clearScript(); }
+function clearVoice(){ document.getElementById('audioPlayers').innerHTML=''; audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[]; if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null; document.getElementById('masterBox').classList.add('hidden'); document.getElementById('playStatus').textContent='Cleared'; document.getElementById('progressBar').style.width='0%'; }
+function resetVoice(){ clearVoice(); }
+function clearAudioOnly(){ document.getElementById('audioPlayers').innerHTML=''; }
+function smartEmotionFromText(dialogue, fullLine){
+ let d = dialogue.toLowerCase(); let f = fullLine.toLowerCase(); let txt = (d+' '+f);
+ if(txt.match(/दर्द|कराह|आह|उई|सीनेमें|बहुत दर्द/)) return 'कराहती हुई आवाज में';
+ if(txt.match(/सो गई|सो गए|धीरे.*बोल|चुपके|सो जा/)) return 'अत्यंत धीमी आवाज़ में';
+ if(txt.match(/दिमाग.*खराब|पागल|बेवकूफ|चुप |बकवास|शट अप/)) return 'डाँटते हुए';
+ if(txt.match(/धत्त|बेशर्म|शर्म|हाय राम|छि /)) return 'शर्मा कर';
+ if(txt.match(/डर|बचाओ|भूत |अरे बाप/)) return 'डरी हुई आवाज में';
+ if(txt.match(/रो|आँसू|उदास|मर गया|छोड़ के/)) return 'रोते हुए';
+ if(txt.match(/हँस|हाहा|मज़ाक|जोक|भौकाल/)) return 'हँसते हुए';
+ if(txt.match(/वाह|अरे वाह|क्या बात|सुंदर|खुश|मज़ा/)) return 'खुशी से';
+ if(txt.match(/गुस्सा|नाराज़|गुस्से|क्यों किया|साला/)) return 'गुस्से से';
+ if(txt.match(/प्यार|लव|जान|आई लव|सनम/)) return 'प्यार से';
+ if(txt.match(/छेड़|तंग|सता|छेड़ते/)) return 'छेड़ते हुए';
+ if(txt.match(/क्या हुआ|कैसे|कहाँ|क्यों|कब|कौन/)) return 'सवालिया लहजे में';
+ if(txt.includes('!')) return 'जोश में';
+ if(txt.includes('?')) return 'आश्चर्य से';
+ if(txt.match(/धीरे|फुसफुसा/)) return 'धीरे से';
+ return 'नॉर्मल लहजे में';
+}
+async function generateStory(){
+ let key=getKey(); if(!key){toggleApiBox(); alert('Paste key'); return;} saveKey();
+ let idea=document.getElementById('idea').value.trim(); let extra=document.getElementById('extra').value;
+ let out=document.getElementById('storyOut'); let status=document.getElementById('aiStatus');
+ status.textContent='⏳ Generating...';
+ try{
+  let r=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'gpt-4o-mini', messages:[{role:'system', content:'You are a Hindi story writer. Write dialogues as Speaker (emotion) "dialogue". Use Banarasi tone. Format: Name (emotion): "dialogue". Keep emotions in Hindi.'},{role:'user', content:`Idea: ${idea}. Extra: ${extra}. Write 6-8 dialogues with emotions in brackets.`}], temperature:0.9})});
+  let j=await r.json(); let txt=j.choices?.[0]?.message?.content||'Failed'; out.value=txt; status.textContent='✅ Story ready - Tap DIRECTOR →';
+ }catch(e){ status.textContent='❌ '+e.message; }
+}
 function addSpeakerManual(){ let name=document.getElementById('newSpeakerName').value.trim(); if(!name) return; if(!speakers.includes(name)) speakers.push(name); document.getElementById('newSpeakerName').value=''; renderSpeakers(); }
-function renderSpeakers(){ let box=document.getElementById('speakerList'); box.innerHTML=''; speakers.forEach(sp=>{ let div=document.createElement('div'); div.className='speaker-card'; div.innerHTML=`<div class="flex justify-between"><span class="font-black text-[11px]">${sp}</span><button onclick="testSpeaker('${sp}')" class="btn-ghost px-2 py-1 text-[8px]">🔊 Test</button></div>`; box.appendChild(div); }); }
-function smartEmotionFromText(dialogue, fullLine){ let txt=(dialogue+' '+fullLine).toLowerCase(); if(txt.match(/दर्द|कराह|आह/)) return 'कराहती हुई आवाज में'; if(txt.match(/सो गई|सो गए|धीरे/)) return 'अत्यंत धीमी आवाज़ में'; if(txt.match(/पागल|बेवकूफ|बकवास/)) return 'डाँटते हुए'; if(txt.match(/धत्त|बेशर्म|शर्म/)) return 'शर्मा कर'; if(txt.match(/रो|उदास/)) return 'रोते हुए'; if(txt.match(/हँस|हाहा|भौकाल/)) return 'हँसते हुए'; if(txt.match(/वाह|क्या बात|खुश/)) return 'खुशी से'; if(txt.includes('?')) return 'सवालिया लहजे में'; if(txt.includes('!')) return 'जोश में'; return 'नॉर्मल लहजे में'; }
+function renderSpeakers(){
+ let box=document.getElementById('speakerList'); box.innerHTML='';
+ speakers.forEach(sp=>{
+  let v=speakerVoiceMap[sp]||'alloy';
+  let g=speakerGenderMap[sp]||'male';
+  let div=document.createElement('div'); div.className='speaker-card';
+  let voiceOpts=VOICES.map(vo=>`<option value="${vo.id}" ${vo.id===v?'selected':''}>${vo.name}</option>`).join('');
+  div.innerHTML=`<div class="flex justify-between items-center"><div class="flex gap-2 items-center"><span class="font-black text-[11px]">${sp}</span><span class="speaker-badge ${g==='female'?'badge-female':'badge-male'}">${g}</span></div><button onclick="testSpeaker('${sp}')" class="btn-ghost px-2 py-1 text-[8px]">🔊 Test</button></div><div class="grid grid-cols-2 gap-2 mt-2"><select onchange="speakerVoiceMap['${sp}']=this.value; saveSpeakerMap()" class="input-dark p-2 text-[9px]">${voiceOpts}</select><select onchange="speakerGenderMap['${sp}']=this.value; renderSpeakers()" class="input-dark p-2 text-[9px]"><option value="male" ${g==='male'?'selected':''}>Male</option><option value="female" ${g==='female'?'selected':''}>Female</option><option value="narrator" ${g==='narrator'?'selected':''}>Narrator</option></select></div>`;
+  box.appendChild(div);
+ });
+}
+function saveSpeakerMap(){ localStorage.setItem('speakerVoiceMap', JSON.stringify(speakerVoiceMap)); }
 function autoDetect(){
   let src=document.getElementById('pasteInput').value.trim();
   if(!src){alert('Paste story first'); return;}
-  // Clean markdown ** and extra spaces
   let lines=src.split('\n').map(l=>l.trim()).filter(l=>l);
   currentScript=[]; speakers=[];
   let result=document.getElementById('directorResult'); result.classList.remove('hidden');
   lines.forEach(rawLine=>{
-    let line=rawLine.replace(/^\*\*|\*\*$/g,'').trim(); // remove ** at start/end
-    line=line.replace(/^\*\*\s*/, '').replace(/\s*\*\*$/, ''); // handle **Name**
-    // Try pattern: Speaker (emotion): "dialogue"  OR Speaker: "dialogue" OR Speaker (emotion) "dialogue"
-    // First remove leading ** and trailing **
+    let line=rawLine.replace(/^\*\*|\*\*$/g,'').trim();
+    line=line.replace(/^\*\*\s*/, '').replace(/\s*\*\*$/, '');
     let m = line.match(/^(?:\*\*)?\s*([^:(\n]+?)(?:\s*\(([^)]+)\))?\s*(?:\*\*)?\s*[:：-]\s*(.+)$/);
-    if(!m){
-      // fallback: maybe "Speaker: dialogue" without colon after emotion
-      m = line.match(/^(?:\*\*)?\s*([^:(\n]+?)(?:\s*\(([^)]+)\))?\s*["“”'](.+?)["“”']\s*$/);
-    }
+    if(!m){ m = line.match(/^(?:\*\*)?\s*([^:(\n]+?)(?:\s*\(([^)]+)\))?\s*["“”'](.+?)["“”']\s*$/); }
     if(!m) return;
-    let sp = m[1].trim().replace(/\*\*/g,'').trim();
-    // Clean speaker: keep Hindi + English letters + spaces, remove trailing * and :
-    sp = sp.replace(/[:：]+$/, '').replace(/\*+/g,'').trim();
+    let sp = m[1].trim().replace(/\*\*/g,'').replace(/[:：]+$/, '').replace(/\*+/g,'').trim();
     if(!sp || sp.length>40) return;
     let dir = (m[2]||'').trim().replace(/\*+/g,'');
-    let dlg = (m[3]||'').trim();
-    // Clean dialogue: remove surrounding ** and quotes
-    dlg = dlg.replace(/^\*\*/, '').replace(/\*\*$/, '').trim();
-    dlg = dlg.replace(/^["“”'\s]+/, '').replace(/["“”'\s]+$/, '').trim();
-    dlg = dlg.replace(/^[:：-]+\s*/, '');
+    let dlg = (m[3]||'').trim().replace(/^\*\*/, '').replace(/\*\*$/, '').trim().replace(/^["“”'\s]+/, '').replace(/["“”'\s]+$/, '').replace(/^[:：-]+\s*/, '');
     if(!dlg) return;
     if(!dir) dir = smartEmotionFromText(dlg, rawLine);
     if(!speakers.includes(sp)) speakers.push(sp);
@@ -119,26 +173,55 @@ function autoDetect(){
   });
   renderSpeakers(); renderScript();
   if(currentScript.length===0){
-    result.textContent=`❌ 0 lines detected. Format should be: Speaker (emotion): "dialogue"`;
-    result.classList.add('bg-red-900');
+    result.textContent=`❌ 0 lines detected. Check format: Speaker (emotion): "dialogue"`;
   } else {
     result.textContent=`✅ ${currentScript.length} lines, ${speakers.length} speakers: ${speakers.join(', ')}`;
-    result.classList.remove('bg-red-900');
   }
 }
-function renderScript(){ let box=document.getElementById('scriptList'); box.innerHTML=''; currentScript.forEach((c,i)=>{ let div=document.createElement('div'); div.className='line-card'; div.innerHTML=`<div class="flex justify-between"><span class="text-[10px] font-black">${i+1}. ${c.speaker}</span><span class="direction-tag">${c.direction}</span></div><p class="text-[12px] mt-2 dev">${c.dialogue}</p>`; box.appendChild(div); }); }
-function convertForVoice(){ if(!currentScript.length){alert('Detect first'); return;} setTab('voice'); document.getElementById('playStatus').textContent=`Ready - ${currentScript.length} lines`; }
+function renderScript(){
+ let box=document.getElementById('scriptList'); box.innerHTML='';
+ currentScript.forEach((c,i)=>{
+  let div=document.createElement('div'); div.className='line-card';
+  div.innerHTML=`<div class="flex justify-between items-center"><span class="text-[10px] font-black">${i+1}. ${c.speaker}</span><div class="flex gap-2"><span class="direction-tag">${c.direction}</span><button onclick="editLine(${i})" class="direction-auto">✏️</button></div></div><p class="text-[12px] mt-2 dev">${c.dialogue}</p><div id="edit-${i}" class="edit-panel hidden"><select id="dir-${i}" class="input-dark w-full p-2 text-[9px]">${EMOTION_OPTIONS.map(e=>`<option ${e===c.direction?'selected':''}>${e}</option>`).join('')}</select><div class="flex gap-2 mt-2"><button onclick="saveEdit(${i})" class="btn-primary flex-1 py-2 text-[9px]">💾 Save & Close</button><button onclick="cancelEdit(${i})" class="btn-ghost flex-1 py-2 text-[9px]">✕ Cancel</button></div></div>`;
+  box.appendChild(div);
+ });
+}
+function editLine(i){ document.getElementById(`edit-${i}`).classList.remove('hidden'); }
+function cancelEdit(i){ document.getElementById(`edit-${i}`).classList.add('hidden'); }
+function saveEdit(i){ let sel=document.getElementById(`dir-${i}`); if(sel) currentScript[i].direction=sel.value; renderScript(); }
+function convertForVoice(){ if(!currentScript.length){alert('Detect first'); return;} setTab('voice'); document.getElementById('playStatus').textContent=`Ready - ${currentScript.length} lines, ${speakers.length} speakers`; }
 function buildInstruction(speaker, direction){ return `Speak as ${speaker} in Hindi, emotion: ${direction}. Natural Banarasi accent.`; }
-async function playLine(i,save=true){ let s=currentScript[i]; let voiceId=speakerVoiceMap[s.speaker]||'alloy'; let text=s.dialogue; let instruction=buildInstruction(s.speaker, s.direction); let key=getKey(); if(!key){toggleApiBox(); throw new Error('no key');} let body={model:'gpt-4o-mini-tts', voice:voiceId, input:text, instructions:instruction}; let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify(body)}); if(!r.ok){ let fb=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1-hd', voice:voiceId, input:text, speed:1.0})}); let blob=await fb.blob(); let url=URL.createObjectURL(blob); if(save){audioBlobs.push({url,blob}); audioUrls.push(url);} let container=document.getElementById('audioPlayers'); let div=document.createElement('div'); div.className='audio-item'; div.innerHTML=`<span class="text-[9px] font-black">${i+1}. ${s.speaker} (${s.direction})</span><audio controls src="${url}" class="w-full mt-1 h-[28px]"></audio>`; container.appendChild(div); return {url,blob}; } let blob=await r.blob(); let url=URL.createObjectURL(blob); if(save){audioBlobs.push({url,blob}); audioUrls.push(url);} let container=document.getElementById('audioPlayers'); let div=document.createElement('div'); div.className='audio-item'; div.innerHTML=`<span class="text-[9px] font-black text-green-400">✅ ${i+1}. ${s.speaker} (${s.direction})</span><audio controls src="${url}" class="w-full mt-1 h-[28px]"></audio>`; container.appendChild(div); return {url,blob}; }
-async function playFull(){ let key=getKey(); if(!key){toggleApiBox(); return;} if(currentScript.length===0){alert('Convert first'); return;} isPlaying=true; stopRequested=false; document.getElementById('playFullBtn').disabled=true; document.getElementById('audioPlayers').innerHTML=''; audioBlobs=[]; audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[]; if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null; document.getElementById('masterBox').classList.add('hidden'); document.getElementById('playStatus').textContent=`▶ Generating ${currentScript.length} lines...`; document.getElementById('progressBar').style.width='0%'; for(let i=0;i<currentScript.length;i++){ if(stopRequested) break; document.getElementById('progressBar').style.width=Math.round(i/currentScript.length*100)+'%'; try{await playLine(i,true);}catch(e){continue;} } document.getElementById('progressBar').style.width='100%'; if(audioBlobs.length>0){ let combined=new Blob(audioBlobs.map(b=>b.blob),{type:'audio/mpeg'}); masterUrl=URL.createObjectURL(combined); document.getElementById('masterAudio').src=masterUrl; document.getElementById('masterDl').href=masterUrl; document.getElementById('masterBox').classList.remove('hidden'); document.getElementById('playStatus').textContent=`✅ ${audioBlobs.length} lines ready`; let ps=document.getElementById('previewSpeed'); if(ps) document.getElementById('masterAudio').playbackRate=parseFloat(ps.value); } document.getElementById('playFullBtn').disabled=false; isPlaying=false; }
+async function playLine(i,save=true){
+ let s=currentScript[i]; let voiceId=speakerVoiceMap[s.speaker]||'alloy'; let text=s.dialogue; let instruction=buildInstruction(s.speaker, s.direction);
+ let key=getKey(); if(!key){toggleApiBox(); throw new Error('no key');}
+ let body={model:'gpt-4o-mini-tts', voice:voiceId, input:text, instructions:instruction};
+ let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify(body)});
+ if(!r.ok){ let fb=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1-hd', voice:voiceId, input:text, speed:1.0})}); let blob=await fb.blob(); let url=URL.createObjectURL(blob); if(save){audioBlobs.push({url,blob}); audioUrls.push(url);} let container=document.getElementById('audioPlayers'); let div=document.createElement('div'); div.className='audio-item'; div.innerHTML=`<span class="text-[9px] font-black">${i+1}. ${s.speaker} (${s.direction})</span><audio controls src="${url}" class="w-full mt-1 h-[28px]"></audio>`; container.appendChild(div); return {url,blob}; }
+ let blob=await r.blob(); let url=URL.createObjectURL(blob);
+ if(save){audioBlobs.push({url,blob}); audioUrls.push(url);}
+ let container=document.getElementById('audioPlayers'); let div=document.createElement('div'); div.className='audio-item'; div.innerHTML=`<span class="text-[9px] font-black text-green-400">✅ ${i+1}. ${s.speaker} (${s.direction})</span><audio controls src="${url}" class="w-full mt-1 h-[28px]"></audio>`; container.appendChild(div); return {url,blob};
+}
+async function playFull(){
+ let key=getKey(); if(!key){toggleApiBox(); return;}
+ if(currentScript.length===0){alert('Convert first'); return;}
+ isPlaying=true; stopRequested=false;
+ document.getElementById('playFullBtn').disabled=true;
+ document.getElementById('audioPlayers').innerHTML=''; audioBlobs=[];
+ audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[]; if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null;
+ document.getElementById('masterBox').classList.add('hidden');
+ document.getElementById('playStatus').textContent=`▶ Generating ${currentScript.length} lines...`; document.getElementById('progressBar').style.width='0%';
+ for(let i=0;i<currentScript.length;i++){ if(stopRequested) break; document.getElementById('progressBar').style.width=Math.round(i/currentScript.length*100)+'%'; try{await playLine(i,true);}catch(e){continue;} }
+ document.getElementById('progressBar').style.width='100%';
+ if(audioBlobs.length>0){ let combined=new Blob(audioBlobs.map(b=>b.blob),{type:'audio/mpeg'}); masterUrl=URL.createObjectURL(combined); document.getElementById('masterAudio').src=masterUrl; document.getElementById('masterDl').href=masterUrl; document.getElementById('masterBox').classList.remove('hidden'); document.getElementById('playStatus').textContent=`✅ ${audioBlobs.length} lines ready`; let ps=document.getElementById('previewSpeed'); if(ps) document.getElementById('masterAudio').playbackRate=parseFloat(ps.value); }
+ document.getElementById('playFullBtn').disabled=false; isPlaying=false;
+}
 function stopPlaying(){stopRequested=true; isPlaying=false; document.getElementById('playStatus').textContent='⏹ Stopped'; document.getElementById('playFullBtn').disabled=false;}
 function testSpeaker(sp){let idx=currentScript.findIndex(c=>c.speaker===sp); if(idx>=0) playLine(idx,false);}
 document.getElementById('playFullBtn').addEventListener('click', playFull);
 document.getElementById('stopBtn').addEventListener('click', stopPlaying);
-async function generateStory(){ let key=getKey(); if(!key){toggleApiBox(); alert('Paste key'); return;} saveKey(); let idea=document.getElementById('idea').value.trim(); let extra=document.getElementById('extra').value; let out=document.getElementById('storyOut'); let status=document.getElementById('aiStatus'); status.textContent='⏳ Generating...'; try{ let r=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'gpt-4o-mini', messages:[{role:'system', content:'You are a Hindi story writer. Write dialogues as Speaker (emotion) "dialogue". Use Banarasi tone.'},{role:'user', content:`Idea: ${idea}. Extra: ${extra}. Write 6-8 dialogues.`}], temperature:0.9})}); let j=await r.json(); let txt=j.choices?.[0]?.message?.content||'Failed'; out.value=txt; status.textContent='✅ Story ready'; }catch(e){ status.textContent='❌ '+e.message; } }
 </script>
 <script>
-// --- V18.4 PATCH: 1.25x download ---
+// --- V18.5 PATCH: 1.25x download ---
 function bufferToWav(buffer){
   let numOfChan=buffer.numberOfChannels; let length=buffer.length*numOfChan*2+44;
   let out=new ArrayBuffer(length); let view=new DataView(out); let channels=[], pos=0;
