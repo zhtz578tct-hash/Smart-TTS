@@ -24,7 +24,7 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate'><meta http-equiv='Pragma' content='no-cache'><meta http-equiv='Expires' content='0'><title>Story Director V19.0 - Full 11 Voices - Same UI + 1.25x Fix</title>
+<meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate'><meta http-equiv='Pragma' content='no-cache'><meta http-equiv='Expires' content='0'><title>Story Director V26 FINAL - Full 11 Voices - Same UI + 1.25x Fix</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 body{background:#120c26;color:#e9e4ff;max-width:600px;margin:auto;font-family:Inter,system-ui}
@@ -53,7 +53,7 @@ input[type=range]{accent-color:#8b5cf6}
 </style>
 </head>
 <body class="pb-32">
-<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V19.0 🎬 11 Voices</h1><p class="text-[9px] text-[#a78bfa]">V19.0 - Narrator Fixed (Mixed) + 1.25x + 11 Voices</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">V19.0 FINAL</span></div></header>
+<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V26 FINAL 🎬 11 Voices</h1><p class="text-[9px] text-[#a78bfa]">V26 FINAL - Female Fixed + Mixed Narrator + Emotion Fix + 11 Voices</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">V26 FINAL</span></div></header>
 <div id="apiBox" class="hidden p-3"><div class="card p-3 border-2 border-yellow-400 bg-[#1a1230]"><p class="text-[11px] font-black flex justify-between"><span>🔑 OpenAI Key</span><button onclick="toggleApiBox()" class="bg-black text-white rounded-full px-2 py-1 text-[8px]">✕ HIDE</button></p><input id="openaiKey" type="password" placeholder="sk-... paste once - saved forever" class="input-dark w-full mt-2 p-3 text-[11px]"><p id="apiStatus" class="text-[7px] mt-1 text-green-400"></p></div></div>
 <div class="flex justify-around p-3 bg-[#120c26] sticky top-[64px] z-20 border-b border-[#3d2f68] text-[11px] font-bold">
 <button onclick="setTab('ai')" id="tab-ai" class="tab-active pb-2">✨ AI Story</button>
@@ -61,7 +61,7 @@ input[type=range]{accent-color:#8b5cf6}
 <button onclick="setTab('director')" id="tab-director" class="tab-inactive pb-2">🎭 Director</button>
 <button onclick="setTab('voice')" id="tab-voice" class="tab-inactive pb-2">🎙 Voice</button>
 </div>
-<div id="view-ai" class="p-3 space-y-3"><div class="card p-3"><label class="text-[12px] font-bold">💡 Story Idea / Prompt</label><textarea id="idea" class="input-dark w-full h-[70px] p-3 mt-2 text-[13px] dev">राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल</textarea><div class="mt-3"><div class="label-fixed">🎯 Extra Direction</div><input id="extra" class="input-dark w-full p-3 text-[11px]" value="Banarasi tone, with emotions, भौकाल"></div><p id="aiStatus" class="text-[8px] mt-3 bg-black p-2 rounded">Ready V19.0 - Narrator Mixed Fix</p><button onclick="generateStory()" class="btn-primary w-full mt-3 py-4 font-black text-[13px]">✨ Generate Story - Smart Director will auto add emotion</button><textarea id="storyOut" class="input-dark w-full h-[220px] mt-3 p-3 text-[13px] dev" placeholder="Story will appear here..."></textarea><div class="grid grid-cols-3 gap-2 mt-2"><button onclick="copyStory()" class="btn-primary py-2.5 text-[9px] font-black">📋 COPY</button><button onclick="sendToDirector()" class="btn-primary py-2.5 text-[9px] font-black">🎭 DIRECTOR →</button><button onclick="clearAI()" class="btn-ghost py-2.5 text-[9px] font-black">🗑 CLEAR ALL</button></div></div></div>
+<div id="view-ai" class="p-3 space-y-3"><div class="card p-3"><label class="text-[12px] font-bold">💡 Story Idea / Prompt</label><textarea id="idea" class="input-dark w-full h-[70px] p-3 mt-2 text-[13px] dev">राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल</textarea><div class="mt-3"><div class="label-fixed">🎯 Extra Direction</div><input id="extra" class="input-dark w-full p-3 text-[11px]" value="Banarasi tone, with emotions, भौकाल"></div><p id="aiStatus" class="text-[8px] mt-3 bg-black p-2 rounded">Ready V26 - Female Fixed - Mixed Narrator Works</p><button onclick="generateStory()" class="btn-primary w-full mt-3 py-4 font-black text-[13px]">✨ Generate Story - Smart Director will auto add emotion</button><textarea id="storyOut" class="input-dark w-full h-[220px] mt-3 p-3 text-[13px] dev" placeholder="Story will appear here..."></textarea><div class="grid grid-cols-3 gap-2 mt-2"><button onclick="copyStory()" class="btn-primary py-2.5 text-[9px] font-black">📋 COPY</button><button onclick="sendToDirector()" class="btn-primary py-2.5 text-[9px] font-black">🎭 DIRECTOR →</button><button onclick="clearAI()" class="btn-ghost py-2.5 text-[9px] font-black">🗑 CLEAR ALL</button></div></div></div>
 <div id="view-paste" class="hidden p-3 space-y-3"><div class="card p-3"><h3 class="font-black">📋 Paste Your Story</h3><textarea id="pasteInput" class="input-dark w-full h-[200px] mt-2 p-3 text-[13px] dev">राम (कराहती हुई आवाज में) "बहुत दर्द हो रहा है।"
 सीता (चिंता में) "राम, क्या हुआ?"
 राम (अत्यंत धीमी आवाज़ में) "सीता, तुम सो गई क्या?"
@@ -163,120 +163,71 @@ function autoDetect(){
   let src=document.getElementById('pasteInput').value.trim();
   if(!src){alert('Paste story first'); return;}
   currentScript=[]; speakers=[];
-  let result=document.getElementById('directorResult'); 
-  if(result) result.classList.remove('hidden');
-  
-  try {
-    let rawLines = src.split('\n');
-    
+  let result=document.getElementById('directorResult'); if(result) result.classList.remove('hidden');
+  try{
+    let rawLines=src.split('\n');
     rawLines.forEach(rawLine=>{
-      let line = rawLine.trim();
-      if(!line) return;
-      let cleanLine = line.replace(/^\*\*|\*\*$/g,'').trim();
-      if(!cleanLine || cleanLine.length<2) return;
-      
+      let line=rawLine.trim(); if(!line) return;
+      let cleanLine=line.replace(/^\*\*|\*\*$/g,'').trim(); if(!cleanLine||cleanLine.length<2) return;
       let sp=null, dlg=null, dir='';
-      let colonPos = cleanLine.indexOf(':');
-      let colonPosHindi = cleanLine.indexOf('：');
-      if(colonPosHindi>=0 && (colonPos<0 || colonPosHindi<colonPos)) colonPos=colonPosHindi;
-      let ob = cleanLine.indexOf('(');
-      let cb = cleanLine.indexOf(')');
-      
-      if(colonPos>0 && colonPos<35){
-        let namePart = cleanLine.substring(0, colonPos).trim().replace(/\*\*/g,'').trim();
-        let nameOnly = namePart;
-        let dirTmp='';
-        if(namePart.indexOf('(')>=0){
-          let o=namePart.indexOf('('), c=namePart.indexOf(')');
-          if(c>o){ dirTmp=namePart.substring(o+1,c).trim(); nameOnly=namePart.substring(0,o).trim(); }
+      let colonPos=cleanLine.indexOf(':'); let ob=cleanLine.indexOf('('), cb=cleanLine.indexOf(')');
+      if(colonPos>0&&colonPos<35){
+        let namePart=cleanLine.substring(0,colonPos).trim().replace(/\*\*/g,'');
+        let nameOnly=namePart; let dirTmp='';
+        if(namePart.indexOf('(')>=0){ let o=namePart.indexOf('('),c=namePart.indexOf(')'); if(c>o){dirTmp=namePart.substring(o+1,c).trim(); nameOnly=namePart.substring(0,o).trim();}}
+        if(nameOnly&&nameOnly.length>=2&&nameOnly.length<=18&&!nameOnly.includes('।')&&nameOnly.split(/\s+/).length<=2){
+          let rest=cleanLine.substring(colonPos+1).trim().replace(/^[\s"“”']+|[\s"“”']+$/g,'').trim();
+          if(rest.length>0){sp=nameOnly; dlg=rest; dir=dirTmp;}
         }
-        if(nameOnly && nameOnly.length>=2 && nameOnly.length<=18 && !nameOnly.includes('।') && nameOnly.split(/\s+/).length<=2){
-          let rest = cleanLine.substring(colonPos+1).trim().replace(/^[\s"“”']+|[\s"“”']+$/g,'').trim();
-          if(rest.length>0){ sp=nameOnly; dlg=rest; dir=dirTmp; }
-        }
-      } else if(ob>0 && ob<30 && cb>ob && cb<60){
-        let nameOnly = cleanLine.substring(0, ob).trim().replace(/\*\*/g,'').trim();
-        let after = cleanLine.substring(cb+1).trim().replace(/^[\s:：\-"“”']+|[\s"“”']+$/g,'').trim();
-        if(nameOnly && nameOnly.length>=2 && nameOnly.length<=18 && !nameOnly.includes('।') && nameOnly.split(/\s+/).length<=2 && after.length>0){
-          sp=nameOnly; dlg=after; dir=cleanLine.substring(ob+1,cb).trim();
-        }
+      }else if(ob>0&&ob<30&&cb>ob&&cb<60){
+        let nameOnly=cleanLine.substring(0,ob).trim().replace(/\*\*/g,'');
+        let after=cleanLine.substring(cb+1).trim().replace(/^[\s:：\-"“”']+|[\s"“”']+$/g,'').trim();
+        if(nameOnly&&nameOnly.length>=2&&nameOnly.length<=18&&!nameOnly.includes('।')&&nameOnly.split(/\s+/).length<=2&&after.length>0){sp=nameOnly; dlg=after; dir=cleanLine.substring(ob+1,cb).trim();}
       }
-      
-      // THIRD: Known name + dialogue without colon:  सीता "कौन है?"  or सीता कौन है?
       if(!sp){
-        let words = cleanLine.split(/\s+/);
+        let words=cleanLine.split(/\s+/);
         if(words.length>=2){
-          let first = words[0].replace(/[""“”':\-\*]+/g,'').trim();
-          let rest = cleanLine.substring(words[0].length).trim().replace(/^[""“”'\s:]+|[""“”'\s]+$/g,'').trim();
-          // Known female/male names list
-          let knownFemale = ['सीता','प्रिया','रजनी','रूनी','मधु','स्मृति','रानी','महिला'];
-          let knownMale = ['राम','मोहन','गृजेश','अमित','श्याम','राज'];
-          let knownAll = knownFemale.concat(knownMale);
-          if(first.length>=2 && first.length<=15 && knownAll.includes(first) && rest.length>=1){
-            sp=first; dlg=rest;
-          }
+          let first=words[0].replace(/[""“”':\-\*]+/g,'').trim();
+          let rest=cleanLine.substring(words[0].length).trim().replace(/^[""“”'\s:]+|[""“”'\s]+$/g,'').trim();
+          let knownFemale=['सीता','प्रिया','रजनी','रूनी','मधु','स्मृति','रानी','महिला','राधा','सीमा','अनिता','सुनीता','गीता','नीता','कविता','स्मिता'];
+          let knownMale=['राम','मोहन','अमित','श्याम','राज','गृजेश','विकास'];
+          let knownAll=knownFemale.concat(knownMale);
+          if(first.length>=2&&first.length<=15&&knownAll.includes(first)&&rest.length>=1){sp=first; dlg=rest;}
         }
       }
-
-      if(sp && dlg && dlg.length>0){
-        dlg = dlg.replace(/^[""“”'\s]+|[""“”'\s]+$/g,'').trim();
-        if(!dir) dir = smartEmotionFromText(dlg, rawLine);
+      if(sp&&dlg&&dlg.length>0){
+        dlg=dlg.replace(/^[""“”'\s]+|[""“”'\s]+$/g,'').trim();
+        if(!dir) dir=smartEmotionFromText(dlg, rawLine);
         if(!speakers.includes(sp)) speakers.push(sp);
-        currentScript.push({speaker:sp, direction:dir, dialogue:dlg, raw:rawLine});
-        return;
+        currentScript.push({speaker:sp,direction:dir,dialogue:dlg,raw:rawLine}); return;
       }
-      
       if(cleanLine.length>=2){
         if(!speakers.includes('Narrator')) speakers.push('Narrator');
-        let parts = cleanLine.split('।').map(s=>s.trim()).filter(s=>s.length>1);
-        if(parts.length===0) parts=[cleanLine];
-        parts.forEach(p=>{
-          let txt = p.endsWith('।') ? p : p + '।';
-          if(txt.length<3) return;
-          let eDir = smartEmotionFromText(txt, rawLine);
-          currentScript.push({speaker:'Narrator', direction:eDir, dialogue:txt, raw:txt});
-        });
+        let parts=cleanLine.split('।').map(s=>s.trim()).filter(s=>s.length>1);
+        if(parts.length==0) parts=[cleanLine];
+        parts.forEach(p=>{let txt=p.endsWith('।')?p:p+'।'; if(txt.length<3) return; let eDir=smartEmotionFromText(txt, rawLine); currentScript.push({speaker:'Narrator',direction:eDir,dialogue:txt,raw:txt});});
       }
     });
-    
-    const maleVoices=['alloy','ash','echo','fable','onyx'];
-    const femaleVoices=['ballad','coral','nova','sage','shimmer','verse'];
-    const narrVoices=['onyx','sage','fable'];
+    const maleVoices=['alloy','ash','echo','fable','onyx']; const femaleVoices=['ballad','coral','nova','sage','shimmer','verse']; const narrVoices=['onyx','sage','fable'];
     let mi=0,fi=0,ni=0;
     speakers.forEach(sp=>{
       if(!speakerGenderMap[sp]){
-        if(/narrator|कथावाचक|सूत्रधार/i.test(sp)) speakerGenderMap[sp]='narrator';
-        else {
-          let isFemale = /रजनी|सीता|रूनी|मधु|स्मृति|रानी|प्रिया/i.test(sp) || sp.endsWith('ी');
-          if(sp==='राम' || sp==='मोहन' || sp==='गृजेश' || sp==='अमित') isFemale=false;
-          speakerGenderMap[sp]=isFemale?'female':'male';
-        }
+        let isFemale=/रजनी|सीता|रूनी|मधु|स्मृति|रानी|प्रिया|राधा|सीमा|अनिता|सुनीता|गीता|नीता|कविता|स्मिता/i.test(sp)||sp.endsWith('ी');
+        if(['राम','मोहन','गृजेश','अमित','श्याम','राज','विकास'].includes(sp)) isFemale=false;
+        speakerGenderMap[sp]=/narrator/i.test(sp)?'narrator':(isFemale?'female':'male');
       }
       if(!speakerVoiceMap[sp]){
-        if(speakerGenderMap[sp]==='female'){ speakerVoiceMap[sp]=femaleVoices[fi%femaleVoices.length]; fi++; }
-        else if(speakerGenderMap[sp]==='narrator'){ speakerVoiceMap[sp]=narrVoices[ni%narrVoices.length]; ni++; }
-        else { speakerVoiceMap[sp]=maleVoices[mi%maleVoices.length]; mi++; }
+        if(speakerGenderMap[sp]=='female'){speakerVoiceMap[sp]=femaleVoices[fi%femaleVoices.length]; fi++;}
+        else if(speakerGenderMap[sp]=='narrator'){speakerVoiceMap[sp]=narrVoices[ni%narrVoices.length]; ni++;}
+        else{speakerVoiceMap[sp]=maleVoices[mi%maleVoices.length]; mi++;}
       }
       if(speakerIntensityMap[sp]===undefined) speakerIntensityMap[sp]=70;
     });
-    
-    let falseNames=['गर्मी','बिजली','रात','हवा','गुल'];
-    falseNames.forEach(fn=>{
-      if(speakers.includes(fn)){
-        currentScript.forEach(e=>{ if(e.speaker===fn) e.speaker='Narrator'; });
-        speakers = speakers.filter(s=>s!==fn);
-      }
-    });
-    
+    let falseNames=['गर्मी','बिजली','रात','हवा','गुल','बादल'];
+    falseNames.forEach(fn=>{if(speakers.includes(fn)){currentScript.forEach(e=>{if(e.speaker==fn) e.speaker='Narrator';}); speakers=speakers.filter(s=>s!=fn);}});
     renderSpeakers(); renderScript();
-    if(result){
-      if(currentScript.length===0) result.textContent='❌ 0 lines detected.';
-      else result.textContent='✅ '+currentScript.length+' lines, '+speakers.length+' speakers: '+speakers.join(', ');
-    }
-  } catch(e){
-    let result=document.getElementById('directorResult');
-    if(result) result.textContent='❌ Error: '+e.message;
-  }
+    if(result){result.textContent=currentScript.length==0?'❌ 0 lines':'✅ '+currentScript.length+' lines, '+speakers.length+' speakers: '+speakers.join(', ');}
+  }catch(e){ if(result) result.textContent='❌ Error: '+e.message;}
 }
 
 
