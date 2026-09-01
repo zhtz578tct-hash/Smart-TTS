@@ -24,7 +24,7 @@
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate'><meta http-equiv='Pragma' content='no-cache'><meta http-equiv='Expires' content='0'><title>Story Director V19.1 - Full 11 Voices - Same UI + 1.25x Fix</title>
+<meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate'><meta http-equiv='Pragma' content='no-cache'><meta http-equiv='Expires' content='0'><title>Story Director V19.0 - Full 11 Voices - Same UI + 1.25x Fix</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 body{background:#120c26;color:#e9e4ff;max-width:600px;margin:auto;font-family:Inter,system-ui}
@@ -53,7 +53,7 @@ input[type=range]{accent-color:#8b5cf6}
 </style>
 </head>
 <body class="pb-32">
-<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V19.1 🎬 11 Voices</h1><p class="text-[9px] text-[#a78bfa]">V20.2 - MIXED FIX - Buttons Working + Narrator</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">V19.1 FINAL</span></div></header>
+<header class="p-4 bg-[#0e091e] flex justify-between items-center sticky top-0 z-30"><div><h1 class="font-black text-[18px]">Story Director V19.0 🎬 11 Voices</h1><p class="text-[9px] text-[#a78bfa]">V19.0 - Narrator Fixed (Mixed) + 1.25x + 11 Voices</p></div><div class="flex gap-2"><button onclick="toggleApiBox()" class="bg-[#241a3f] border border-[#3d2f68] text-white px-3 py-2 rounded-full text-[10px] font-black">⚙️ API</button><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-[8px] font-black h-fit self-center">V19.0 FINAL</span></div></header>
 <div id="apiBox" class="hidden p-3"><div class="card p-3 border-2 border-yellow-400 bg-[#1a1230]"><p class="text-[11px] font-black flex justify-between"><span>🔑 OpenAI Key</span><button onclick="toggleApiBox()" class="bg-black text-white rounded-full px-2 py-1 text-[8px]">✕ HIDE</button></p><input id="openaiKey" type="password" placeholder="sk-... paste once - saved forever" class="input-dark w-full mt-2 p-3 text-[11px]"><p id="apiStatus" class="text-[7px] mt-1 text-green-400"></p></div></div>
 <div class="flex justify-around p-3 bg-[#120c26] sticky top-[64px] z-20 border-b border-[#3d2f68] text-[11px] font-bold">
 <button onclick="setTab('ai')" id="tab-ai" class="tab-active pb-2">✨ AI Story</button>
@@ -61,7 +61,7 @@ input[type=range]{accent-color:#8b5cf6}
 <button onclick="setTab('director')" id="tab-director" class="tab-inactive pb-2">🎭 Director</button>
 <button onclick="setTab('voice')" id="tab-voice" class="tab-inactive pb-2">🎙 Voice</button>
 </div>
-<div id="view-ai" class="p-3 space-y-3"><div class="card p-3"><label class="text-[12px] font-bold">💡 Story Idea / Prompt</label><textarea id="idea" class="input-dark w-full h-[70px] p-3 mt-2 text-[13px] dev">राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल</textarea><div class="mt-3"><div class="label-fixed">🎯 Extra Direction</div><input id="extra" class="input-dark w-full p-3 text-[11px]" value="Banarasi tone, with emotions, भौकाल"></div><p id="aiStatus" class="text-[8px] mt-3 bg-black p-2 rounded">Ready V19.1 - Narrator Mixed Fix</p><button onclick="generateStory()" class="btn-primary w-full mt-3 py-4 font-black text-[13px]">✨ Generate Story - Smart Director will auto add emotion</button><textarea id="storyOut" class="input-dark w-full h-[220px] mt-3 p-3 text-[13px] dev" placeholder="Story will appear here..."></textarea><div class="grid grid-cols-3 gap-2 mt-2"><button onclick="copyStory()" class="btn-primary py-2.5 text-[9px] font-black">📋 COPY</button><button onclick="sendToDirector()" class="btn-primary py-2.5 text-[9px] font-black">🎭 DIRECTOR →</button><button onclick="clearAI()" class="btn-ghost py-2.5 text-[9px] font-black">🗑 CLEAR ALL</button></div></div></div>
+<div id="view-ai" class="p-3 space-y-3"><div class="card p-3"><label class="text-[12px] font-bold">💡 Story Idea / Prompt</label><textarea id="idea" class="input-dark w-full h-[70px] p-3 mt-2 text-[13px] dev">राम और सीता की अस्सी घाट पर बारिश वाली शाम, मोहन की बनारसी टोकाटोकी, चाय और भौकाल</textarea><div class="mt-3"><div class="label-fixed">🎯 Extra Direction</div><input id="extra" class="input-dark w-full p-3 text-[11px]" value="Banarasi tone, with emotions, भौकाल"></div><p id="aiStatus" class="text-[8px] mt-3 bg-black p-2 rounded">Ready V19.0 - Narrator Mixed Fix</p><button onclick="generateStory()" class="btn-primary w-full mt-3 py-4 font-black text-[13px]">✨ Generate Story - Smart Director will auto add emotion</button><textarea id="storyOut" class="input-dark w-full h-[220px] mt-3 p-3 text-[13px] dev" placeholder="Story will appear here..."></textarea><div class="grid grid-cols-3 gap-2 mt-2"><button onclick="copyStory()" class="btn-primary py-2.5 text-[9px] font-black">📋 COPY</button><button onclick="sendToDirector()" class="btn-primary py-2.5 text-[9px] font-black">🎭 DIRECTOR →</button><button onclick="clearAI()" class="btn-ghost py-2.5 text-[9px] font-black">🗑 CLEAR ALL</button></div></div></div>
 <div id="view-paste" class="hidden p-3 space-y-3"><div class="card p-3"><h3 class="font-black">📋 Paste Your Story</h3><textarea id="pasteInput" class="input-dark w-full h-[200px] mt-2 p-3 text-[13px] dev">राम (कराहती हुई आवाज में) "बहुत दर्द हो रहा है।"
 सीता (चिंता में) "राम, क्या हुआ?"
 राम (अत्यंत धीमी आवाज़ में) "सीता, तुम सो गई क्या?"
@@ -163,82 +163,212 @@ function autoDetect(){
   let src=document.getElementById('pasteInput').value.trim();
   if(!src){alert('Paste story first'); return;}
   currentScript=[]; speakers=[];
-  let result=document.getElementById('directorResult'); result.classList.remove('hidden');
+  let result=document.getElementById('directorResult'); 
+  if(result) result.classList.remove('hidden');
   
-  // Split by lines
-  let rawLines = src.split('\n');
-  
-  rawLines.forEach(rawLine=>{
-    let line = rawLine.trim();
-    if(!line) return;
-    let cleanLine = line.replace(/^\*\*|\*\*$/g,'').trim();
-    if(!cleanLine) return;
+  try {
+    let rawLines = src.split('\n');
     
-    // Try speaker pattern: Name (emotion): dialogue  OR Name (emotion) "dialogue"
-    let m = cleanLine.match(/^(?:\*\*)?\s*([^:(\n]{1,30}?)(?:\s*\(([^)]+)\))?\s*(?:\*\*)?\s*[:：-]\s*(.+)$/);
-    if(!m){
-      m = cleanLine.match(/^(?:\*\*)?\s*([^:(\n]{1,30}?)(?:\s*\(([^)]+)\))?\s*[\"“”'](.+?)[\"“”']\s*$/);
-    }
-    
-    let isSpeakerLine = false;
-    if(m){
-      let sp = m[1].trim().replace(/\*\*/g,'').replace(/[:：]+$/, '').replace(/\*+/g,'').trim();
-      let dir = (m[2]||'').trim().replace(/\*+/g,'');
-      let dlg = (m[3]||'').trim().replace(/^\*\*/, '').replace(/\*\*$/, '').trim().replace(/^[\"“”'\s]+/, '').replace(/[\"“”'\s]+$/, '').replace(/^[:：-]+\s*/, '');
-      // Reject if speaker looks like sentence
-      let badSpeaker = !sp || sp.length>28 || sp.includes('।') || sp.includes('.') || sp.split(' ').length>3;
-      if(!badSpeaker && dlg && dlg.length>1){
+    rawLines.forEach(rawLine=>{
+      let line = rawLine.trim();
+      if(!line) return;
+      let cleanLine = line.replace(/^\*\*|\*\*$/g,'').trim();
+      if(!cleanLine || cleanLine.length<2) return;
+      
+      let sp=null, dlg=null, dir='';
+      let colonPos = cleanLine.indexOf(':');
+      let colonPosHindi = cleanLine.indexOf('：');
+      if(colonPosHindi>=0 && (colonPos<0 || colonPosHindi<colonPos)) colonPos=colonPosHindi;
+      let ob = cleanLine.indexOf('(');
+      let cb = cleanLine.indexOf(')');
+      
+      if(colonPos>0 && colonPos<35){
+        let namePart = cleanLine.substring(0, colonPos).trim().replace(/\*\*/g,'').trim();
+        let nameOnly = namePart;
+        let dirTmp='';
+        if(namePart.indexOf('(')>=0){
+          let o=namePart.indexOf('('), c=namePart.indexOf(')');
+          if(c>o){ dirTmp=namePart.substring(o+1,c).trim(); nameOnly=namePart.substring(0,o).trim(); }
+        }
+        if(nameOnly && nameOnly.length>=2 && nameOnly.length<=18 && !nameOnly.includes('।') && nameOnly.split(/\s+/).length<=2){
+          let rest = cleanLine.substring(colonPos+1).trim().replace(/^[\s"“”']+|[\s"“”']+$/g,'').trim();
+          if(rest.length>0){ sp=nameOnly; dlg=rest; dir=dirTmp; }
+        }
+      } else if(ob>0 && ob<30 && cb>ob && cb<60){
+        let nameOnly = cleanLine.substring(0, ob).trim().replace(/\*\*/g,'').trim();
+        let after = cleanLine.substring(cb+1).trim().replace(/^[\s:：\-"“”']+|[\s"“”']+$/g,'').trim();
+        if(nameOnly && nameOnly.length>=2 && nameOnly.length<=18 && !nameOnly.includes('।') && nameOnly.split(/\s+/).length<=2 && after.length>0){
+          sp=nameOnly; dlg=after; dir=cleanLine.substring(ob+1,cb).trim();
+        }
+      }
+      
+      if(sp && dlg && dlg.length>0){
+        dlg = dlg.replace(/^[""“”'\s]+|[""“”'\s]+$/g,'').trim();
         if(!dir) dir = smartEmotionFromText(dlg, rawLine);
         if(!speakers.includes(sp)) speakers.push(sp);
         currentScript.push({speaker:sp, direction:dir, dialogue:dlg, raw:rawLine});
-        isSpeakerLine = true;
+        return;
       }
-    }
+      
+      if(cleanLine.length>=2){
+        if(!speakers.includes('Narrator')) speakers.push('Narrator');
+        let parts = cleanLine.split('।').map(s=>s.trim()).filter(s=>s.length>1);
+        if(parts.length===0) parts=[cleanLine];
+        parts.forEach(p=>{
+          let txt = p.endsWith('।') ? p : p + '।';
+          if(txt.length<3) return;
+          let eDir = smartEmotionFromText(txt, rawLine);
+          currentScript.push({speaker:'Narrator', direction:eDir, dialogue:txt, raw:txt});
+        });
+      }
+    });
     
-    // MIXED FIX: If not speaker line, treat as Narrator ALWAYS (even when speakers exist)
-    if(!isSpeakerLine && cleanLine.length>=3){
-      if(!speakers.includes('Narrator')) speakers.push('Narrator');
-      // Split by । so one para becomes many lines
-      let parts = cleanLine.split('।').map(s=>s.trim()).filter(s=>s.length>2);
-      if(parts.length===0) parts = [cleanLine];
-      parts.forEach(p=>{
-        let txt = p.endsWith('।') ? p : p + '।';
-        if(p.length<3) return;
-        let d = smartEmotionFromText(txt, rawLine);
-        currentScript.push({speaker:'Narrator', direction:d, dialogue:txt, raw:txt});
-      });
-    }
-  });
-  
-  // Assign voices
-  const maleVoices=['alloy','ash','echo','fable','onyx'];
-  const femaleVoices=['ballad','coral','nova','sage','shimmer','verse'];
-  const narratorVoices=['onyx','sage','fable'];
-  let maleIdx=0, femaleIdx=0, narrIdx=0;
-  speakers.forEach(sp=>{
-    if(!speakerGenderMap[sp]){
-      if(/narrator|कथावाचक|सूत्रधार/i.test(sp.toLowerCase())) speakerGenderMap[sp]='narrator';
-      else {
-        let isFemale = /रजनी|सीता|रूनी|मधु|स्मृति|रानी|प्रिया|महिला|स्त्री/i.test(sp) || sp.endsWith('ी');
-        if(sp==='राम' || sp==='मोहन' || sp==='गृजेश' || sp==='अमित') isFemale=false;
-        speakerGenderMap[sp]= isFemale ? 'female' : 'male';
+    const maleVoices=['alloy','ash','echo','fable','onyx'];
+    const femaleVoices=['ballad','coral','nova','sage','shimmer','verse'];
+    const narrVoices=['onyx','sage','fable'];
+    let mi=0,fi=0,ni=0;
+    speakers.forEach(sp=>{
+      if(!speakerGenderMap[sp]){
+        if(/narrator|कथावाचक|सूत्रधार/i.test(sp)) speakerGenderMap[sp]='narrator';
+        else {
+          let isFemale = /रजनी|सीता|रूनी|मधु|स्मृति|रानी|प्रिया/i.test(sp) || sp.endsWith('ी');
+          if(sp==='राम' || sp==='मोहन' || sp==='गृजेश' || sp==='अमित') isFemale=false;
+          speakerGenderMap[sp]=isFemale?'female':'male';
+        }
       }
+      if(!speakerVoiceMap[sp]){
+        if(speakerGenderMap[sp]==='female'){ speakerVoiceMap[sp]=femaleVoices[fi%femaleVoices.length]; fi++; }
+        else if(speakerGenderMap[sp]==='narrator'){ speakerVoiceMap[sp]=narrVoices[ni%narrVoices.length]; ni++; }
+        else { speakerVoiceMap[sp]=maleVoices[mi%maleVoices.length]; mi++; }
+      }
+      if(speakerIntensityMap[sp]===undefined) speakerIntensityMap[sp]=70;
+    });
+    
+    let falseNames=['गर्मी','बिजली','रात','हवा','गुल'];
+    falseNames.forEach(fn=>{
+      if(speakers.includes(fn)){
+        currentScript.forEach(e=>{ if(e.speaker===fn) e.speaker='Narrator'; });
+        speakers = speakers.filter(s=>s!==fn);
+      }
+    });
+    
+    renderSpeakers(); renderScript();
+    if(result){
+      if(currentScript.length===0) result.textContent='❌ 0 lines detected.';
+      else result.textContent='✅ '+currentScript.length+' lines, '+speakers.length+' speakers: '+speakers.join(', ');
     }
-    if(!speakerVoiceMap[sp]){
-      if(speakerGenderMap[sp]==='female'){ speakerVoiceMap[sp]=femaleVoices[femaleIdx % femaleVoices.length]; femaleIdx++; }
-      else if(speakerGenderMap[sp]==='narrator'){ speakerVoiceMap[sp]=narratorVoices[narrIdx % narratorVoices.length]; narrIdx++; }
-      else { speakerVoiceMap[sp]=maleVoices[maleIdx % maleVoices.length]; maleIdx++; }
-    }
-    if(speakerIntensityMap[sp]===undefined) speakerIntensityMap[sp]=70;
-  });
-  
-  renderSpeakers(); renderScript();
-  if(currentScript.length===0){
-    result.textContent='❌ 0 lines detected.';
-  } else {
-    result.textContent='✅ '+currentScript.length+' lines, '+speakers.length+' speakers: '+speakers.join(', ');
+  } catch(e){
+    let result=document.getElementById('directorResult');
+    if(result) result.textContent='❌ Error: '+e.message;
   }
 }
 
 
-<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script>
+function renderScript(){
+ let box=document.getElementById('scriptList'); box.innerHTML='';
+ currentScript.forEach((c,i)=>{
+  let div=document.createElement('div'); div.className='line-card';
+  div.innerHTML=`<div class="flex justify-between items-center"><span class="text-[10px] font-black">${i+1}. ${c.speaker}</span><div class="flex gap-2"><span class="direction-tag">${c.direction}</span><button onclick="editLine(${i})" class="direction-auto">✏️</button></div></div><p class="text-[12px] mt-2 dev">${c.dialogue}</p><div id="edit-${i}" class="edit-panel hidden"><select id="dir-${i}" class="input-dark w-full p-2 text-[9px]">${EMOTION_OPTIONS.map(e=>`<option ${e===c.direction?'selected':''}>${e}</option>`).join('')}</select><div class="flex gap-2 mt-2"><button onclick="saveEdit(${i})" class="btn-primary flex-1 py-2 text-[9px]">💾 Save & Close</button><button onclick="cancelEdit(${i})" class="btn-ghost flex-1 py-2 text-[9px]">✕ Cancel</button></div></div>`;
+  box.appendChild(div);
+ });
+}
+function editLine(i){ document.getElementById(`edit-${i}`).classList.remove('hidden'); }
+function cancelEdit(i){ document.getElementById(`edit-${i}`).classList.add('hidden'); }
+function saveEdit(i){ let sel=document.getElementById(`dir-${i}`); if(sel) currentScript[i].direction=sel.value; renderScript(); }
+function convertForVoice(){ if(!currentScript.length){alert('Detect first'); return;} setTab('voice'); document.getElementById('playStatus').textContent=`Ready - ${currentScript.length} lines, ${speakers.length} speakers`; }
+function buildInstruction(speaker, direction){ let intensity=speakerIntensityMap[speaker]||70; return `Speak as ${speaker} in Hindi, emotion: ${direction}, intensity ${intensity}%. Natural Banarasi accent, expressive.`; }
+async function playLine(i,save=true){
+ let s=currentScript[i]; let voiceId=speakerVoiceMap[s.speaker]||'alloy'; let text=s.dialogue; let instruction=buildInstruction(s.speaker, s.direction);
+ let key=getKey(); if(!key){toggleApiBox(); throw new Error('no key');}
+ let body={model:'gpt-4o-mini-tts', voice:voiceId, input:text, instructions:instruction};
+ let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify(body)});
+ if(!r.ok){ let fb=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'tts-1-hd', voice:voiceId, input:text, speed:1.0})}); let blob=await fb.blob(); let url=URL.createObjectURL(blob); if(save){audioBlobs.push({url,blob}); audioUrls.push(url);} let container=document.getElementById('audioPlayers'); let div=document.createElement('div'); div.className='audio-item'; div.innerHTML=`<span class="text-[9px] font-black">${i+1}. ${s.speaker} (${s.direction})</span><audio controls src="${url}" class="w-full mt-1 h-[28px]"></audio>`; container.appendChild(div); return {url,blob}; }
+ let blob=await r.blob(); let url=URL.createObjectURL(blob);
+ if(save){audioBlobs.push({url,blob}); audioUrls.push(url);}
+ let container=document.getElementById('audioPlayers'); let div=document.createElement('div'); div.className='audio-item'; div.innerHTML=`<span class="text-[9px] font-black text-green-400">✅ ${i+1}. ${s.speaker} (${s.direction})</span><audio controls src="${url}" class="w-full mt-1 h-[28px]"></audio>`; container.appendChild(div); return {url,blob};
+}
+async function playFull(){
+ let key=getKey(); if(!key){toggleApiBox(); return;}
+ if(currentScript.length===0){alert('Convert first'); return;}
+ isPlaying=true; stopRequested=false;
+ document.getElementById('playFullBtn').disabled=true;
+ document.getElementById('audioPlayers').innerHTML=''; audioBlobs=[];
+ audioUrls.forEach(u=>URL.revokeObjectURL(u)); audioUrls=[]; if(masterUrl) URL.revokeObjectURL(masterUrl); masterUrl=null;
+ document.getElementById('masterBox').classList.add('hidden');
+ document.getElementById('playStatus').textContent=`▶ Generating ${currentScript.length} lines...`; document.getElementById('progressBar').style.width='0%';
+ for(let i=0;i<currentScript.length;i++){ if(stopRequested) break; document.getElementById('progressBar').style.width=Math.round(i/currentScript.length*100)+'%'; try{await playLine(i,true);}catch(e){continue;} }
+ document.getElementById('progressBar').style.width='100%';
+ if(audioBlobs.length>0){ let combined=new Blob(audioBlobs.map(b=>b.blob),{type:'audio/mpeg'}); masterUrl=URL.createObjectURL(combined); document.getElementById('masterAudio').src=masterUrl; document.getElementById('masterDl').href=masterUrl; document.getElementById('masterBox').classList.remove('hidden'); document.getElementById('playStatus').textContent=`✅ ${audioBlobs.length} lines ready`; let ps=document.getElementById('previewSpeed'); if(ps) document.getElementById('masterAudio').playbackRate=parseFloat(ps.value); }
+ document.getElementById('playFullBtn').disabled=false; isPlaying=false;
+}
+function stopPlaying(){stopRequested=true; isPlaying=false; document.getElementById('playStatus').textContent='⏹ Stopped'; document.getElementById('playFullBtn').disabled=false;}
+function testSpeaker(sp){
+  // Find first line for this speaker, or create preview line
+  let idx=currentScript.findIndex(c=>c.speaker===sp);
+  if(idx>=0){
+    playLinePreview(idx);
+  } else {
+    // Fallback: generate a short preview
+    let prevIdx=currentScript.length;
+    currentScript.push({speaker:sp, direction:'नॉर्मल लहजे में', dialogue:`नमस्ते, मैं ${sp} हूँ। यह मेरी आवाज़ का परीक्षण है।`, raw:''});
+    playLinePreview(prevIdx).then(()=>{ currentScript.pop(); });
+  }
+}
+async function playLinePreview(i){
+  try{
+    let s=currentScript[i];
+    let voiceId=speakerVoiceMap[s.speaker]||'alloy';
+    let instruction=buildInstruction(s.speaker, s.direction);
+    let key=getKey(); if(!key){toggleApiBox(); alert('Add API key first'); return;}
+    let status=document.getElementById('directorResult');
+    if(status){ status.textContent=`🔊 Testing ${s.speaker} with ${voiceId}...`; status.classList.remove('hidden'); }
+    let body={model:'gpt-4o-mini-tts', voice:voiceId, input:s.dialogue, instructions:instruction};
+    let r=await fetch('https://api.openai.com/v1/audio/speech',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok) throw new Error('Voice '+voiceId+' failed');
+    let blob=await r.blob(); let url=URL.createObjectURL(blob);
+    let audio=new Audio(url); audio.play();
+    if(status){ status.textContent=`✅ ${s.speaker} (${voiceId}) - Playing...`; }
+  }catch(e){
+    alert('Test failed: '+e.message);
+  }
+}
+document.getElementById('playFullBtn').addEventListener('click', playFull);
+document.getElementById('stopBtn').addEventListener('click', stopPlaying);
+</script>
+<script>
+// --- V18.5 PATCH: 1.25x download ---
+function bufferToWav(buffer){
+  let numOfChan=buffer.numberOfChannels; let length=buffer.length*numOfChan*2+44;
+  let out=new ArrayBuffer(length); let view=new DataView(out); let channels=[], pos=0;
+  function writeString(s){for(let i=0;i<s.length;i++) view.setUint8(pos+i,s.charCodeAt(i)); pos+=s.length;}
+  function writeUint16(d){view.setUint16(pos,d,true); pos+=2;} function writeUint32(d){view.setUint32(pos,d,true); pos+=4;}
+  writeString('RIFF'); writeUint32(length-8); writeString('WAVE'); writeString('fmt '); writeUint32(16); writeUint16(1); writeUint16(numOfChan);
+  writeUint32(buffer.sampleRate); writeUint32(buffer.sampleRate*2*numOfChan); writeUint16(numOfChan*2); writeUint16(16);
+  writeString('data'); writeUint32(length-pos-4);
+  for(let i=0;i<numOfChan;i++) channels.push(buffer.getChannelData(i));
+  for(let j=0;j<buffer.length;j++){ for(let ch=0;ch<numOfChan;ch++){ let sample=Math.max(-1,Math.min(1,channels[ch][j])); sample=sample<0?sample*0x8000:sample*0x7FFF; view.setInt16(pos,sample,true); pos+=2; } }
+  return new Blob([out],{type:'audio/wav'});
+}
+async function downloadAtSpeed(){
+  const sel=document.getElementById('downloadSpeed'); const speed=parseFloat(sel.value);
+  const statusEl=document.getElementById('dlStatus'); const btn=document.getElementById('masterDlFast');
+  if(!audioBlobs||!audioBlobs.length){ alert('Generate audio first'); return; }
+  if(speed===1){ document.getElementById('masterDl').click(); return; }
+  try{
+    statusEl.textContent='⏳ Rendering at '+speed+'x ... 20-40 sec'; btn.disabled=true; btn.textContent='⏳ RENDERING '+speed+'x...';
+    let ctx=new (window.AudioContext||window.webkitAudioContext)(); let decoded=[];
+    for(let bObj of audioBlobs){ let ab=await bObj.blob.arrayBuffer(); let dec=await ctx.decodeAudioData(ab.slice(0)); decoded.push(dec); }
+    let totalDur=decoded.reduce((s,b)=>s+b.duration,0); let sampleRate=decoded[0].sampleRate; let maxChan=Math.max(...decoded.map(b=>b.numberOfChannels));
+    let outDur=totalDur/speed; let offline=new OfflineAudioContext(maxChan, Math.ceil(outDur*sampleRate), sampleRate);
+    let cur=0; decoded.forEach(buf=>{ let src=offline.createBufferSource(); src.buffer=buf; src.playbackRate.value=speed; src.connect(offline.destination); src.start(cur); cur+=buf.duration/speed; });
+    let rendered=await offline.startRendering(); let wavBlob=bufferToWav(rendered); let url=URL.createObjectURL(wavBlob);
+    let a=document.createElement('a'); a.href=url; a.download='story_'+speed+'x_'+Date.now()+'.wav'; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),10000); statusEl.textContent='✅ Downloaded at '+speed+'x (WAV)';
+  }catch(e){ console.error(e); statusEl.textContent='❌ '+e.message; alert('Failed: '+e.message); }
+  finally{ btn.disabled=false; btn.textContent='⬇️ DOWNLOAD AT '+document.getElementById('downloadSpeed').value+'x (WAV)'; }
+}
+document.getElementById('previewSpeed').addEventListener('change', ()=>{ let a=document.getElementById('masterAudio'); if(a) a.playbackRate=parseFloat(document.getElementById('previewSpeed').value); });
+document.getElementById('downloadSpeed').addEventListener('change', ()=>{ let b=document.getElementById('masterDlFast'); if(b) b.textContent='⬇️ DOWNLOAD AT '+document.getElementById('downloadSpeed').value+'x (WAV)'; });
+</script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
+</html>
