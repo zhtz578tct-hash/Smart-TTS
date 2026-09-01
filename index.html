@@ -202,6 +202,22 @@ function autoDetect(){
         }
       }
       
+      // THIRD: Known name + dialogue without colon:  सीता "कौन है?"  or सीता कौन है?
+      if(!sp){
+        let words = cleanLine.split(/\s+/);
+        if(words.length>=2){
+          let first = words[0].replace(/[""“”':\-\*]+/g,'').trim();
+          let rest = cleanLine.substring(words[0].length).trim().replace(/^[""“”'\s:]+|[""“”'\s]+$/g,'').trim();
+          // Known female/male names list
+          let knownFemale = ['सीता','प्रिया','रजनी','रूनी','मधु','स्मृति','रानी','महिला'];
+          let knownMale = ['राम','मोहन','गृजेश','अमित','श्याम','राज'];
+          let knownAll = knownFemale.concat(knownMale);
+          if(first.length>=2 && first.length<=15 && knownAll.includes(first) && rest.length>=1){
+            sp=first; dlg=rest;
+          }
+        }
+      }
+
       if(sp && dlg && dlg.length>0){
         dlg = dlg.replace(/^[""“”'\s]+|[""“”'\s]+$/g,'').trim();
         if(!dir) dir = smartEmotionFromText(dlg, rawLine);
